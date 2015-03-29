@@ -19,20 +19,19 @@ package me.henrytao.sharewifi;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.annotation.Config;
 
-import static org.junit.Assert.assertTrue;
+import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertThat;
 
 /**
  * Created by henrytao on 3/29/15.
  */
 @RunWith(RobolectricTestRunner.class)
-@Config(emulateSdk = 18)
 public class SampleTest {
 
   @Test
   public void test() throws Exception {
-    assertTrue(10 == 10);
+    assertThat(10, equalTo(10));
   }
 
 }
