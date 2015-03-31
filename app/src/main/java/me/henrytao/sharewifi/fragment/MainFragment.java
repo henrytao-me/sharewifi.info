@@ -17,6 +17,7 @@
 package me.henrytao.sharewifi.fragment;
 
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -25,6 +26,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
+import android.widget.Toast;
 
 import me.henrytao.sharewifi.DbHelper;
 import me.henrytao.sharewifi.R;
@@ -42,11 +46,17 @@ public class MainFragment extends Fragment {
 
   Button mSend;
 
+  Button mQuery;
+
   EditText mName;
 
   EditText mComment;
 
   EditText mEmail;
+
+  ListView mList;
+
+  String[] columns = {DbHelper.NAME, DbHelper.COMMENT, DbHelper.EMAIL};
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -56,9 +66,17 @@ public class MainFragment extends Fragment {
 
     view = inflater.inflate(R.layout.fragment_main, container, false);
     mSend = (Button) view.findViewById(R.id.send);
+    mQuery = (Button) view.findViewById(R.id.query);
     mName = (EditText) view.findViewById(R.id.name);
     mComment = (EditText) view.findViewById(R.id.comment);
     mEmail = (EditText) view.findViewById(R.id.email);
+    mList = (ListView) view.findViewById(R.id.list);
+
+    String[] from = {DbHelper.C_ID, DbHelper.NAME, DbHelper.COMMENT, DbHelper.EMAIL};
+    int[] to = {R.id.name, R.id.comment, R.id.email};
+    Cursor cursor = db.query(DbHelper.TABLE_NAME, from, null, null, null, null, null);
+    SimpleCursorAdapter adapter = new SimpleCursorAdapter(getActivity(), R.layout.list_row, cursor, columns, to);
+    mList.setAdapter(adapter);
 
     mSend.setOnClickListener(new View.OnClickListener() {
       @Override
@@ -74,6 +92,23 @@ public class MainFragment extends Fragment {
         data.put(DbHelper.EMAIL, email);
 
         db.insert(DbHelper.TABLE_NAME, null, data);
+      }
+    });
+
+    mQuery.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        Cursor cursor = db.query(DbHelper.TABLE_NAME, columns, null, null, null, null, null);
+        cursor.moveToFirst();
+        while (cursor.moveToNext()) {
+          String name = cursor.getString(cursor.getColumnIndex(DbHelper.NAME));
+          String comment = cursor.getString(cursor.getColumnIndex(DbHelper.COMMENT));
+          String email = cursor.getString(cursor.getColumnIndex(DbHelper.EMAIL));
+          Toast.makeText(getActivity(), "Name = " + name
+              + "; Comment = " + comment
+              + "; Email = " + email + ";", Toast.LENGTH_SHORT).show();
+        }
+        cursor.close();
       }
     });
 

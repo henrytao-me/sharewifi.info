@@ -48,4 +48,15 @@
     android:layout_height="wrap_content"
     android:text="SEND" />
 
+  <Button
+    android:id="@+id/query"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="QUERY" />
+
+  <ListView
+    android:id="@+id/list"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"></ListView>
+
 </LinearLayout>
