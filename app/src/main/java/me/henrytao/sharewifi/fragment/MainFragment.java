@@ -17,26 +17,31 @@
 package me.henrytao.sharewifi.fragment;
 
 import android.content.ContentValues;
+import android.support.v4.content.CursorLoader;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CursorAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
+import me.henrytao.sharewifi.CommentsProvider;
 import me.henrytao.sharewifi.DbHelper;
 import me.henrytao.sharewifi.R;
 
 /**
  * Created by henrytao on 3/31/15.
  */
-public class MainFragment extends Fragment {
+public class MainFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
   View view;
 
@@ -58,6 +63,12 @@ public class MainFragment extends Fragment {
 
   String[] columns = {DbHelper.NAME, DbHelper.COMMENT, DbHelper.EMAIL};
 
+  String[] allColumns = {DbHelper.C_ID, DbHelper.NAME, DbHelper.COMMENT, DbHelper.EMAIL};
+
+  private static final int LOADER = 0x01;
+
+  SimpleCursorAdapter adapter;
+
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
@@ -72,11 +83,10 @@ public class MainFragment extends Fragment {
     mEmail = (EditText) view.findViewById(R.id.email);
     mList = (ListView) view.findViewById(R.id.list);
 
-    String[] from = {DbHelper.C_ID, DbHelper.NAME, DbHelper.COMMENT, DbHelper.EMAIL};
     int[] to = {R.id.name, R.id.comment, R.id.email};
-    Cursor cursor = db.query(DbHelper.TABLE_NAME, from, null, null, null, null, null);
-    SimpleCursorAdapter adapter = new SimpleCursorAdapter(getActivity(), R.layout.list_row, cursor, columns, to);
+    adapter = new SimpleCursorAdapter(getActivity(), R.layout.list_row, null, columns, to, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
     mList.setAdapter(adapter);
+    getLoaderManager().restartLoader(LOADER, null, this);
 
     mSend.setOnClickListener(new View.OnClickListener() {
       @Override
@@ -91,7 +101,7 @@ public class MainFragment extends Fragment {
         data.put(DbHelper.COMMENT, comment);
         data.put(DbHelper.EMAIL, email);
 
-        db.insert(DbHelper.TABLE_NAME, null, data);
+        getActivity().getContentResolver().insert(CommentsProvider.COMMENTS_URI, data);
       }
     });
 
@@ -113,6 +123,22 @@ public class MainFragment extends Fragment {
     });
 
     return view;
+  }
+
+  @Override
+  public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+    CursorLoader cursorLoader = new CursorLoader(getActivity(), CommentsProvider.COMMENTS_URI, allColumns, null, null, null);
+    return cursorLoader;
+  }
+
+  @Override
+  public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+    adapter.swapCursor(data);
+  }
+
+  @Override
+  public void onLoaderReset(Loader<Cursor> loader) {
+    adapter.swapCursor(null);
   }
 
 }

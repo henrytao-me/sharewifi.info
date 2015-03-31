@@ -31,6 +31,11 @@
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
     </activity>
+
+    <provider
+      android:authorities="me.henrytao.sharewifi.CommentsProvider"
+      android:exported="false"
+      android:name="CommentsProvider" />
   </application>
 
 </manifest>
