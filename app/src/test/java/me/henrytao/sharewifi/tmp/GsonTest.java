@@ -18,6 +18,7 @@ package me.henrytao.sharewifi.tmp;
 
 import com.google.gson.Gson;
 
+import org.apache.maven.artifact.ant.shaded.StringUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
@@ -25,18 +26,65 @@ import org.robolectric.annotation.Config;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by henrytao on 3/30/15.
  */
 @RunWith(RobolectricTestRunner.class)
-@Config(manifest=Config.NONE)
+@Config(manifest = Config.NONE)
 public class GsonTest {
 
   @Test
   public void serialization() {
     Gson gson = new Gson();
     assertThat(gson.toJson(1), equalTo("1"));
+    int[] values = {1};
+    assertThat(gson.toJson(values), equalTo("[1]"));
+  }
+
+  @Test
+  public void deserialization() {
+    Gson gson = new Gson();
+    assertThat(gson.fromJson("1", int.class), equalTo(1));
+    assertThat(gson.fromJson("false", Boolean.class), equalTo(false));
+  }
+
+  @Test
+  public void object() {
+    Cat obj = new Cat();
+    Gson gson = new Gson();
+    String json = gson.toJson(obj);
+    assertThat(json, equalTo("{\"value1\":1,\"value2\":\"abc\"}"));
+    assertTrue(gson.fromJson(json, Cat.class).equals(obj));
+  }
+
+  @Test
+  public void array() {
+    Gson gson = new Gson();
+    int[] i = {1, 2, 3};
+    assertThat(gson.toJson(i), equalTo("[1,2,3]"));
+    assertThat(gson.fromJson(gson.toJson(i), int[].class), equalTo(i));
+    assertThat(gson.fromJson("[1, 2, 3]", int[].class), equalTo(i));
+  }
+
+  static class Cat {
+
+    private int value1 = 1;
+
+    private String value2 = "abc";
+
+    private transient int value3 = 3;
+
+    @Override
+    public boolean equals(Object o) {
+      Cat cat = (Cat) o;
+      return value1 == cat.value1 && StringUtils.equals(value2, cat.value2);
+    }
+  }
+
+  static class Dog {
+
   }
 
 }
