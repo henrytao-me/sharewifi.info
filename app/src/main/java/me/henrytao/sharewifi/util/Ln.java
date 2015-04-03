@@ -14,24 +14,13 @@
  * limitations under the License.
  */
 
-package me.henrytao.sharewifi;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.robolectric.RobolectricTestRunner;
-
-import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertThat;
+package me.henrytao.sharewifi.util;
 
 /**
- * Created by henrytao on 3/29/15.
+ * Created by henrytao on 4/3/15.
  */
-@RunWith(RobolectricTestRunner.class)
-public class SampleTest {
+public class Ln {
 
-  @Test
-  public void test() throws Exception {
-    assertThat(10, equalTo(10));
-  }
+  //protected static Print print = new Print();
 
 }

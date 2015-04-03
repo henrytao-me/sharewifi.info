@@ -34,6 +34,25 @@ public class User extends BaseEntity<User> {
   @Column(name = Fields.AGE)
   private int mAge;
 
+  public User() {
+  }
+
+  public String getName() {
+    return mName;
+  }
+
+  public void setName(String name) {
+    mName = name;
+  }
+
+  public int getAge() {
+    return mAge;
+  }
+
+  public void setAge(int age) {
+    mAge = age;
+  }
+
   public interface Fields extends BaseEntityColumns {
 
     final String NAME = "name";

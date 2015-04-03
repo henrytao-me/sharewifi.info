@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package me.henrytao.sharewifi.tmp;
+package me.henrytao.sharewifi.experiment;
 
 import com.google.gson.Gson;
 
@@ -23,6 +23,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import me.henrytao.sharewifi.model.entity.User;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
@@ -66,6 +71,21 @@ public class GsonTest {
     assertThat(gson.toJson(i), equalTo("[1,2,3]"));
     assertThat(gson.fromJson(gson.toJson(i), int[].class), equalTo(i));
     assertThat(gson.fromJson("[1, 2, 3]", int[].class), equalTo(i));
+  }
+
+  @Test
+  public void user() throws IllegalAccessException {
+    Map<String, Object> data = new HashMap<>();
+    data.put(User.Fields.ID, "222");
+    data.put(User.Fields.NAME, "henrytao");
+    data.put(User.Fields.AGE, 25);
+
+    User user = new User();
+    user.deserialize(data);
+
+    assertThat(user.getId(), equalTo("222"));
+    assertThat(user.getName(), equalTo("henrytao"));
+    assertThat(user.getAge(), equalTo(25));
   }
 
   static class Cat {
