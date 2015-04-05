@@ -19,6 +19,7 @@ package me.henrytao.sharewifi.model.orm;
 /**
  * Created by henrytao on 3/31/15.
  */
-public interface TypeAdapter<S, D> extends Deserializer<D>, Serializer<S> {
+public interface Serializer<S> {
 
+  S serialize(Object value);
 }

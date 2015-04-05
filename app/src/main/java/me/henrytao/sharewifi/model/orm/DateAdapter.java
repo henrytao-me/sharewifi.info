@@ -21,10 +21,10 @@ import java.util.Date;
 /**
  * Created by henrytao on 4/3/15.
  */
-public class DateAdapter implements TypeAdapter<Date> {
+public class DateAdapter implements TypeAdapter<Long, Date> {
 
   @Override
-  public Date deserializer(Object value) {
+  public Date deserialize(Object value) {
     long timestamp;
     if (value instanceof Double) {
       timestamp = ((Double) value).longValue();
@@ -37,4 +37,10 @@ public class DateAdapter implements TypeAdapter<Date> {
     }
     return timestamp > 0 ? new Date(timestamp) : null;
   }
+
+  @Override
+  public Long serialize(Object value) {
+    return (value == null || !(value instanceof Date)) ? 0l : ((Date) value).getTime();
+  }
+
 }

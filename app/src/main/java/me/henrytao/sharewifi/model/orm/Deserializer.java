@@ -19,7 +19,8 @@ package me.henrytao.sharewifi.model.orm;
 /**
  * Created by henrytao on 3/31/15.
  */
-public interface Deserializer<T> {
+public interface Deserializer<D> {
 
-  T deserializer(Object value);
+  D deserialize(Object value);
+
 }

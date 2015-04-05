@@ -31,9 +31,14 @@ public abstract class BaseEntity<T extends BaseEntity> {
 
   private static final Map<Class, Deserializer> deserializerMap;
 
+  private static final Map<Class, Serializer> serializerMap;
+
   static {
     deserializerMap = new HashMap<>();
     deserializerMap.put(Date.class, new DateAdapter());
+
+    serializerMap = new HashMap<>();
+    serializerMap.put(Date.class, new DateAdapter());
   }
 
   @Column(name = BaseEntityColumns.ID)
@@ -53,33 +58,64 @@ public abstract class BaseEntity<T extends BaseEntity> {
   public T deserialize(Map<String, Object> map) throws IllegalAccessException {
     Field[] fields = getDeclaredFields();
     for (Field f : fields) {
-      if (f.isAnnotationPresent(Column.class)) {
-        f.setAccessible(true);
-        Column column = f.getAnnotation(Column.class);
-        if (!column.deserialize()) {
-          continue;
-        }
-        String name = column.name();
-        Object value = map.get(name);
-        Class type = f.getType();
-        if (boolean.class.isAssignableFrom(type)) {
-          f.setBoolean(this, value == null ? false : (Boolean) value);
-        } else if (double.class.isAssignableFrom(type)) {
-          f.setDouble(this, value == null ? 0.0 : (Double) value);
-        } else if (float.class.isAssignableFrom(type)) {
-          f.setFloat(this, value == null ? 0f : (Float) value);
-        } else if (int.class.isAssignableFrom(type)) {
-          f.setInt(this, value == null ? 0 : (int) value);
-        } else if (short.class.isAssignableFrom(type)) {
-          f.setShort(this, value == null ? 0 : (short) value);
-        } else if (byte.class.isAssignableFrom(type)) {
-          f.setByte(this, value == null ? 0 : (byte) value);
-        } else if (String.class.isAssignableFrom(type)) {
-          f.set(this, value);
-        }
+      if (!f.isAnnotationPresent(Column.class)) {
+        continue;
+      }
+      Column column = f.getAnnotation(Column.class);
+      if (!column.deserialize()) {
+        continue;
+      }
+      f.setAccessible(true);
+      String name = column.name();
+      Object value = map.get(name);
+      Class type = f.getType();
+      Deserializer deserializer = deserializerMap.get(type);
+      if (deserializer != null) {
+        f.set(this, deserializer.deserialize(value));
+      } else if (boolean.class.isAssignableFrom(type)) {
+        f.setBoolean(this, value == null ? false : (Boolean) value);
+      } else if (double.class.isAssignableFrom(type)) {
+        f.setDouble(this, value == null ? 0.0 : (Double) value);
+      } else if (float.class.isAssignableFrom(type)) {
+        f.setFloat(this, value == null ? 0f : (Float) value);
+      } else if (int.class.isAssignableFrom(type)) {
+        f.setInt(this, value == null ? 0 : (int) value);
+      } else if (short.class.isAssignableFrom(type)) {
+        f.setShort(this, value == null ? 0 : (short) value);
+      } else if (byte.class.isAssignableFrom(type)) {
+        f.setByte(this, value == null ? 0 : (byte) value);
+      } else if (String.class.isAssignableFrom(type)) {
+        f.set(this, value);
       }
     }
     return (T) this;
+  }
+
+  public Map<String, Object> serialize() throws IllegalAccessException {
+    Map<String, Object> map = new HashMap<>();
+    Field[] fields = getDeclaredFields();
+    for (Field f : fields) {
+      if (!f.isAnnotationPresent(Column.class)) {
+        continue;
+      }
+      Column column = f.getAnnotation(Column.class);
+      if (!column.serialize()) {
+        continue;
+      }
+      f.setAccessible(true);
+      String name = column.name();
+      Object value = f.get(this);
+      Class type = f.getType();
+      Serializer serializer = serializerMap.get(type);
+      if (value == null) {
+        continue;
+      } else if (serializer != null) {
+        map.put(name, serializer.serialize(value));
+      } else {
+        map.put(name, value);
+      }
+    }
+    return map;
   }
 
   public interface BaseEntityColumns {

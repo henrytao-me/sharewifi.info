@@ -18,6 +18,8 @@ package me.henrytao.sharewifi.model.entity;
 
 import com.google.gson.Gson;
 
+import java.util.Date;
+
 import me.henrytao.sharewifi.model.orm.BaseEntity;
 import me.henrytao.sharewifi.model.orm.Column;
 
@@ -33,6 +35,9 @@ public class User extends BaseEntity<User> {
 
   @Column(name = Fields.AGE)
   private int mAge;
+
+  @Column(name = Fields.CREATED_AT)
+  private Date mCreateAt;
 
   public User() {
   }
@@ -53,11 +58,21 @@ public class User extends BaseEntity<User> {
     mAge = age;
   }
 
+  public Date getCreateAt() {
+    return mCreateAt;
+  }
+
+  public void setCreateAt(Date createAt) {
+    mCreateAt = createAt;
+  }
+
   public interface Fields extends BaseEntityColumns {
 
     final String NAME = "name";
 
     final String AGE = "age";
+
+    final String CREATED_AT = "created_at";
   }
 
 }

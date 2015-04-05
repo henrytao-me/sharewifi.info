@@ -24,6 +24,7 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -75,10 +76,12 @@ public class GsonTest {
 
   @Test
   public void user() throws IllegalAccessException {
+    Date now = new Date();
     Map<String, Object> data = new HashMap<>();
     data.put(User.Fields.ID, "222");
     data.put(User.Fields.NAME, "henrytao");
     data.put(User.Fields.AGE, 25);
+    data.put(User.Fields.CREATED_AT, now.getTime());
 
     User user = new User();
     user.deserialize(data);
@@ -86,6 +89,13 @@ public class GsonTest {
     assertThat(user.getId(), equalTo("222"));
     assertThat(user.getName(), equalTo("henrytao"));
     assertThat(user.getAge(), equalTo(25));
+    assertThat(user.getCreateAt().getTime(), equalTo(now.getTime()));
+
+    Map<String, Object> newData = user.serialize();
+    assertThat(newData.get(User.Fields.ID), equalTo(data.get(User.Fields.ID)));
+    assertThat(newData.get(User.Fields.NAME), equalTo(data.get(User.Fields.NAME)));
+    assertThat(newData.get(User.Fields.AGE), equalTo(data.get(User.Fields.AGE)));
+    assertThat(newData.get(User.Fields.CREATED_AT), equalTo(data.get(User.Fields.CREATED_AT)));
   }
 
   static class Cat {
