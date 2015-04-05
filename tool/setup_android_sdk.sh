@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 sudo apt-get update -qq
 if [ `uname -m` = x86_64 ]; then
@@ -9,5 +9,5 @@ tar -zxf android-sdk_r24.1.2-linux.tgz android-sdk-linux/
 export ANDROID_HOME=`pwd`/android-sdk-linux
 export PATH=${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools
 echo y | $ANDROID_HOME/tools/android update sdk --no-ui --all --filter "tools,platform-tools"
-echo y | $ANDROID_HOME/tools/android update sdk --no-ui --all --filter "android-21,build-tools-21.1.2"
+echo y | $ANDROID_HOME/tools/android update sdk --no-ui --all --filter "android-21,build-tools-22.0.1"
 echo "sdk.dir=$ANDROID_HOME" > local.properties

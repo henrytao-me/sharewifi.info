@@ -3,11 +3,10 @@ language: java
 jdk:
   - oraclejdk8
 
-# cache: true
-# archive: true
+cache: true
+archive: true
 
 install:
-  - sudo apt-get install zsh
   - ./tool/setup_android_sdk.sh
   - ./gradlew clean assemble
 
