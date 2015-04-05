@@ -8,7 +8,7 @@ archive: true
 
 install:
   - ./tool/setup_android_sdk.sh
-  - ./gradlew clean assemble
+  - ./gradlew assemble
 
 script:
   - ./gradlew test
