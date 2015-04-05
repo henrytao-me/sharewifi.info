@@ -14,24 +14,25 @@
  * limitations under the License.
  */
 
-package me.henrytao.sharewifi;
+package me.henrytao.sharewifi.model.orm;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.robolectric.RobolectricTestRunner;
-
-import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertThat;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
- * Created by henrytao on 3/29/15.
+ * Created by henrytao on 3/31/15.
  */
-@RunWith(RobolectricTestRunner.class)
-public class SampleTest {
+@Target(ElementType.FIELD)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface Column {
 
-  @Test
-  public void test() throws Exception {
-    assertThat(10, equalTo(10));
-  }
+  String name();
 
+  boolean notNull() default false;
+
+  boolean serialize() default true;
+
+  boolean deserialize() default true;
 }
