@@ -3,8 +3,8 @@ language: java
 jdk:
   - oraclejdk8
 
-cache: true
-archive: true
+# cache: true
+# archive: true
 
 install:
   - ./tool/setup_android_sdk.sh
