@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
 sudo apt-get update -qq
 if [ `uname -m` = x86_64 ]; then
