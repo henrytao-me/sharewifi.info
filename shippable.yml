@@ -1,0 +1,18 @@
+language: java
+
+jdk:
+  - oraclejdk8
+
+# cache: true
+# archive: true
+
+install:
+  - ./gradlew assemble
+
+script:
+  - ./gradlew clean build
+
+notifications:
+  email:
+    recipients:
+      - hungtaoquang@gmail.com
