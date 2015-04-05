@@ -7,8 +7,7 @@ jdk:
 # archive: true
 
 install:
-  - sudo apt-get update
-  - sudo apt-get install -u lib32stdc++6 lib32z1
+  - ./tool/setup_android_sdk.sh
   - ./gradlew clean assemble
 
 script:
