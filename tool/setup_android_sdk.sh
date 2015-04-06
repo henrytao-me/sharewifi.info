@@ -12,9 +12,8 @@ export ANDROID_HOME=`pwd`/android-sdk-linux
 export PATH=$PATH:$ANDROID_HOME/tools
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 
-android list sdk --all --extended
-FILTER=tools,platform-tools,extra-android-support,build-tools-22.0.1,android-22
-yes | android update sdk --no-ui --all --filter $FILTER
-yes | $ANDROID_HOME/tools/android update sdk --no-ui --all --filter ${FILTER}
+echo y | $ANDROID_HOME/tools/android update sdk --no-ui --all --filter "tools,platform-tools"
+echo y | $ANDROID_HOME/tools/android update sdk --no-ui --all --filter "android-22,build-tools-22.0.1"
+echo y | $ANDROID_HOME/tools/android update sdk --no-ui --all --filter "extra-android-support"
 
 echo "sdk.dir=$ANDROID_HOME" > local.properties
