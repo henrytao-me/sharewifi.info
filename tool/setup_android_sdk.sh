@@ -13,7 +13,7 @@ export PATH=$PATH:$ANDROID_HOME/tools
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 
 echo y | $ANDROID_HOME/tools/android update sdk --no-ui --all --filter "tools,platform-tools"
-echo y | $ANDROID_HOME/tools/android update sdk --no-ui --all --filter "android-22,build-tools-22.0.1"
+echo y | $ANDROID_HOME/tools/android update sdk --no-ui --all --filter "android-22,build-tools-22.0.0"
 echo y | $ANDROID_HOME/tools/android update sdk --no-ui --all --filter "extra-android-support"
 
 echo "sdk.dir=$ANDROID_HOME" > local.properties
