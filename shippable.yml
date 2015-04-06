@@ -3,12 +3,12 @@ language: java
 jdk:
   - oraclejdk8
 
-# cache: true
+cache: true
 # archive: true
 
 install:
   - ./tool/setup_android_sdk.sh
-  - ./gradlew assemble
+  - ./gradlew clean assemble check
 
 script:
   - ./gradlew test
