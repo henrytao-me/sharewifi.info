@@ -15,7 +15,7 @@ export PATH=$PATH:$ANDROID_HOME/platform-tools
 echo y | $ANDROID_HOME/tools/android update sdk --no-ui --all --filter \
   tools, \
   platform-tools, \
-  build-tools-21.1.2
+  build-tools-21.0.2
 
 echo y | $ANDROID_HOME/tools/android update sdk --no-ui --all --filter \
     extra-android-m2repository,\
