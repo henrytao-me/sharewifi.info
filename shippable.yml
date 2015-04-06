@@ -8,7 +8,8 @@ cache: true
 
 install:
   - ./tool/setup_android_sdk.sh
-  - ./gradlew clean assemble check
+  - ./gradlew clean assemble
+  - ./gradlew check
 
 script:
   - ./gradlew test
