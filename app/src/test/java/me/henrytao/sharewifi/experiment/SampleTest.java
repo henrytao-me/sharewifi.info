@@ -20,6 +20,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 
+import rx.Observable;
+
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
 
@@ -31,6 +33,8 @@ public class SampleTest {
 
   @Test
   public void test() throws Exception {
+    Observable.just("Hello moto")
+        .subscribe((x) -> System.out.println(x));
     assertThat(10, equalTo(10));
   }
 
