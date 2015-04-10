@@ -26,7 +26,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.os.Build;
+import android.widget.TextView;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 import me.henrytao.sharewifi.R;
 
 /**
@@ -73,14 +76,30 @@ public class MainActivity extends ActionBarActivity {
    */
   public static class PlaceholderFragment extends Fragment {
 
+    @InjectView(R.id.hello)
+    TextView hello;
+
     public PlaceholderFragment() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
         Bundle savedInstanceState) {
-      View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-      return rootView;
+      View view = inflater.inflate(R.layout.fragment_main, container, false);
+      ButterKnife.inject(this, view);
+      return view;
+    }
+
+    @Override
+    public void onDestroyView() {
+      super.onDestroyView();
+      ButterKnife.reset(this);
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+      super.onViewCreated(view, savedInstanceState);
+      hello.setText("Hello moto");
     }
   }
 }
