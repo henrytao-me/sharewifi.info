@@ -17,18 +17,12 @@
 package me.henrytao.sharewifi.activity;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 
-import butterknife.ButterKnife;
-import butterknife.InjectView;
 import me.henrytao.sharewifi.R;
+import me.henrytao.sharewifi.fragment.MainFragment;
 
 /**
  * Created by henrytao on 3/28/15.
@@ -41,11 +35,10 @@ public class MainActivity extends ActionBarActivity {
     setContentView(R.layout.activity_main);
     if (savedInstanceState == null) {
       getSupportFragmentManager().beginTransaction()
-          .add(R.id.container, new PlaceholderFragment())
+          .add(R.id.container, new MainFragment())
           .commit();
     }
   }
-
 
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
@@ -69,35 +62,4 @@ public class MainActivity extends ActionBarActivity {
     return super.onOptionsItemSelected(item);
   }
 
-  /**
-   * A placeholder fragment containing a simple view.
-   */
-  public static class PlaceholderFragment extends Fragment {
-
-    @InjectView(R.id.hello)
-    TextView hello;
-
-    public PlaceholderFragment() {
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-        Bundle savedInstanceState) {
-      View view = inflater.inflate(R.layout.fragment_main, container, false);
-      ButterKnife.inject(this, view);
-      return view;
-    }
-
-    @Override
-    public void onDestroyView() {
-      super.onDestroyView();
-      ButterKnife.reset(this);
-    }
-
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-      super.onViewCreated(view, savedInstanceState);
-      hello.setText("Hello moto");
-    }
-  }
 }
