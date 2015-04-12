@@ -16,26 +16,31 @@
 
 package me.henrytao.sharewifi.activity;
 
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.os.Build;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import me.henrytao.sharewifi.R;
+import me.henrytao.sharewifi.di.DaggerVehicleComponent;
+import me.henrytao.sharewifi.di.Vehicle;
+import me.henrytao.sharewifi.di.VehicleComponent;
+import me.henrytao.sharewifi.di.VehicleModule;
 
 /**
  * Created by henrytao on 3/28/15.
  */
 public class MainActivity extends ActionBarActivity {
+
+  Vehicle mVehicle;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +51,13 @@ public class MainActivity extends ActionBarActivity {
           .add(R.id.container, new PlaceholderFragment())
           .commit();
     }
+
+    VehicleComponent component = DaggerVehicleComponent.builder().vehicleModule(new VehicleModule()).build();
+    component = DaggerVehicleComponent.create();
+
+    mVehicle = component.provideVehicle();
+
+    Toast.makeText(this, String.valueOf(mVehicle.getSpeed()), Toast.LENGTH_SHORT).show();
   }
 
 
