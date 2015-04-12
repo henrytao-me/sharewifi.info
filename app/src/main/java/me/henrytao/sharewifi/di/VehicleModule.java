@@ -20,6 +20,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import me.henrytao.sharewifi.App;
 
 /**
  * Created by henrytao on 4/11/15.

@@ -27,6 +27,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import javax.inject.Inject;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import me.henrytao.sharewifi.R;
@@ -42,6 +44,8 @@ public class MainActivity extends ActionBarActivity {
 
   Vehicle mVehicle;
 
+  @Inject Vehicle tmp;
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -54,6 +58,7 @@ public class MainActivity extends ActionBarActivity {
 
     VehicleComponent component = DaggerVehicleComponent.builder().vehicleModule(new VehicleModule()).build();
     component = DaggerVehicleComponent.create();
+    component.inject(this);
 
     mVehicle = component.provideVehicle();
 

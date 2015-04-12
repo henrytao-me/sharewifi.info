@@ -19,6 +19,7 @@ package me.henrytao.sharewifi.di;
 import javax.inject.Singleton;
 
 import dagger.Component;
+import me.henrytao.sharewifi.activity.MainActivity;
 
 /**
  * Created by henrytao on 4/11/15.
@@ -32,6 +33,9 @@ import dagger.Component;
 )
 public interface VehicleComponent {
 
+  void inject(MainActivity mainActivity);
   Vehicle provideVehicle();
+
+  Motor providerMotor();
 
 }
