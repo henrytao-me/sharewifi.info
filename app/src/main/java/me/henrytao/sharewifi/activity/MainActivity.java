@@ -16,26 +16,35 @@
 
 package me.henrytao.sharewifi.activity;
 
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.os.Build;
 import android.widget.TextView;
+
+import java.util.Arrays;
+import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import dagger.ObjectGraph;
 import me.henrytao.sharewifi.R;
+import me.henrytao.sharewifi.di.AnalyticsManager;
+import me.henrytao.sharewifi.di.AppModule;
+import me.henrytao.sharewifi.di.Injector;
 
 /**
  * Created by henrytao on 3/28/15.
  */
 public class MainActivity extends ActionBarActivity {
+
+  @Inject AnalyticsManager mAnalyticsManager;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +55,9 @@ public class MainActivity extends ActionBarActivity {
           .add(R.id.container, new PlaceholderFragment())
           .commit();
     }
+    Injector.inject(this);
+    mAnalyticsManager.hello();
   }
-
 
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
