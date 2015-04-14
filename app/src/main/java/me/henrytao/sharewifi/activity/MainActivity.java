@@ -16,10 +16,14 @@
 
 package me.henrytao.sharewifi.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.speech.RecognizerIntent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+
+import java.util.ArrayList;
 
 import me.henrytao.sharewifi.R;
 import me.henrytao.sharewifi.fragment.MainFragment;
@@ -27,15 +31,18 @@ import me.henrytao.sharewifi.fragment.MainFragment;
 /**
  * Created by henrytao on 3/28/15.
  */
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends BaseActivity {
+
+  MainFragment mMainFragment;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
+    mMainFragment = new MainFragment();
     if (savedInstanceState == null) {
       getSupportFragmentManager().beginTransaction()
-          .add(R.id.container, new MainFragment())
+          .add(R.id.container, mMainFragment)
           .commit();
     }
   }
@@ -62,4 +69,17 @@ public class MainActivity extends ActionBarActivity {
     return super.onOptionsItemSelected(item);
   }
 
+  //@Override
+  //protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+  //  if (mMainFragment != null) {
+  //    mMainFragment.onActivityResult(requestCode, resultCode, data);
+  //  }
+  //  super.onActivityResult(requestCode, resultCode, data);
+  //}
+
+  //public void mic(View v) {
+  //  if (mMainFragment != null) {
+  //    mMainFragment.mic(v);
+  //  }
+  //}
 }
