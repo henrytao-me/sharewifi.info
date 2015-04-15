@@ -31,14 +31,9 @@ import java.util.List;
 public class IntentUtils {
 
   public static boolean isAvailable(Context context, Intent intent) {
-    try {
-      PackageManager mgr = context.getPackageManager();
-      List<ResolveInfo> list = mgr.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
-      return list.size() > 0;
-    } catch(Exception ex) {
-      //Logger.w(ex);
-    }
-    return false;
+    PackageManager mgr = context.getPackageManager();
+    List<ResolveInfo> list = mgr.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
+    return list.size() > 0;
   }
 
 }
