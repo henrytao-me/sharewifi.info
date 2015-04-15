@@ -16,14 +16,9 @@
 
 package me.henrytao.sharewifi.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.speech.RecognizerIntent;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-
-import java.util.ArrayList;
 
 import me.henrytao.sharewifi.R;
 import me.henrytao.sharewifi.fragment.MainFragment;
@@ -69,17 +64,4 @@ public class MainActivity extends BaseActivity {
     return super.onOptionsItemSelected(item);
   }
 
-  //@Override
-  //protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-  //  if (mMainFragment != null) {
-  //    mMainFragment.onActivityResult(requestCode, resultCode, data);
-  //  }
-  //  super.onActivityResult(requestCode, resultCode, data);
-  //}
-
-  //public void mic(View v) {
-  //  if (mMainFragment != null) {
-  //    mMainFragment.mic(v);
-  //  }
-  //}
 }
