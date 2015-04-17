@@ -21,15 +21,17 @@
   tools:context=".activity.MainActivity">
 
   <com.quinny898.library.persistentsearch.SearchBox
-    android:id="@+id/searchbox"
+    android:id="@+id/search_box"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content" />
 
-  <ListView
-    android:id="@+id/list"
+  <android.support.v7.widget.RecyclerView
+    android:id="@+id/recycle_view"
     android:layout_width="match_parent"
     android:layout_height="fill_parent"
-    android:layout_below="@id/searchbox"
-    android:layout_alignParentBottom="true" />
+    android:scrollbars="vertical"
+    android:layout_below="@id/search_box"
+    android:layout_alignParentBottom="true"
+    style="@style/MdList" />
 
 </RelativeLayout>

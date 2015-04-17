@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ Copyright 2015 "Henry Tao <hi@henrytao.me>"
   ~
@@ -16,9 +17,13 @@
 
 <resources>
 
-  <dimen name="md_padding_lg">24dp</dimen>
-  <dimen name="md_padding_md">16dp</dimen>
-  <dimen name="md_padding_sm">8dp</dimen>
-  <dimen name="md_padding_xs">4dp</dimen>
+  <style name="MdList">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">match_parent</item>
+  </style>
+
+  <style name="MdList.TwoLine">
+
+  </style>
 
 </resources>

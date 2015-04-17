@@ -17,14 +17,13 @@
 package me.henrytao.sharewifi.adapter;
 
 import android.content.Context;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import butterknife.ButterKnife;
@@ -34,7 +33,7 @@ import me.henrytao.sharewifi.R;
 /**
  * Created by henrytao on 4/17/15.
  */
-public class LocationAdapter extends BaseAdapter {
+public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHolder> {
 
   private Context mContext;
 
@@ -46,42 +45,23 @@ public class LocationAdapter extends BaseAdapter {
   }
 
   @Override
-  public int getCount() {
+  public LocationAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_location, parent, false);
+    ViewHolder viewHolder = new ViewHolder(view);
+    return viewHolder;
+  }
+
+  @Override
+  public void onBindViewHolder(LocationAdapter.ViewHolder holder, int position) {
+    holder.mTextView1.setText(mList.get(position));
+  }
+
+  @Override
+  public int getItemCount() {
     return mList.size();
   }
 
-  @Override
-  public String getItem(int i) {
-    return mList.get(i);
-  }
-
-  @Override
-  public long getItemId(int i) {
-    return i;
-  }
-
-  @Override
-  public View getView(int i, View view, ViewGroup viewGroup) {
-    if (view == null) {
-      view = initView(i, viewGroup);
-    }
-    renderView(i, view);
-    return view;
-  }
-
-  protected View initView(int i, ViewGroup viewGroup) {
-    View view = LayoutInflater.from(mContext).inflate(R.layout.item_location, viewGroup, false);
-    ViewHolder viewHolder = new ViewHolder(view);
-    view.setTag(R.id.view_holder, viewHolder);
-    return view;
-  }
-
-  protected void renderView(int i, View view) {
-    ViewHolder viewHolder = (ViewHolder) view.getTag(R.id.view_holder);
-    viewHolder.mTextView1.setText(getItem(i));
-  }
-
-  protected static class ViewHolder {
+  public static class ViewHolder extends RecyclerView.ViewHolder {
 
     @InjectView(R.id.imageView1)
     ImageView mImageView;
@@ -93,6 +73,7 @@ public class LocationAdapter extends BaseAdapter {
     TextView mTextView2;
 
     public ViewHolder(View view) {
+      super(view);
       ButterKnife.inject(this, view);
     }
   }

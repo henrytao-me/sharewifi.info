@@ -21,10 +21,11 @@ import com.quinny898.library.persistentsearch.SearchBox;
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -40,14 +41,11 @@ import me.henrytao.sharewifi.adapter.LocationAdapter;
 public class MainFragment extends BaseFragment implements SearchBox.SearchListener {
 
 
-  @InjectView(R.id.searchbox)
+  @InjectView(R.id.search_box)
   SearchBox mSearchBox;
 
-  @InjectView(R.id.list)
-  ListView mListView;
-
-  public MainFragment() {
-  }
+  @InjectView(R.id.recycle_view)
+  RecyclerView mRecyclerView;
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -78,7 +76,9 @@ public class MainFragment extends BaseFragment implements SearchBox.SearchListen
       data.add("Location title " + i);
     }
     LocationAdapter adapter = new LocationAdapter(getActivity(), data);
-    mListView.setAdapter(adapter);
+    mRecyclerView.setHasFixedSize(true);
+    mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+    mRecyclerView.setAdapter(adapter);
   }
 
   @Override
