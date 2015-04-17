@@ -53,7 +53,8 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
 
   @Override
   public void onBindViewHolder(LocationAdapter.ViewHolder holder, int position) {
-    holder.mTextView1.setText(mList.get(position));
+    holder.mTitle.setText(mList.get(position));
+    holder.mDesc.setText("No description yet");
   }
 
   @Override
@@ -63,14 +64,11 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
 
   public static class ViewHolder extends RecyclerView.ViewHolder {
 
-    @InjectView(R.id.imageView1)
-    ImageView mImageView;
+    @InjectView(R.id.title)
+    TextView mTitle;
 
-    @InjectView(R.id.textView1)
-    TextView mTextView1;
-
-    @InjectView(R.id.textView2)
-    TextView mTextView2;
+    @InjectView(R.id.desc)
+    TextView mDesc;
 
     public ViewHolder(View view) {
       super(view);

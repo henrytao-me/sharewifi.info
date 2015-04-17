@@ -22,8 +22,41 @@
     <item name="android:layout_height">match_parent</item>
   </style>
 
-  <style name="MdList.TwoLine">
+  <style name="MdList.SingleLine">
+    <item name="android:layout_height">56dp</item>
+    <item name="android:gravity">left|center_vertical</item>
+  </style>
 
+  <style name="MdList.TwoLine">
+    <item name="android:layout_height">72dp</item>
+  </style>
+
+  <style name="MdText.Primary.MdList.TwoLine" parent="MdText.Primary">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">36dp</item>
+    <item name="android:singleLine">true</item>
+    <item name="android:ellipsize">end</item>
+    <item name="android:layout_alignParentTop">true</item>
+    <item name="android:gravity">bottom</item>
+    <item name="android:paddingBottom">@dimen/md_spacing_xxs</item>
+    <item name="android:paddingLeft">@dimen/md_spacing_md</item>
+    <item name="android:paddingRight">@dimen/md_spacing_md</item>
+  </style>
+
+  <style name="MdText.Secondary.MdList.TwoLine" parent="MdText.Secondary">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">36dp</item>
+    <item name="android:singleLine">true</item>
+    <item name="android:ellipsize">end</item>
+    <item name="android:layout_alignParentBottom">true</item>
+    <item name="android:gravity">top</item>
+    <item name="android:paddingTop">@dimen/md_spacing_xxs</item>
+    <item name="android:paddingLeft">@dimen/md_spacing_md</item>
+    <item name="android:paddingRight">@dimen/md_spacing_md</item>
+  </style>
+
+  <style name="MdDivider.MdList" parent="MdDivider">
+    <item name="android:layout_alignParentBottom">true</item>
   </style>
 
 </resources>

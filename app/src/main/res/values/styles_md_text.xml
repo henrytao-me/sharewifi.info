@@ -1,4 +1,4 @@
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright 2015 "Henry Tao <hi@henrytao.me>"
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,13 +16,19 @@
 
 <resources>
 
-  <dimen name="md_primary_text">16sp</dimen>
-  <dimen name="md_secondary_text">14sp</dimen>
+  <style name="MdText">
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">wrap_content</item>
+  </style>
 
-  <dimen name="md_spacing_lg">24dp</dimen>
-  <dimen name="md_spacing_md">16dp</dimen>
-  <dimen name="md_spacing_sm">8dp</dimen>
-  <dimen name="md_spacing_xs">4dp</dimen>
-  <dimen name="md_spacing_xxs">2dp</dimen>
+  <style name="MdText.Primary">
+    <item name="android:textSize">@dimen/md_primary_text</item>
+    <item name="android:color">@color/md_primary_text</item>
+  </style>
+
+  <style name="MdText.Secondary">
+    <item name="android:textSize">@dimen/md_secondary_text</item>
+    <item name="android:color">@color/md_secondary_text</item>
+  </style>
 
 </resources>
