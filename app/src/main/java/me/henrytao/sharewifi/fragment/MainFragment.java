@@ -24,6 +24,7 @@ import android.speech.RecognizerIntent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -31,6 +32,7 @@ import java.util.ArrayList;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import me.henrytao.sharewifi.R;
+import me.henrytao.sharewifi.adapter.LocationAdapter;
 
 /**
  * Created by henrytao on 4/12/15.
@@ -40,6 +42,9 @@ public class MainFragment extends BaseFragment implements SearchBox.SearchListen
 
   @InjectView(R.id.searchbox)
   SearchBox mSearchBox;
+
+  @InjectView(R.id.list)
+  ListView mListView;
 
   public MainFragment() {
   }
@@ -63,10 +68,17 @@ public class MainFragment extends BaseFragment implements SearchBox.SearchListen
     super.onViewCreated(view, savedInstanceState);
     mSearchBox.setLogoText("sharewifi.info");
     mSearchBox.enableVoiceRecognition(this);
+    mSearchBox.setSearchListener(this);
     mSearchBox.setMenuListener(() -> {
       Toast.makeText(getActivity(), "Menu click", Toast.LENGTH_LONG).show();
     });
-    mSearchBox.setSearchListener(this);
+
+    ArrayList<String> data = new ArrayList<>();
+    for (int i = 0; i < 10; i++) {
+      data.add("Location title " + i);
+    }
+    LocationAdapter adapter = new LocationAdapter(getActivity(), data);
+    mListView.setAdapter(adapter);
   }
 
   @Override
