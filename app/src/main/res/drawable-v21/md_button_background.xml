@@ -14,22 +14,7 @@
   ~ limitations under the License.
   -->
 
-<resources>
-
-  <color name="md_primary_dark">#0288D1</color>
-  <color name="md_primary">#03A9F4</color>
-  <color name="md_primary_light">#B3E5FC</color>
-  <color name="md_accent">#03A9F4</color>
-  <color name="md_warn">#FFC107</color>
-  <color name="md_divider">#B6B6B6</color>
-  <color name="md_background">#FAFAFA</color>
-
-  <!-- text color on md_background -->
-  <color name="md_primary_text">#212121</color>
-  <color name="md_secondary_text">#727272</color>
-
-  <!-- text color on md_primary -->
-  <color name="md_primary_text_reverse">#FFFFFF</color>
-  <color name="md_secondary_text_reverse">#B3E5FC</color>
-
-</resources>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+  android:color="@color/md_primary_text">
+  <item android:drawable="@drawable/md_button_background_shape" />
+</ripple>

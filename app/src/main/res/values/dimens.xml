@@ -25,4 +25,9 @@
   <dimen name="md_spacing_xs">4dp</dimen>
   <dimen name="md_spacing_xxs">2dp</dimen>
 
+  <dimen name="md_corner_lg">8dp</dimen>
+  <dimen name="md_corner_md">4dp</dimen>
+  <dimen name="md_corner_sm">2dp</dimen>
+  <dimen name="md_corner_xs">1dp</dimen>
+
 </resources>

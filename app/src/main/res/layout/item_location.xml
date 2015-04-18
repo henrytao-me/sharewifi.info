@@ -16,17 +16,17 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
-  style="@style/MdList.TwoLine">
+  style="@style/MdList.TwoLine.TextOnly">
 
   <TextView
     android:id="@+id/title"
     tools:text="CodeLearn Chapter 1"
-    style="@style/MdText.Primary.MdList.TwoLine" />
+    style="@style/MdText.Primary.MdList.TwoLine.TextOnly" />
 
   <TextView
     android:id="@+id/desc"
     tools:text="Description"
-    style="@style/MdText.Secondary.MdList.TwoLine" />
+    style="@style/MdText.Secondary.MdList.TwoLine.TextOnly" />
 
   <View style="@style/MdDivider.MdList" />
 

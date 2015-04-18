@@ -72,7 +72,7 @@ public class MainFragment extends BaseFragment implements SearchBox.SearchListen
     });
 
     ArrayList<String> data = new ArrayList<>();
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 200; i++) {
       data.add("Location title " + i);
     }
     LocationAdapter adapter = new LocationAdapter(getActivity(), data);
