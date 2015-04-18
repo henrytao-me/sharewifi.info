@@ -22,8 +22,17 @@
   <color name="md_accent">#03A9F4</color>
   <color name="md_warn">#FFC107</color>
   <color name="md_divider">#B6B6B6</color>
-  <color name="md_background">#f1f1f1</color>
-  <color name="md_overlay">#B51f1f1f</color>
+  <color name="md_background">#F1F1F1</color>
+  <color name="md_overlay">#B51F1F1F</color>
+
+  <color name="md_primary_dark_pressed">@color/md_primary_dark</color>
+  <color name="md_primary_pressed">@color/md_primary_dark</color>
+  <color name="md_primary_light_pressed">@color/md_primary</color>
+  <color name="md_accent_pressed">@color/md_accent</color>
+  <color name="md_warn_pressed">@color/md_warn</color>
+  <color name="md_divider_pressed">@color/md_divider</color>
+  <color name="md_background_pressed">@color/md_divider</color>
+  <color name="md_overlay_pressed">@color/md_overlay</color>
 
   <!-- text color on md_background -->
   <color name="md_primary_text">#212121</color>

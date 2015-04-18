@@ -95,12 +95,12 @@
     <item name="android:layout_height">wrap_content</item>
     <!-- AddFloatingActionButton -->
     <item name="fab_colorNormal">@color/md_background</item>
-    <item name="fab_colorPressed">@color/md_divider</item>
+    <item name="fab_colorPressed">@color/md_background_pressed</item>
     <item name="fab_plusIconColor">@color/md_primary_text</item>
     <!-- FloatingActionsMenu -->
     <item name="fab_labelStyle">@style/MdButton.FAB.LabelStyle</item>
     <item name="fab_addButtonColorNormal">@color/md_background</item>
-    <item name="fab_addButtonColorPressed">@color/md_divider</item>
+    <item name="fab_addButtonColorPressed">@color/md_background_pressed</item>
     <item name="fab_addButtonPlusIconColor">@color/md_primary_text</item>
   </style>
 
@@ -114,12 +114,12 @@
   <style name="MdButton.FAB.Primary">
     <!-- AddFloatingActionButton -->
     <item name="fab_colorNormal">@color/md_primary</item>
-    <item name="fab_colorPressed">@color/md_primary_dark</item>
+    <item name="fab_colorPressed">@color/md_primary_pressed</item>
     <item name="fab_plusIconColor">@color/md_primary_text_reverse</item>
     <!-- FloatingActionsMenu -->
     <item name="fab_labelStyle">@style/MdButton.FAB.LabelStyle</item>
     <item name="fab_addButtonColorNormal">@color/md_primary</item>
-    <item name="fab_addButtonColorPressed">@color/md_primary_dark</item>
+    <item name="fab_addButtonColorPressed">@color/md_primary_pressed</item>
     <item name="fab_addButtonPlusIconColor">@color/md_primary_text_reverse</item>
   </style>
 
