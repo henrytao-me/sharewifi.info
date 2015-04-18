@@ -14,16 +14,25 @@
  * limitations under the License.
  */
 
-package me.henrytao.sharewifi.activity;
-
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+package me.henrytao.sharewifi.util;
 
 /**
- * Created by henrytao on 4/14/15.
+ * Created by henrytao on 4/18/15.
  */
-public class BaseActivity extends ActionBarActivity {
+public class StringUtils {
+
+  public static boolean isEmpty(CharSequence text, boolean isTrim) {
+    if (text != null && isTrim) {
+      text = text.toString().trim();
+    }
+    if (text != null && !text.toString().isEmpty()) {
+      return false;
+    }
+    return true;
+  }
+
+  public static boolean isEmpty(CharSequence text) {
+    return isEmpty(text, true);
+  }
 
 }

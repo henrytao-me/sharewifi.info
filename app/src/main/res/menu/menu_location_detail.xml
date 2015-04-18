@@ -14,14 +14,7 @@
   ~ limitations under the License.
   -->
 
-<resources>
-  <string name="app_name">sharewifi</string>
-  <string name="action_settings">Settings</string>
-
-  <string name="fab_menu_report_password">Report invalid password</string>
-  <string name="fab_menu_add_comment">Comment</string>
-  <string name="fab_menu_new_location">New location</string>
-  <string name="title_activity_location_detail">LocationDetail</string>
-  <string name="hello_world">Hello world!</string>
-
-</resources>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools" tools:context="me.henrytao.sharewifi.activity.LocationDetailActivity">
+  <item android:id="@+id/action_settings" android:title="@string/action_settings" android:orderInCategory="100" app:showAsAction="never" />
+</menu>

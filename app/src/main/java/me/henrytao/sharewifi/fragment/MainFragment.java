@@ -33,7 +33,9 @@ import java.util.ArrayList;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import me.henrytao.sharewifi.R;
+import me.henrytao.sharewifi.activity.LocationDetailActivity;
 import me.henrytao.sharewifi.adapter.LocationAdapter;
+import me.henrytao.sharewifi.util.ToastUtils;
 
 /**
  * Created by henrytao on 4/12/15.
@@ -67,15 +69,14 @@ public class MainFragment extends BaseFragment implements SearchBox.SearchListen
     mSearchBox.setLogoText("sharewifi.info");
     mSearchBox.enableVoiceRecognition(this);
     mSearchBox.setSearchListener(this);
-    mSearchBox.setMenuListener(() -> {
-      Toast.makeText(getActivity(), "Menu click", Toast.LENGTH_LONG).show();
-    });
+    mSearchBox.setMenuListener(() -> ToastUtils.showShortToast(getActivity(), "Menu clicked"));
 
     ArrayList<String> data = new ArrayList<>();
     for (int i = 0; i < 200; i++) {
       data.add("Location title " + i);
     }
     LocationAdapter adapter = new LocationAdapter(getActivity(), data);
+    adapter.setOnItemClickListener((v, locationId) -> startActivity(LocationDetailActivity.getIntent(getActivity(), locationId)));
     mRecyclerView.setHasFixedSize(true);
     mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     mRecyclerView.setAdapter(adapter);
@@ -115,4 +116,5 @@ public class MainFragment extends BaseFragment implements SearchBox.SearchListen
   public void onSearch(String result) {
     Toast.makeText(getActivity(), "Searched", Toast.LENGTH_LONG).show();
   }
+
 }

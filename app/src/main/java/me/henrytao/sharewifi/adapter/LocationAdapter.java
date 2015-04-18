@@ -39,6 +39,8 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
 
   private ArrayList<String> mList;
 
+  private OnItemClickListener mOnItemClickListener;
+
   public LocationAdapter(Context context, ArrayList<String> list) {
     mContext = context;
     mList = list;
@@ -48,11 +50,17 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
   public LocationAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
     View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_location, parent, false);
     ViewHolder viewHolder = new ViewHolder(view);
+    view.setOnClickListener((v) -> {
+      if (mOnItemClickListener != null) {
+        mOnItemClickListener.onLocationAdapterItemClick(view, viewHolder.mPosition);
+      }
+    });
     return viewHolder;
   }
 
   @Override
   public void onBindViewHolder(LocationAdapter.ViewHolder holder, int position) {
+    holder.setPosition(position);
     holder.mTitle.setText(mList.get(position));
     holder.mDesc.setText("No description yet");
   }
@@ -60,6 +68,15 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
   @Override
   public int getItemCount() {
     return mList.size();
+  }
+
+  public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+    mOnItemClickListener = onItemClickListener;
+  }
+
+  public interface OnItemClickListener {
+
+    public void onLocationAdapterItemClick(View view, int position);
   }
 
   public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -70,9 +87,15 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
     @InjectView(R.id.desc)
     TextView mDesc;
 
+    int mPosition;
+
     public ViewHolder(View view) {
       super(view);
       ButterKnife.inject(this, view);
+    }
+
+    private void setPosition(int position) {
+      mPosition = position;
     }
   }
 }

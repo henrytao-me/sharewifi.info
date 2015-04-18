@@ -14,16 +14,26 @@
  * limitations under the License.
  */
 
-package me.henrytao.sharewifi.activity;
+package me.henrytao.sharewifi.util;
 
 import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.widget.Toast;
 
 /**
- * Created by henrytao on 4/14/15.
+ * Created by henrytao on 4/18/15.
  */
-public class BaseActivity extends ActionBarActivity {
+public class ToastUtils {
+
+  public static void showLongToast(Context context, CharSequence text) {
+    if (!StringUtils.isEmpty(text)) {
+      Toast.makeText(context, text, Toast.LENGTH_LONG).show();
+    }
+  }
+
+  public static void showShortToast(Context context, CharSequence text) {
+    if (!StringUtils.isEmpty(text)) {
+      Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
+    }
+  }
 
 }
