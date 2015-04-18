@@ -70,4 +70,5 @@ dependencies {
 
   compile project(':libs:PersistentSearch')
 
+  compile 'com.github.futuresimple:android-floating-action-button:1.9.0'
 }

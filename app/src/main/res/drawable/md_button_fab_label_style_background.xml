@@ -14,13 +14,14 @@
   ~ limitations under the License.
   -->
 
-<inset xmlns:android="http://schemas.android.com/apk/res/android"
-  android:insetLeft="4dp"
-  android:insetRight="4dp"
-  android:insetTop="6dp"
-  android:insetBottom="6dp">
-  <shape android:shape="rectangle">
-    <corners android:radius="@dimen/md_corner_xs" />
-    <solid android:color="@color/md_background" />
-  </shape>
-</inset>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <solid android:color="@color/md_overlay" />
+  <padding
+    android:left="@dimen/md_spacing_sm"
+    android:top="@dimen/md_spacing_xs"
+    android:right="@dimen/md_spacing_sm"
+    android:bottom="@dimen/md_spacing_xs" />
+  <corners android:radius="@dimen/md_corner_sm" />
+
+</shape>

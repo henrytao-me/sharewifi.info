@@ -23,12 +23,13 @@
   <color name="md_warn">#FFC107</color>
   <color name="md_divider">#B6B6B6</color>
   <color name="md_background">#FAFAFA</color>
+  <color name="md_overlay">#B2111111</color>
 
   <!-- text color on md_background -->
   <color name="md_primary_text">#212121</color>
   <color name="md_secondary_text">#727272</color>
 
-  <!-- text color on md_primary -->
+  <!-- text color on md_primary / md_primary_dark / md_primary_light -->
   <color name="md_primary_text_reverse">#FFFFFF</color>
   <color name="md_secondary_text_reverse">#B3E5FC</color>
 
