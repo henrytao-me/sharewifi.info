@@ -22,8 +22,8 @@
   <color name="md_accent">#03A9F4</color>
   <color name="md_warn">#FFC107</color>
   <color name="md_divider">#B6B6B6</color>
-  <color name="md_background">#FAFAFA</color>
-  <color name="md_overlay">#B2111111</color>
+  <color name="md_background">#f1f1f1</color>
+  <color name="md_overlay">#B51f1f1f</color>
 
   <!-- text color on md_background -->
   <color name="md_primary_text">#212121</color>
