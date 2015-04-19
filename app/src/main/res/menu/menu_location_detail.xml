@@ -14,7 +14,23 @@
   ~ limitations under the License.
   -->
 
-<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
-  xmlns:tools="http://schemas.android.com/tools" tools:context="me.henrytao.sharewifi.activity.LocationDetailActivity">
-  <item android:id="@+id/action_settings" android:title="@string/action_settings" android:orderInCategory="100" app:showAsAction="never" />
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  tools:context="me.henrytao.sharewifi.activity.LocationDetailActivity">
+
+  <item
+    android:id="@+id/action_search"
+    android:title="@string/action_search"
+    android:icon="@drawable/ic_search_white"
+    android:orderInCategory="10"
+    app:showAsAction="always" />
+
+  <item
+    android:id="@+id/action_edit"
+    android:title="@string/action_edit"
+    android:icon="@drawable/ic_create_white"
+    android:orderInCategory="20"
+    app:showAsAction="always" />
+
 </menu>

@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ Copyright 2015 "Henry Tao <hi@henrytao.me>"
   ~
@@ -16,9 +17,11 @@
 
 <resources>
 
-  <string name="app_name">sharewifi</string>
-  <string name="hello_world">Hello world!</string>
-  <string name="action_settings">Settings</string>
-  <string name="title_activity_location_detail">Location info</string>
+  <string name="action_edit">Edit</string>
+  <string name="action_search">Search</string>
+
+  <string name="fab_menu_report_password">Report invalid password</string>
+  <string name="fab_menu_add_comment">Comment</string>
+  <string name="fab_menu_new_location">New location</string>
 
 </resources>

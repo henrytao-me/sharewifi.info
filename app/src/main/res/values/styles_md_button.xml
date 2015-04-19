@@ -87,7 +87,7 @@
   <!-- dependency: https://github.com/futuresimple/android-floating-action-button -->
   <style name="MdButton.FAB.LabelStyle" parent="">
     <item name="android:background">@drawable/md_button_fab_label_style_background</item>
-    <item name="android:textColor">@color/md_primary_text_reverse</item>
+    <item name="android:textColor">@color/md_primary_text_inverse</item>
   </style>
 
   <style name="MdButton.FAB" parent="">
@@ -115,12 +115,12 @@
     <!-- AddFloatingActionButton -->
     <item name="fab_colorNormal">@color/md_primary</item>
     <item name="fab_colorPressed">@color/md_primary_pressed</item>
-    <item name="fab_plusIconColor">@color/md_primary_text_reverse</item>
+    <item name="fab_plusIconColor">@color/md_primary_text_inverse</item>
     <!-- FloatingActionsMenu -->
     <item name="fab_labelStyle">@style/MdButton.FAB.LabelStyle</item>
     <item name="fab_addButtonColorNormal">@color/md_primary</item>
     <item name="fab_addButtonColorPressed">@color/md_primary_pressed</item>
-    <item name="fab_addButtonPlusIconColor">@color/md_primary_text_reverse</item>
+    <item name="fab_addButtonPlusIconColor">@color/md_primary_text_inverse</item>
   </style>
 
   <style name="MdButton.FAB.Primary.Mini">

@@ -20,9 +20,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 import me.henrytao.sharewifi.R;
 import me.henrytao.sharewifi.util.ToastUtils;
 
@@ -36,13 +39,23 @@ public class LocationDetailActivity extends BaseActivity {
     return intent;
   }
 
+  @InjectView(R.id.toolbar)
+  Toolbar mToolbar;
+
+  private int mLocationId;
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_location_detail);
-    ToastUtils.showShortToast(this, Integer.toString(getIntent().getIntExtra(LOCATION_ID, 0)));
-  }
+    ButterKnife.inject(this);
 
+    setSupportActionBar(mToolbar);
+    mToolbar.setNavigationOnClickListener((v) -> onBackPressed());
+
+    mLocationId = getIntent().getIntExtra(LOCATION_ID, -1);
+    ToastUtils.showShortToast(this, Integer.toString(mLocationId));
+  }
 
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
@@ -56,13 +69,12 @@ public class LocationDetailActivity extends BaseActivity {
     // Handle action bar item clicks here. The action bar will
     // automatically handle clicks on the Home/Up button, so long
     // as you specify a parent activity in AndroidManifest.xml.
-    int id = item.getItemId();
-
-    //noinspection SimplifiableIfStatement
-    if (id == R.id.action_settings) {
-      return true;
+    switch (item.getItemId()) {
+      case R.id.action_edit:
+        break;
+      case R.id.action_search:
+        break;
     }
-
     return super.onOptionsItemSelected(item);
   }
 }

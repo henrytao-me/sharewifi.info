@@ -39,7 +39,7 @@
   <color name="md_secondary_text">#727272</color>
 
   <!-- text color on md_primary / md_primary_dark / md_primary_light -->
-  <color name="md_primary_text_reverse">#FFFFFF</color>
-  <color name="md_secondary_text_reverse">#B3E5FC</color>
+  <color name="md_primary_text_inverse">#FFFFFF</color>
+  <color name="md_secondary_text_inverse">#B3E5FC</color>
 
 </resources>
