@@ -19,6 +19,7 @@
   <style name="MdToolbar">
     <item name="android:layout_width">match_parent</item>
     <item name="android:layout_height">?attr/actionBarSize</item>
+    <item name="android:paddingRight">@dimen/md_spacing_xs</item>
     <item name="android:background">@color/md_primary</item>
     <item name="theme">@style/MdToolbar.Theme</item>
     <item name="popupTheme">@style/MdToolbar.PopupTheme</item>
