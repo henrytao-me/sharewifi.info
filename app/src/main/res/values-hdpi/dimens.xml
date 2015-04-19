@@ -1,4 +1,4 @@
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright 2015 "Henry Tao <hi@henrytao.me>"
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,20 +16,6 @@
 
 <resources>
 
-  <dimen name="md_primary_text">16sp</dimen>
-  <dimen name="md_secondary_text">14sp</dimen>
-
-  <dimen name="md_spacing_lg">24dp</dimen>
-  <dimen name="md_spacing_md">16dp</dimen>
-  <dimen name="md_spacing_sm">8dp</dimen>
-  <dimen name="md_spacing_xs">4dp</dimen>
-  <dimen name="md_spacing_xxs">2dp</dimen>
-
-  <dimen name="md_corner_lg">8dp</dimen>
-  <dimen name="md_corner_md">4dp</dimen>
-  <dimen name="md_corner_sm">2dp</dimen>
-  <dimen name="md_corner_xs">1dp</dimen>
-
-  <dimen name="navigation_drawer_width">300dp</dimen>
+  <dimen name="navigation_drawer_width">220dp</dimen>
 
 </resources>
