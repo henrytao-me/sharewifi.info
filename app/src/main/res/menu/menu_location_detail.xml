@@ -29,7 +29,7 @@
   <item
     android:id="@+id/action_edit"
     android:title="@string/action_edit"
-    android:icon="@drawable/ic_create_white"
+    android:icon="@drawable/ic_edit_white"
     android:orderInCategory="20"
     app:showAsAction="always" />
 
