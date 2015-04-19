@@ -14,22 +14,14 @@
   ~ limitations under the License.
   -->
 
-<resources>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:background="@color/md_background">
 
-  <dimen name="md_primary_text">16sp</dimen>
-  <dimen name="md_secondary_text">14sp</dimen>
+  <TextView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:text="@string/hello_blank_fragment" />
 
-  <dimen name="md_spacing_lg">24dp</dimen>
-  <dimen name="md_spacing_md">16dp</dimen>
-  <dimen name="md_spacing_sm">8dp</dimen>
-  <dimen name="md_spacing_xs">4dp</dimen>
-  <dimen name="md_spacing_xxs">2dp</dimen>
-
-  <dimen name="md_corner_lg">8dp</dimen>
-  <dimen name="md_corner_md">4dp</dimen>
-  <dimen name="md_corner_sm">2dp</dimen>
-  <dimen name="md_corner_xs">1dp</dimen>
-
-  <dimen name="navigation_drawer_width">280dp</dimen>
-
-</resources>
+</FrameLayout>

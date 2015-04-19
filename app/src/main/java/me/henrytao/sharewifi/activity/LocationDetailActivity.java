@@ -39,10 +39,10 @@ public class LocationDetailActivity extends BaseActivity {
     return intent;
   }
 
+  private int mLocationId;
+
   @InjectView(R.id.toolbar)
   Toolbar mToolbar;
-
-  private int mLocationId;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {

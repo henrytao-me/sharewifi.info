@@ -17,6 +17,7 @@
 package me.henrytao.sharewifi.fragment;
 
 import com.quinny898.library.persistentsearch.SearchBox;
+import com.quinny898.library.persistentsearch.SearchBox.MenuListener;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -40,8 +41,7 @@ import me.henrytao.sharewifi.util.ToastUtils;
 /**
  * Created by henrytao on 4/12/15.
  */
-public class MainFragment extends BaseFragment implements SearchBox.SearchListener {
-
+public class MainFragment extends BaseFragment implements SearchBox.SearchListener, MenuListener {
 
   @InjectView(R.id.search_box)
   SearchBox mSearchBox;
@@ -69,7 +69,7 @@ public class MainFragment extends BaseFragment implements SearchBox.SearchListen
     mSearchBox.setLogoText("sharewifi.info");
     mSearchBox.enableVoiceRecognition(this);
     mSearchBox.setSearchListener(this);
-    mSearchBox.setMenuListener(() -> ToastUtils.showShortToast(getActivity(), "Menu clicked"));
+    mSearchBox.setMenuListener(this);
 
     ArrayList<String> data = new ArrayList<>();
     for (int i = 0; i < 200; i++) {
@@ -90,6 +90,15 @@ public class MainFragment extends BaseFragment implements SearchBox.SearchListen
       mSearchBox.populateEditText(matches);
     }
     super.onActivityResult(requestCode, resultCode, data);
+  }
+
+  @Override
+  public void onMenuClick() {
+    if (getActivity() instanceof NavigationDrawerFragment.NavigationDrawerInterface) {
+      NavigationDrawerFragment.NavigationDrawerInterface navigationDrawer
+          = (NavigationDrawerFragment.NavigationDrawerInterface) getActivity();
+      navigationDrawer.openDrawer();
+    }
   }
 
   @Override
@@ -116,5 +125,4 @@ public class MainFragment extends BaseFragment implements SearchBox.SearchListen
   public void onSearch(String result) {
     Toast.makeText(getActivity(), "Searched", Toast.LENGTH_LONG).show();
   }
-
 }

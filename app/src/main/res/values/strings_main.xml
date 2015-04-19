@@ -24,4 +24,7 @@
   <string name="fab_menu_add_comment">Comment</string>
   <string name="fab_menu_new_location">New location</string>
 
+  <string name="navigation_drawer_open">Open</string>
+  <string name="navigation_drawer_close">Close</string>
+
 </resources>
