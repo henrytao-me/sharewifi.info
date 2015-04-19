@@ -19,13 +19,12 @@
   <style name="MdDrawerLayout">
     <item name="android:layout_width">match_parent</item>
     <item name="android:layout_height">match_parent</item>
-    <item name="android:background">@color/md_background</item>
   </style>
 
   <style name="MdDrawerLayout.Content" parent="">
     <item name="android:layout_width">match_parent</item>
     <item name="android:layout_height">match_parent</item>
-    <item name="android:background">@drawable/md_drawer_layout_background</item>
+    <item name="android:background">?attr/md_translucentNavigation_background</item>
     <item name="android:fitsSystemWindows">?attr/md_translucentNavigation_fitsSystemWindows</item>
   </style>
 
