@@ -17,10 +17,19 @@
 <resources>
 
   <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <item name="md_translucentNavigation_background">@null</item>
+    <item name="md_translucentNavigation_fitsSystemWindows">false</item>
+  </style>
+
+  <style name="AppTheme.Base">
     <item name="colorPrimary">@color/md_primary</item>
     <item name="colorPrimaryDark">@color/md_primary_dark</item>
     <item name="colorAccent">@color/md_accent</item>
     <item name="android:windowBackground">@color/md_background</item>
+  </style>
+
+  <style name="AppTheme.Base.TranslucentNavigation">
+
   </style>
 
 </resources>

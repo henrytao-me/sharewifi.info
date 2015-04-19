@@ -16,6 +16,6 @@
 
 <resources>
 
-  <dimen name="navigation_drawer_width">220dp</dimen>
+  <dimen name="md_drawer_layout_width">220dp</dimen>
 
 </resources>
