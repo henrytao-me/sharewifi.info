@@ -25,8 +25,8 @@
 
   <style name="AppTheme.Base.TranslucentNavigation">
     <item name="android:windowTranslucentStatus">true</item>
-    <item name="md_translucentNavigation_background">@color/md_primary</item>
-    <item name="md_translucentNavigation_fitsSystemWindows">true</item>
+    <item name="md_drawer_layout_translucentNavigation_background">@color/md_primary</item>
+    <item name="md_drawer_layout_translucentNavigation_fitsSystemWindows">true</item>
   </style>
 
 </resources>
