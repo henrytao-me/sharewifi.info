@@ -33,7 +33,7 @@
   </RelativeLayout>
 
   <RelativeLayout
-    android:id="@+id/navigation_drawer"
+    android:id="@+id/drawer"
     style="@style/MdDrawerLayout.Drawer">
 
     <fragment

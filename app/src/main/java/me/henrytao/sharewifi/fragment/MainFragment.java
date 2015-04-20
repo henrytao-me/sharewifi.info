@@ -35,6 +35,7 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import me.henrytao.sharewifi.R;
 import me.henrytao.sharewifi.activity.LocationDetailActivity;
+import me.henrytao.sharewifi.activity.MdDrawerLayoutActivity;
 import me.henrytao.sharewifi.adapter.LocationAdapter;
 import me.henrytao.sharewifi.util.ToastUtils;
 
@@ -94,10 +95,9 @@ public class MainFragment extends BaseFragment implements SearchBox.SearchListen
 
   @Override
   public void onMenuClick() {
-    if (getActivity() instanceof NavigationDrawerFragment.NavigationDrawerInterface) {
-      NavigationDrawerFragment.NavigationDrawerInterface navigationDrawer
-          = (NavigationDrawerFragment.NavigationDrawerInterface) getActivity();
-      navigationDrawer.openDrawer();
+    if (getActivity() instanceof MdDrawerLayoutActivity) {
+      MdDrawerLayoutActivity drawer = (MdDrawerLayoutActivity) getActivity();
+      drawer.openDrawer();
     }
   }
 

@@ -18,7 +18,6 @@ package me.henrytao.sharewifi.activity;
 
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,45 +25,26 @@ import android.view.View;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import me.henrytao.sharewifi.R;
-import me.henrytao.sharewifi.fragment.NavigationDrawerFragment;
-import me.henrytao.sharewifi.util.ToastUtils;
 
 /**
  * Created by henrytao on 3/28/15.
  */
-public class MainActivity extends BaseActivity implements NavigationDrawerFragment.NavigationDrawerInterface {
-
-  ActionBarDrawerToggle mDrawerToggle;
+public class MainActivity extends MdDrawerLayoutActivity {
 
   @InjectView(R.id.container)
   DrawerLayout mDrawerLayout;
 
   @InjectView(R.id.content)
-  View mMainFragment;
+  View mContentView;
 
-  @InjectView(R.id.navigation_drawer)
-  View mNavigationDrawerFragment;
+  @InjectView(R.id.drawer)
+  View mDrawerView;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
     ButterKnife.inject(this);
-
-    mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
-      @Override
-      public void onDrawerOpened(View drawerView) {
-        super.onDrawerOpened(drawerView);
-        ToastUtils.showShortToast(MainActivity.this, "Open");
-      }
-
-      @Override
-      public void onDrawerClosed(View drawerView) {
-        super.onDrawerClosed(drawerView);
-        ToastUtils.showShortToast(MainActivity.this, "Close");
-      }
-    };
-    mDrawerLayout.setDrawerListener(mDrawerToggle);
   }
 
   @Override
@@ -86,10 +66,18 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
   }
 
   @Override
-  public void openDrawer() {
-    if (mDrawerLayout != null && mNavigationDrawerFragment != null) {
-      mDrawerLayout.openDrawer(mNavigationDrawerFragment);
-    }
+  public DrawerLayout getDrawerLayout() {
+    return mDrawerLayout;
+  }
+
+  @Override
+  public View getContentView() {
+    return mContentView;
+  }
+
+  @Override
+  public View getDrawerView() {
+    return mDrawerView;
   }
 
 }

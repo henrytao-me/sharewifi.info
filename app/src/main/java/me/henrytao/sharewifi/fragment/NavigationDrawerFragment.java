@@ -41,9 +41,4 @@ public class NavigationDrawerFragment extends Fragment {
     return inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
   }
 
-  public interface NavigationDrawerInterface {
-
-    public void openDrawer();
-  }
-
 }
