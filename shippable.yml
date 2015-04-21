@@ -6,10 +6,6 @@ jdk:
 # cache: true
 # archive: true
 
-env:
-  global:
-  - secure: AAAAB3NzaC1yc2EAAAADAQABAAABAQC624tlFI+qOb7N/Ep+5OIWxVgbYkFWfplVsKHGcf9rj32+ueD+pDiWNNMlMK/dVJ/Laf64OH79tQB7SFnuCJ6BuXE94kHR4AkYpzfvqXs/EhDDsbXoI5lfexGQFmruUfYVVxoX/2FK3Htkim1npDdO1dw4wrtDGQ/MEuH8+eFDyVARam6sidCDXvWlfmr6KCYZCsa7jYPuSsPKRX5MEiZPaHkdvl9g/fLBLFbtQ+Bzvc0O2RFIef78wAISLngyHwhAUoWXig1LUlCA6GhFwjFJnsyQZy+kXt6TWhgQTHC+h0atih3oyXqOJ1xPmqyMJy4AZYk1U1s9/36JQrIKshXx
-
 install:
   - ./tool/setup_android_sdk.sh
   - ./gradlew clean assemble
