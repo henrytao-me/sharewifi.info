@@ -15,6 +15,7 @@ export PATH=$PATH:$ANDROID_HOME/platform-tools
 echo y | $ANDROID_HOME/tools/android update sdk --no-ui --all --filter \
 tools,\
 platform-tools,\
+build-tools-21.1.2,\
 build-tools-22.0.1
 
 echo y | $ANDROID_HOME/tools/android update sdk --no-ui --all --filter \
@@ -27,6 +28,7 @@ extra-google-google_play_services,\
 extra-google-m2repository
 
 echo y | $ANDROID_HOME/tools/android update sdk --no-ui --all --filter \
+android-21,\
 android-22
 
 echo "sdk.dir=$ANDROID_HOME" > local.properties
