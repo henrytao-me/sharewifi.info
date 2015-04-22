@@ -61,7 +61,7 @@
   </style>
 
   <style name="MdButton.Raised.Primary">
-    <!-- todo -->
+    <item name="android:background">@drawable/md_button_background</item>
   </style>
 
   <style name="MdButton.Raised.PrimaryDark">
