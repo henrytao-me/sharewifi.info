@@ -14,15 +14,7 @@
   ~ limitations under the License.
   -->
 
-<resources>
-
-  <string name="app_name">sharewifi</string>
-  <string name="hello_world">Hello moto!</string>
-  <string name="action_settings">Settings</string>
-  <string name="title_activity_location_detail">Location info</string>
-
-  <!-- TODO: Remove or change this placeholder text -->
-  <string name="hello_blank_fragment">Hello moto!</string>
-  <string name="title_activity_location_detail_edit">LocationDetailEditActivity</string>
-
-</resources>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools" tools:context="me.henrytao.sharewifi.activity.LocationDetailEditActivity">
+  <item android:id="@+id/action_settings" android:title="@string/action_settings" android:orderInCategory="100" app:showAsAction="never" />
+</menu>
