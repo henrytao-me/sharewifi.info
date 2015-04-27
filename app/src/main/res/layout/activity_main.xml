@@ -26,8 +26,8 @@
     <fragment
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:name="me.henrytao.sharewifi.fragment.MainFragment"
       android:layout="@layout/fragment_main"
+      android:name="me.henrytao.sharewifi.fragment.MainFragment"
       tools:layout="@layout/fragment_main" />
 
   </RelativeLayout>
@@ -39,8 +39,8 @@
     <fragment
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:name="me.henrytao.sharewifi.fragment.NavigationDrawerFragment"
       android:layout="@layout/fragment_navigation_drawer"
+      android:name="me.henrytao.sharewifi.fragment.NavigationDrawerFragment"
       tools:layout="@layout/fragment_navigation_drawer" />
 
   </RelativeLayout>

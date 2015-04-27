@@ -22,7 +22,6 @@ import com.quinny898.library.persistentsearch.SearchBox.MenuListener;
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,10 +33,7 @@ import java.util.ArrayList;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import me.henrytao.sharewifi.R;
-import me.henrytao.sharewifi.activity.LocationDetailActivity;
 import me.henrytao.sharewifi.activity.MdDrawerLayoutActivity;
-import me.henrytao.sharewifi.adapter.LocationAdapter;
-import me.henrytao.sharewifi.util.ToastUtils;
 
 /**
  * Created by henrytao on 4/12/15.
@@ -46,9 +42,6 @@ public class MainFragment extends BaseFragment implements SearchBox.SearchListen
 
   @InjectView(R.id.search_box)
   SearchBox mSearchBox;
-
-  @InjectView(R.id.recycle_view)
-  RecyclerView mRecyclerView;
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -71,16 +64,6 @@ public class MainFragment extends BaseFragment implements SearchBox.SearchListen
     mSearchBox.enableVoiceRecognition(this);
     mSearchBox.setSearchListener(this);
     mSearchBox.setMenuListener(this);
-
-    ArrayList<String> data = new ArrayList<>();
-    for (int i = 0; i < 200; i++) {
-      data.add("Location title " + i);
-    }
-    LocationAdapter adapter = new LocationAdapter(getActivity(), data);
-    adapter.setOnItemClickListener((v, locationId) -> startActivity(LocationDetailActivity.getIntent(getActivity(), locationId)));
-    mRecyclerView.setHasFixedSize(true);
-    mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-    mRecyclerView.setAdapter(adapter);
   }
 
   @Override

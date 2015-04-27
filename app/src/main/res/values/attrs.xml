@@ -16,9 +16,6 @@
 
 <resources>
 
-  <declare-styleable name="MdDrawerLayout">
-    <attr name="md_drawer_layout_translucentNavigation_background" format="reference|color" />
-    <attr name="md_drawer_layout_translucentNavigation_fitsSystemWindows" format="reference|boolean" />
-  </declare-styleable>
+
 
 </resources>
