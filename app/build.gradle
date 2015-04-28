@@ -1,13 +1,15 @@
 apply plugin: 'com.android.application'
+apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'com.neenbedankt.android-apt'
 
 android {
-  compileSdkVersion 21
-  buildToolsVersion "21.1.2"
+  compileSdkVersion 22
+  buildToolsVersion "22.0.1"
 
   defaultConfig {
     applicationId "me.henrytao.sharewifi"
     minSdkVersion 14
-    targetSdkVersion 21
+    targetSdkVersion 22
     versionCode 1
     versionName "1.0"
   }
@@ -15,11 +17,63 @@ android {
     release {
       minifyEnabled false
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+      /* TODO: proguard
+       * http://jakewharton.github.io/butterknife/
+       * */
     }
   }
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
+  packagingOptions {
+    exclude 'META-INF/services/javax.annotation.processing.Processor'
+  }
+  lintOptions {
+    disable 'InvalidPackage'
+    lintConfig file("lint.xml")
+  }
+}
+
+retrolambda {
+  jvmArgs '-noverify'
 }
 
 dependencies {
   compile fileTree(dir: 'libs', include: ['*.jar'])
-  compile 'com.android.support:appcompat-v7:21.0.2'
+  compile 'com.android.support:appcompat-v7:22.1.1'
+  compile 'com.android.support:cardview-v7:22.1.1'
+  compile 'com.android.support:recyclerview-v7:22.1.1'
+
+  // robolectric:3.0
+  testCompile 'junit:junit:4.12'
+  testCompile 'org.hamcrest:hamcrest-core:1.1'
+  testCompile 'org.hamcrest:hamcrest-library:1.1'
+  testCompile 'org.hamcrest:hamcrest-integration:1.1'
+  testCompile('org.robolectric:robolectric:3.0-rc2') {
+    exclude group: 'commons-logging', module: 'commons-logging'
+    exclude group: 'org.apache.httpcomponents', module: 'httpclient'
+  }
+
+  compile 'com.google.code.gson:gson:2.3.1'
+
+  compile 'com.orhanobut:logger:1.4'
+
+  compile 'io.reactivex:rxjava:1.0.9'
+  compile 'io.reactivex:rxandroid:0.24.0'
+
+  compile 'com.jakewharton:butterknife:6.1.0'
+
+  compile 'com.google.dagger:dagger:2.0'
+  apt 'com.google.dagger:dagger-compiler:2.0'
+  provided 'org.glassfish:javax.annotation:10.0-b28'
+
+  compile 'com.github.futuresimple:android-floating-action-button:1.9.0'
+
+  compile project(':libs:PersistentSearch')
+  compile(project(':libs:android-md-core')) {
+    exclude group: 'com.android.support', module: 'appcompat-v7'
+    exclude group: 'com.android.support', module: 'cardview-v7'
+    exclude group: 'com.android.support', module: 'recyclerview-v7'
+  }
 }

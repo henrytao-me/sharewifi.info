@@ -1,0 +1,19 @@
+language: java
+
+jdk:
+  - oraclejdk8
+
+# cache: true
+# archive: true
+
+install:
+  - ./tool/setup_android_sdk.sh
+  - ./gradlew clean assemble
+
+script:
+  - ./gradlew test
+
+notifications:
+  email:
+    recipients:
+      - hungtaoquang@gmail.com
