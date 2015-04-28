@@ -21,7 +21,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -31,7 +30,7 @@ import butterknife.InjectView;
 import me.henrytao.sharewifi.R;
 
 /**
- * Created by henrytao on 4/17/15.
+ * Created by henrytao on 4/27/15.
  */
 public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHolder> {
 

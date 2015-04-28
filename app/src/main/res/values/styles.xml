@@ -1,4 +1,4 @@
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright 2015 "Henry Tao <hi@henrytao.me>"
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,19 +16,20 @@
 
 <resources>
 
-  <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-    <item name="md_drawer_layout_translucentNavigation_background">@null</item>
-    <item name="md_drawer_layout_translucentNavigation_fitsSystemWindows">false</item>
+  <style name="AppTheme" parent="MdTheme.Dark">
+
+    <item name="mdColor_primaryPalette">#009688</item>
+    <item name="mdColor_primaryPalette_dark">#00796B</item>
+    <item name="mdColor_primaryPalette_light">#B2DFDB</item>
+    <item name="mdColor_accentPalette">#8BC34A</item>
+
   </style>
 
   <style name="AppTheme.Base">
-    <item name="colorPrimary">@color/md_primary</item>
-    <item name="colorPrimaryDark">@color/md_primary_dark</item>
-    <item name="colorAccent">@color/md_accent</item>
-    <item name="android:windowBackground">@color/md_background</item>
-  </style>
 
-  <style name="AppTheme.Base.TranslucentNavigation">
+  </style>
+  
+  <style name="AppTheme.TranslucentNavigation" parent="AppTheme.Base">
 
   </style>
 

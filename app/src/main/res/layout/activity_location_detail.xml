@@ -25,17 +25,17 @@
 
     <android.support.v7.widget.Toolbar xmlns:app="http://schemas.android.com/apk/res-auto"
       android:id="@+id/toolbar"
-      app:navigationIcon="@drawable/ic_arrow_back_white"
+      app:navigationIcon="@drawable/ic_toolbar_arrow_back_white"
       style="@style/MdToolbar" />
 
   </android.support.v7.widget.CardView>
 
   <fragment
     android:id="@+id/fragment"
-    android:name="me.henrytao.sharewifi.fragment.LocationDetailFragment"
     android:layout_width="match_parent"
     android:layout_height="fill_parent"
     android:layout_below="@+id/toolbar_container"
+    android:name="me.henrytao.sharewifi.fragment.LocationDetailFragment"
     tools:layout="@layout/fragment_location_detail" />
 
 </RelativeLayout>

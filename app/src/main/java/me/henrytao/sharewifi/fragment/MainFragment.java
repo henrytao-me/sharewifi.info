@@ -37,7 +37,6 @@ import me.henrytao.sharewifi.R;
 import me.henrytao.sharewifi.activity.LocationDetailActivity;
 import me.henrytao.sharewifi.activity.MdDrawerLayoutActivity;
 import me.henrytao.sharewifi.adapter.LocationAdapter;
-import me.henrytao.sharewifi.util.ToastUtils;
 
 /**
  * Created by henrytao on 4/12/15.
@@ -125,4 +124,5 @@ public class MainFragment extends BaseFragment implements SearchBox.SearchListen
   public void onSearch(String result) {
     Toast.makeText(getActivity(), "Searched", Toast.LENGTH_LONG).show();
   }
+
 }

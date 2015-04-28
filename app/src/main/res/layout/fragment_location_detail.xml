@@ -14,115 +14,19 @@
   ~ limitations under the License.
   -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:paddingTop="@dimen/md_spacing_xs"
-  android:paddingBottom="@dimen/md_spacing_xs"
-  android:orientation="vertical"
-  tools:context=".activity.LocationDetailActivity">
+  android:paddingBottom="@dimen/activity_vertical_margin"
+  android:paddingLeft="@dimen/activity_horizontal_margin"
+  android:paddingRight="@dimen/activity_horizontal_margin"
+  android:paddingTop="@dimen/activity_vertical_margin"
+  tools:context="me.henrytao.sharewifi.fragment.LocationDetailFragment">
 
-  <RelativeLayout style="@style/MdList.TwoLine.TextOnly">
+  <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/hello_world" />
 
-    <RatingBar
-      android:id="@+id/rating_bar"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:numStars="5"
-      android:stepSize="1"
-      android:layout_alignParentRight="true"
-      android:layout_marginTop="14dp"
-      android:layout_marginLeft="@dimen/md_spacing_xs"
-      android:layout_marginRight="@dimen/md_spacing_md"
-      style="?android:attr/ratingBarStyleSmall" />
-
-    <TextView
-      android:text="Location name"
-      android:textSize="@dimen/md_title"
-      android:layout_toLeftOf="@+id/rating_bar"
-      style="@style/MdText.Primary.MdList.TwoLine.TextOnly" />
-
-    <TextView
-      android:text="Address of location name"
-      style="@style/MdText.Secondary.MdList.TwoLine.TextOnly" />
-
-  </RelativeLayout>
-
-  <View style="@style/MdDivider" />
-
-  <RelativeLayout
-    android:layout_height="@dimen/single_list_item_height"
-    android:layout_marginTop="@dimen/md_spacing_xs"
-    style="@style/MdList.SingleLine.TextOnly">
-
-    <TextView
-      android:id="@+id/status_title"
-      android:layout_width="@dimen/single_list_view_left"
-      android:paddingRight="@dimen/md_spacing_xs"
-      android:text="Status"
-      style="@style/MdText.Primary.MdList.SingleLine.TextOnly" />
-
-    <TextView
-      android:id="@+id/status"
-      android:layout_toRightOf="@+id/status_title"
-      android:paddingLeft="@dimen/md_spacing_xs"
-      android:text="Available"
-      style="@style/MdText.Primary.MdList.SingleLine.TextOnly" />
-
-  </RelativeLayout>
-
-  <RelativeLayout
-    android:layout_height="@dimen/single_list_item_height"
-    style="@style/MdList.SingleLine.TextOnly">
-
-    <TextView
-      android:id="@+id/num_of_connection_title"
-      android:layout_width="@dimen/single_list_view_left"
-      android:paddingRight="@dimen/md_spacing_xs"
-      android:text="Connected"
-      style="@style/MdText.Primary.MdList.SingleLine.TextOnly" />
-
-    <TextView
-      android:id="@+id/num_of_connection"
-      android:layout_toRightOf="@+id/num_of_connection_title"
-      android:paddingLeft="@dimen/md_spacing_xs"
-      android:text="1000 times"
-      style="@style/MdText.Primary.MdList.SingleLine.TextOnly" />
-
-  </RelativeLayout>
-
-  <RelativeLayout
-    android:layout_height="@dimen/single_list_item_height"
-    android:layout_marginBottom="@dimen/md_spacing_xs"
-    style="@style/MdList.SingleLine.TextOnly">
-
-    <TextView
-      android:id="@+id/password_title"
-      android:layout_width="@dimen/single_list_view_left"
-      android:paddingRight="@dimen/md_spacing_xs"
-      android:text="Password"
-      style="@style/MdText.Primary.MdList.SingleLine.TextOnly" />
-
-    <TextView
-      android:id="@+id/password"
-      android:layout_toRightOf="@+id/password_title"
-      android:paddingLeft="@dimen/md_spacing_xs"
-      android:text="*********"
-      style="@style/MdText.Primary.MdList.SingleLine.TextOnly" />
-
-  </RelativeLayout>
-
-  <View
-    android:layout_marginBottom="@dimen/md_spacing_xs"
-    style="@style/MdDivider" />
-
-  <Button
-    android:text="Connect"
-    android:minWidth="128dp"
-    android:layout_height="56dp"
-    android:textColor="@color/md_primary_text_inverse"
-    android:layout_gravity="center"
-    style="@style/MdButton.Raised.Primary" />
-
-</LinearLayout>
+</RelativeLayout>
