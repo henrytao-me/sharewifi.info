@@ -29,7 +29,7 @@ import butterknife.InjectView;
 import me.henrytao.sharewifi.R;
 import me.henrytao.sharewifi.util.ToastUtils;
 
-public class LocationDetailActivity extends BaseActivity {
+public class LocationDetailActivity extends MdToolbarActivity {
 
   private static String LOCATION_ID = "location_id";
 
@@ -41,17 +41,11 @@ public class LocationDetailActivity extends BaseActivity {
 
   private int mLocationId;
 
-  @InjectView(R.id.toolbar)
-  Toolbar mToolbar;
-
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_location_detail);
     ButterKnife.inject(this);
-
-    setSupportActionBar(mToolbar);
-    mToolbar.setNavigationOnClickListener((v) -> onBackPressed());
 
     mLocationId = getIntent().getIntExtra(LOCATION_ID, -1);
     ToastUtils.showShortToast(this, Integer.toString(mLocationId));
@@ -59,16 +53,12 @@ public class LocationDetailActivity extends BaseActivity {
 
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
-    // Inflate the menu; this adds items to the action bar if it is present.
     getMenuInflater().inflate(R.menu.menu_location_detail, menu);
     return true;
   }
 
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
-    // Handle action bar item clicks here. The action bar will
-    // automatically handle clicks on the Home/Up button, so long
-    // as you specify a parent activity in AndroidManifest.xml.
     switch (item.getItemId()) {
       case R.id.action_edit:
         break;

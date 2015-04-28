@@ -17,18 +17,31 @@
 <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/container"
+  tools:context=".activity.MainActivity"
   style="@style/MdDrawerLayout">
 
   <RelativeLayout
     android:id="@+id/content"
     style="@style/MdDrawerLayout.Content">
 
-    <fragment
+    <RelativeLayout
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:layout="@layout/fragment_main"
-      android:name="me.henrytao.sharewifi.fragment.MainFragment"
-      tools:layout="@layout/fragment_main" />
+      android:background="?attr/mdColor_backgroundPalette">
+
+      <include
+        android:id="@+id/toolbar"
+        layout="@layout/md_toolbar" />
+
+      <fragment
+        android:id="@+id/fragment_main"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/toolbar"
+        android:name="me.henrytao.sharewifi.fragment.MainFragment"
+        tools:layout="@layout/fragment_main" />
+
+    </RelativeLayout>
 
   </RelativeLayout>
 
@@ -37,9 +50,9 @@
     style="@style/MdDrawerLayout.Drawer">
 
     <fragment
+      android:id="@+id/fragment_navigation_drawer"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:layout="@layout/fragment_navigation_drawer"
       android:name="me.henrytao.sharewifi.fragment.NavigationDrawerFragment"
       tools:layout="@layout/fragment_navigation_drawer" />
 

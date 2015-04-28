@@ -41,12 +41,9 @@ import me.henrytao.sharewifi.adapter.LocationAdapter;
 /**
  * Created by henrytao on 4/12/15.
  */
-public class MainFragment extends BaseFragment implements SearchBox.SearchListener, MenuListener {
+public class MainFragment extends BaseFragment {
 
-  @InjectView(R.id.search_box)
-  SearchBox mSearchBox;
-
-  @InjectView(R.id.recycle_view)
+  @InjectView(R.id.list)
   RecyclerView mRecyclerView;
 
   @Override
@@ -66,10 +63,6 @@ public class MainFragment extends BaseFragment implements SearchBox.SearchListen
   @Override
   public void onViewCreated(View view, Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
-    mSearchBox.setLogoText("sharewifi.info");
-    mSearchBox.enableVoiceRecognition(this);
-    mSearchBox.setSearchListener(this);
-    mSearchBox.setMenuListener(this);
 
     ArrayList<String> data = new ArrayList<>();
     for (int i = 0; i < 200; i++) {
@@ -80,49 +73,6 @@ public class MainFragment extends BaseFragment implements SearchBox.SearchListen
     mRecyclerView.setHasFixedSize(true);
     mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     mRecyclerView.setAdapter(adapter);
-  }
-
-  @Override
-  public void onActivityResult(int requestCode, int resultCode, Intent data) {
-    if (isAdded() && requestCode == SearchBox.VOICE_RECOGNITION_CODE && resultCode == getActivity().RESULT_OK) {
-      ArrayList<String> matches = data
-          .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-      mSearchBox.populateEditText(matches);
-    }
-    super.onActivityResult(requestCode, resultCode, data);
-  }
-
-  @Override
-  public void onMenuClick() {
-    if (getActivity() instanceof MdDrawerLayoutActivity) {
-      MdDrawerLayoutActivity drawer = (MdDrawerLayoutActivity) getActivity();
-      drawer.openDrawer();
-    }
-  }
-
-  @Override
-  public void onSearchOpened() {
-
-  }
-
-  @Override
-  public void onSearchCleared() {
-
-  }
-
-  @Override
-  public void onSearchClosed() {
-
-  }
-
-  @Override
-  public void onSearchTermChanged() {
-
-  }
-
-  @Override
-  public void onSearch(String result) {
-    Toast.makeText(getActivity(), "Searched", Toast.LENGTH_LONG).show();
   }
 
 }

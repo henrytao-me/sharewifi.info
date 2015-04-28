@@ -14,58 +14,18 @@
   ~ limitations under the License.
   -->
 
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:background="?attr/mdColor_backgroundPalette"
-  tools:context=".activity.MainActivity"
-  xmlns:fab="http://schemas.android.com/apk/res-auto">
+  tools:context=".activity.MainActivity">
 
-  <RelativeLayout
+  <android.support.v7.widget.RecyclerView
+    android:id="@+id/list"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:scrollbars="vertical"
+    style="@style/MdList" />
 
-    <com.quinny898.library.persistentsearch.SearchBox
-      android:id="@+id/search_box"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content" />
-
-    <android.support.v7.widget.RecyclerView
-      android:id="@+id/recycle_view"
-      android:layout_width="match_parent"
-      android:layout_height="fill_parent"
-      android:layout_alignParentBottom="true"
-      android:layout_below="@id/search_box"
-      android:scrollbars="vertical"
-      style="@style/MdList" />
-
-  </RelativeLayout>
-
-  <!--<com.getbase.floatingactionbutton.FloatingActionsMenu-->
-  <!--android:layout_gravity="right|bottom"-->
-  <!--android:layout_marginBottom="?attr/mdLayout_spacing_sm"-->
-  <!--android:layout_marginRight="?attr/mdLayout_spacing_sm"-->
-  <!--style="@style/MdButton.FAB.Primary">-->
-
-  <!--<com.getbase.floatingactionbutton.FloatingActionButton-->
-  <!--android:layout_width="wrap_content"-->
-  <!--android:layout_height="wrap_content"-->
-  <!--fab:fab_title="@string/fab_menu_report_password"-->
-  <!--style="@style/MdButton.FAB.Mini" />-->
-
-  <!--<com.getbase.floatingactionbutton.FloatingActionButton-->
-  <!--android:layout_width="wrap_content"-->
-  <!--android:layout_height="wrap_content"-->
-  <!--fab:fab_title="@string/fab_menu_add_comment"-->
-  <!--style="@style/MdButton.FAB.Mini" />-->
-
-  <!--<com.getbase.floatingactionbutton.FloatingActionButton-->
-  <!--android:layout_width="wrap_content"-->
-  <!--android:layout_height="wrap_content"-->
-  <!--fab:fab_title="@string/fab_menu_new_location"-->
-  <!--style="@style/MdButton.FAB.Mini" />-->
-
-  <!--</com.getbase.floatingactionbutton.FloatingActionsMenu>-->
-
-</FrameLayout>
+</RelativeLayout>
