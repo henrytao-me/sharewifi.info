@@ -28,7 +28,7 @@
     android:layout_width="match_parent"
     android:layout_height="fill_parent"
     android:layout_below="@+id/toolbar"
-    android:name="me.henrytao.sharewifi.fragment.LocationDetailFragment"
-    tools:layout="@layout/fragment_location_detail" />
+    android:name="me.henrytao.sharewifi.fragment.WifiDetailFragment"
+    tools:layout="@layout/fragment_wifi_detail" />
 
 </RelativeLayout>

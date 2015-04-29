@@ -18,42 +18,39 @@ package me.henrytao.sharewifi.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 import me.henrytao.sharewifi.R;
 import me.henrytao.sharewifi.util.ToastUtils;
 
-public class LocationDetailActivity extends MdToolbarActivity {
+public class WifiDetailActivity extends MdToolbarActivity {
 
-  private static String LOCATION_ID = "location_id";
+  private static String WIFI_ID = "WIFI_ID";
 
-  public static Intent getIntent(Context context, int locationId) {
-    Intent intent = new Intent(context, LocationDetailActivity.class);
-    intent.putExtra(LOCATION_ID, locationId);
+  public static Intent getIntent(Context context, int wifiId) {
+    Intent intent = new Intent(context, WifiDetailActivity.class);
+    intent.putExtra(WIFI_ID, wifiId);
     return intent;
   }
 
-  private int mLocationId;
+  private int mWifiId;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_location_detail);
+    setContentView(R.layout.activity_wifi_detail);
     ButterKnife.inject(this);
 
-    mLocationId = getIntent().getIntExtra(LOCATION_ID, -1);
-    ToastUtils.showShortToast(this, Integer.toString(mLocationId));
+    mWifiId = getIntent().getIntExtra(WIFI_ID, -1);
+    ToastUtils.showShortToast(this, Integer.toString(mWifiId));
   }
 
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
-    getMenuInflater().inflate(R.menu.menu_location_detail, menu);
+    getMenuInflater().inflate(R.menu.menu_wifi_detail, menu);
     return true;
   }
 

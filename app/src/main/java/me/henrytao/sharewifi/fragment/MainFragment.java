@@ -16,27 +16,20 @@
 
 package me.henrytao.sharewifi.fragment;
 
-import com.quinny898.library.persistentsearch.SearchBox;
-import com.quinny898.library.persistentsearch.SearchBox.MenuListener;
-
-import android.content.Intent;
 import android.os.Bundle;
-import android.speech.RecognizerIntent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import me.henrytao.sharewifi.R;
-import me.henrytao.sharewifi.activity.LocationDetailActivity;
-import me.henrytao.sharewifi.activity.MdDrawerLayoutActivity;
-import me.henrytao.sharewifi.adapter.LocationAdapter;
+import me.henrytao.sharewifi.activity.WifiDetailActivity;
+import me.henrytao.sharewifi.adapter.WifiAdapter;
 
 /**
  * Created by henrytao on 4/12/15.
@@ -66,10 +59,10 @@ public class MainFragment extends BaseFragment {
 
     ArrayList<String> data = new ArrayList<>();
     for (int i = 0; i < 200; i++) {
-      data.add("Location title " + i);
+      data.add("Wifi " + i);
     }
-    LocationAdapter adapter = new LocationAdapter(getActivity(), data);
-    adapter.setOnItemClickListener((v, locationId) -> startActivity(LocationDetailActivity.getIntent(getActivity(), locationId)));
+    WifiAdapter adapter = new WifiAdapter(getActivity(), data);
+    adapter.setOnItemClickListener((v, wifiId) -> startActivity(WifiDetailActivity.getIntent(getActivity(), wifiId)));
     mRecyclerView.setHasFixedSize(true);
     mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     mRecyclerView.setAdapter(adapter);
