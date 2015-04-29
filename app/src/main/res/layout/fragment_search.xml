@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<!--
   ~ Copyright 2015 "Henry Tao <hi@henrytao.me>"
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,10 +14,17 @@
   ~ limitations under the License.
   -->
 
-<resources>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  tools:context="me.henrytao.sharewifi.fragment.SearchFragment">
 
-  <!--<style name="AppStyle.ToolbarNavigationButtonStyle" parent="@style/Widget.AppCompat.Toolbar.Button.Navigation">-->
-    <!--<item name="android:background">#99aa33</item>-->
-  <!--</style>-->
+  <android.support.v7.widget.RecyclerView
+    android:id="@+id/list"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="vertical"
+    style="@style/MdList" />
 
-</resources>
+</RelativeLayout>

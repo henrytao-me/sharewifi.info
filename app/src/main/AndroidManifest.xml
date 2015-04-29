@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright 2015 "Henry Tao <hi@henrytao.me>"
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,28 +14,31 @@
   ~ limitations under the License.
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="me.henrytao.sharewifi" >
+  package="me.henrytao.sharewifi">
 
-    <application
-        android:name=".App"
-        android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:theme="@style/AppTheme.Base" >
-        <activity
-            android:name=".activity.MainActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.TranslucentNavigation" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+  <application
+    android:allowBackup="true"
+    android:icon="@mipmap/ic_launcher"
+    android:label="@string/app_name"
+    android:name=".App"
+    android:theme="@style/AppTheme">
+    <activity
+      android:label="@string/app_name"
+      android:name=".activity.MainActivity"
+      android:theme="@style/AppTheme.TranslucentNavigation">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".activity.WifiDetailActivity"
-            android:label="@string/title_activity_location_detail" >
-        </activity>
-    </application>
+        <category android:name="android.intent.category.LAUNCHER" />
+      </intent-filter>
+    </activity>
+    <activity
+      android:label="@string/title_activity_location_detail"
+      android:name=".activity.WifiDetailActivity"></activity>
+    <activity
+      android:label="@string/title_activity_search"
+      android:name=".activity.SearchActivity"
+      android:theme="@style/AppTheme.White"></activity>
+  </application>
 
 </manifest>

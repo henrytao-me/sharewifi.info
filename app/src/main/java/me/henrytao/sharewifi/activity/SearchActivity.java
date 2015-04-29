@@ -16,80 +16,57 @@
 
 package me.henrytao.sharewifi.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-
-import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import butterknife.OnClick;
 import me.henrytao.sharewifi.R;
+import me.henrytao.sharewifi.util.ToastUtils;
 
-/**
- * Created by henrytao on 3/28/15.
- */
-public class MainActivity extends MdDrawerLayoutActivity {
+public class SearchActivity extends MdToolbarActivity {
 
-  @InjectView(R.id.container)
-  DrawerLayout mDrawerLayout;
-
-  @InjectView(R.id.content)
-  View mContentView;
-
-  @InjectView(R.id.drawer)
-  View mDrawerView;
-
-  @InjectView(R.id.md_toolbar)
-  Toolbar mToolbar;
+  public static Intent getIntent(Context context) {
+    Intent intent = new Intent(context, SearchActivity.class);
+    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+    return intent;
+  }
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_main);
+    setContentView(R.layout.activity_search);
     ButterKnife.inject(this);
+  }
 
-    setSupportActionBar(mToolbar);
-    mToolbar.setNavigationIcon(R.drawable.ic_toolbar_menu_white);
-    mToolbar.setNavigationOnClickListener((v) -> openDrawer());
+  @Override
+  protected void onPause() {
+    super.onPause();
+    overridePendingTransition(0, 0);
   }
 
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
-    getMenuInflater().inflate(R.menu.menu_main, menu);
+    getMenuInflater().inflate(R.menu.menu_search, menu);
     return true;
   }
 
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()) {
-      case R.id.action_search:
-        Intent intent = SearchActivity.getIntent(this);
-        startActivity(intent);
-        break;
-      case R.id.action_refresh:
-        break;
+
     }
     return super.onOptionsItemSelected(item);
   }
 
   @Override
-  public DrawerLayout getDrawerLayout() {
-    return mDrawerLayout;
-  }
-
-  @Override
-  public View getContentView() {
-    return mContentView;
-  }
-
-  @Override
-  public View getDrawerView() {
-    return mDrawerView;
+  protected int getToolbarContentLayout() {
+    return R.layout.view_toolbar_search;
   }
 
 }

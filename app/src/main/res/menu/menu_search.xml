@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<!--
   ~ Copyright 2015 "Henry Tao <hi@henrytao.me>"
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,10 +14,9 @@
   ~ limitations under the License.
   -->
 
-<resources>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  tools:context="me.henrytao.sharewifi.activity.SearchActivity">
 
-  <!--<style name="AppStyle.ToolbarNavigationButtonStyle" parent="@style/Widget.AppCompat.Toolbar.Button.Navigation">-->
-    <!--<item name="android:background">#99aa33</item>-->
-  <!--</style>-->
-
-</resources>
+</menu>

@@ -14,10 +14,14 @@
   ~ limitations under the License.
   -->
 
-<resources>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="?attr/actionBarSize">
 
-  <!--<style name="AppStyle.ToolbarNavigationButtonStyle" parent="@style/Widget.AppCompat.Toolbar.Button.Navigation">-->
-    <!--<item name="android:background">#99aa33</item>-->
-  <!--</style>-->
+  <EditText
+    android:id="@+id/toolbar_search_text"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:hint="@string/text_search" />
 
-</resources>
+</RelativeLayout>
