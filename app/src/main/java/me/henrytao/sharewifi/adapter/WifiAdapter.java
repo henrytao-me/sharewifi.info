@@ -32,7 +32,7 @@ import me.henrytao.sharewifi.R;
 /**
  * Created by henrytao on 4/27/15.
  */
-public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHolder> {
+public class WifiAdapter extends RecyclerView.Adapter<WifiAdapter.ViewHolder> {
 
   private Context mContext;
 
@@ -40,14 +40,14 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
 
   private OnItemClickListener mOnItemClickListener;
 
-  public LocationAdapter(Context context, ArrayList<String> list) {
+  public WifiAdapter(Context context, ArrayList<String> list) {
     mContext = context;
     mList = list;
   }
 
   @Override
-  public LocationAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-    View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_location, parent, false);
+  public WifiAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_wifi, parent, false);
     ViewHolder viewHolder = new ViewHolder(view);
     view.setOnClickListener((v) -> {
       if (mOnItemClickListener != null) {
@@ -58,9 +58,10 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
   }
 
   @Override
-  public void onBindViewHolder(LocationAdapter.ViewHolder holder, int position) {
+  public void onBindViewHolder(WifiAdapter.ViewHolder holder, int position) {
     holder.setPosition(position);
-    holder.mTitle.setText(mList.get(position));
+    holder.mName.setText(mList.get(position));
+    holder.mStatus.setText("No shared password");
     holder.mDesc.setText("No description yet");
   }
 
@@ -80,8 +81,11 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
 
   public static class ViewHolder extends RecyclerView.ViewHolder {
 
-    @InjectView(R.id.title)
-    TextView mTitle;
+    @InjectView(R.id.name)
+    TextView mName;
+
+    @InjectView(R.id.status)
+    TextView mStatus;
 
     @InjectView(R.id.desc)
     TextView mDesc;

@@ -14,19 +14,23 @@
   ~ limitations under the License.
   -->
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  android:paddingBottom="@dimen/activity_vertical_margin"
-  android:paddingLeft="@dimen/activity_horizontal_margin"
-  android:paddingRight="@dimen/activity_horizontal_margin"
-  android:paddingTop="@dimen/activity_vertical_margin"
-  tools:context="me.henrytao.sharewifi.fragment.LocationDetailFragment">
+  tools:context="me.henrytao.sharewifi.activity.WifiDetailActivity">
 
-  <TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="@string/hello_world" />
+  <item
+    android:id="@+id/action_search"
+    android:icon="@drawable/ic_toolbar_search_white"
+    android:orderInCategory="10"
+    android:title="@string/action_search"
+    app:showAsAction="always" />
 
-</RelativeLayout>
+  <item
+    android:id="@+id/action_edit"
+    android:icon="@drawable/ic_toolbar_edit_white"
+    android:orderInCategory="20"
+    android:title="@string/action_edit"
+    app:showAsAction="always" />
+
+</menu>

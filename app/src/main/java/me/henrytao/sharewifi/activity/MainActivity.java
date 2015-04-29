@@ -18,9 +18,12 @@ package me.henrytao.sharewifi.activity;
 
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
+import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -40,27 +43,33 @@ public class MainActivity extends MdDrawerLayoutActivity {
   @InjectView(R.id.drawer)
   View mDrawerView;
 
+  @InjectView(R.id.md_toolbar)
+  Toolbar mToolbar;
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
     ButterKnife.inject(this);
+
+    setSupportActionBar(mToolbar);
+    mToolbar.setNavigationIcon(R.drawable.ic_toolbar_menu_white);
+    mToolbar.setNavigationOnClickListener((v) -> openDrawer());
   }
 
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
-    // Inflate the menu; this adds items to the action bar if it is present.
     getMenuInflater().inflate(R.menu.menu_main, menu);
     return true;
   }
 
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
-    // Handle action bar item clicks here. The action bar will
-    // automatically handle clicks on the Home/Up button, so long
-    // as you specify a parent activity in AndroidManifest.xml.
     switch (item.getItemId()) {
-
+      case R.id.action_search:
+        break;
+      case R.id.action_refresh:
+        break;
     }
     return super.onOptionsItemSelected(item);
   }
