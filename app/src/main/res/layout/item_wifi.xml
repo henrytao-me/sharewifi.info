@@ -21,7 +21,7 @@
   style="@style/MdList.ThreeLine.AvatarIconWithText">
 
   <ImageView
-    android:src="@drawable/ic_info_white_inactive"
+    android:src="@drawable/ic_signal_wifi_2_bar_unlock"
     style="@style/MdList.ThreeLine.AvatarIconWithText.Avatar" />
 
   <TextView
@@ -42,7 +42,7 @@
   <ImageView
     android:background="@drawable/md_ripple_oval"
     android:clickable="true"
-    android:src="@drawable/ic_info_white_inactive"
+    android:src="@drawable/ic_info_inactive"
     style="@style/MdList.ThreeLine.AvatarIconWithText.Icon" />
 
   <View
