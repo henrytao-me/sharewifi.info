@@ -18,10 +18,12 @@ package me.henrytao.sharewifi.activity;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.TypedValue;
 import android.view.View;
 
 import butterknife.InjectView;
 import me.henrytao.sharewifi.R;
+import me.henrytao.sharewifi.util.ResourceUtils;
 
 /**
  * Created by henrytao on 4/28/15.
@@ -29,14 +31,14 @@ import me.henrytao.sharewifi.R;
 public class MdToolbarActivity extends BaseActivity {
 
   @InjectView(R.id.md_toolbar)
-  Toolbar mToolbar;
+  protected Toolbar mToolbar;
 
   @Override
   protected void onPostCreate(Bundle savedInstanceState) {
     super.onPostCreate(savedInstanceState);
     if (mToolbar != null) {
       setSupportActionBar(mToolbar);
-      mToolbar.setNavigationIcon(R.drawable.ic_toolbar_arrow_back_white);
+      mToolbar.setNavigationIcon(ResourceUtils.getResourceIdFromAttributeId(this, R.attr.appIcon_toolbarArrowBack));
       mToolbar.setNavigationOnClickListener((v) -> onNavigationClicked(v));
     }
   }
