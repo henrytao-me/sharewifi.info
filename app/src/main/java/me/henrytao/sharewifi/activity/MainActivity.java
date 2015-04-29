@@ -68,8 +68,7 @@ public class MainActivity extends MdDrawerLayoutActivity {
   public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()) {
       case R.id.action_search:
-        Intent intent = SearchActivity.getIntent(this);
-        startActivity(intent);
+        startActivity(SearchActivity.getIntent(this));
         break;
       case R.id.action_refresh:
         break;
