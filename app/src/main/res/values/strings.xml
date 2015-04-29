@@ -28,8 +28,10 @@
   <string name="navigation_drawer_open">Open</string>
   <string name="navigation_drawer_close">Close</string>
 
+  <string name="text_search">Search</string>
+
   <!-- auto generated values -->
-  
+
   <string name="app_name">sharewifi</string>
   <string name="hello_world">Hello moto!</string>
   <string name="title_activity_location_detail">Location info</string>

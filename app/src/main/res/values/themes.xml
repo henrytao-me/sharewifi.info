@@ -47,6 +47,7 @@
     <item name="mdColor_primaryPalette">#9E9E9E</item>
     <item name="mdColor_primaryPalette_dark">#616161</item>
     <item name="mdColor_primaryPalette_light">#E0E0E0</item>
+    <item name="mdColor_accentPalette">#009688</item>
     <item name="mdToolbar_background">?attr/mdColor_backgroundPalette</item>
   </style>
 

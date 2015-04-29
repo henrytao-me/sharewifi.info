@@ -18,10 +18,9 @@ package me.henrytao.sharewifi.activity;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.TypedValue;
 import android.view.View;
+import android.view.ViewGroup;
 
-import butterknife.InjectView;
 import me.henrytao.sharewifi.R;
 import me.henrytao.sharewifi.util.ResourceUtils;
 
@@ -30,20 +29,50 @@ import me.henrytao.sharewifi.util.ResourceUtils;
  */
 public class MdToolbarActivity extends BaseActivity {
 
-  @InjectView(R.id.md_toolbar)
   protected Toolbar mToolbar;
 
   @Override
-  protected void onPostCreate(Bundle savedInstanceState) {
-    super.onPostCreate(savedInstanceState);
-    if (mToolbar != null) {
+  public void setContentView(int layoutResID) {
+    super.setContentView(layoutResID);
+    initToolbar();
+  }
+
+  @Override
+  public void setContentView(View view) {
+    super.setContentView(view);
+    initToolbar();
+  }
+
+  @Override
+  public void setContentView(View view, ViewGroup.LayoutParams params) {
+    super.setContentView(view, params);
+    initToolbar();
+  }
+
+  private void initToolbar() {
+    if (getToolbarId() > 0) {
+      mToolbar = (Toolbar) findViewById(getToolbarId());
       setSupportActionBar(mToolbar);
-      mToolbar.setNavigationIcon(ResourceUtils.getResourceIdFromAttributeId(this, R.attr.appIcon_toolbarArrowBack));
+      if (R.attr.appIcon_toolbarArrowBack > 0) {
+        mToolbar.setNavigationIcon(ResourceUtils.getResourceIdFromAttributeId(this, R.attr.appIcon_toolbarArrowBack));
+      }
       mToolbar.setNavigationOnClickListener((v) -> onNavigationClicked(v));
+      if (getToolbarContentLayout() > 0) {
+        mToolbar.addView(getLayoutInflater().inflate(getToolbarContentLayout(), mToolbar, false));
+      }
     }
+  }
+
+  protected int getToolbarId() {
+    return R.id.md_toolbar;
+  }
+
+  protected int getToolbarContentLayout() {
+    return 0;
   }
 
   protected void onNavigationClicked(View view) {
     onBackPressed();
   }
+
 }

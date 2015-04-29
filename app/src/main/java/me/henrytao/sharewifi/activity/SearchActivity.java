@@ -24,7 +24,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import butterknife.ButterKnife;
+import butterknife.InjectView;
+import butterknife.OnClick;
 import me.henrytao.sharewifi.R;
+import me.henrytao.sharewifi.util.ToastUtils;
 
 public class SearchActivity extends MdToolbarActivity {
 
@@ -56,8 +59,14 @@ public class SearchActivity extends MdToolbarActivity {
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()) {
-      
+
     }
     return super.onOptionsItemSelected(item);
   }
+
+  @Override
+  protected int getToolbarContentLayout() {
+    return R.layout.view_toolbar_search;
+  }
+
 }
