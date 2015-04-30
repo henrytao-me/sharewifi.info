@@ -57,12 +57,13 @@ public class WifiDetailActivity extends MdToolbarActivity {
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()) {
-      case R.id.action_search:
-        startActivity(SearchActivity.getIntent(this));
-        break;
-      case R.id.action_edit:
-        break;
+
     }
     return super.onOptionsItemSelected(item);
+  }
+
+  @Override
+  protected int getToolbarContentLayout() {
+    return R.layout.view_toolbar_wifi_detail;
   }
 }

@@ -19,18 +19,18 @@
   xmlns:tools="http://schemas.android.com/tools"
   tools:context="me.henrytao.sharewifi.activity.WifiDetailActivity">
 
-  <item
-    android:id="@+id/action_search"
-    android:icon="@drawable/ic_toolbar_search_white"
-    android:orderInCategory="10"
-    android:title="@string/action_search"
-    app:showAsAction="always" />
+  <!--<item-->
+  <!--android:id="@+id/action_search"-->
+  <!--android:icon="@drawable/ic_toolbar_search_white"-->
+  <!--android:orderInCategory="10"-->
+  <!--android:title="@string/action_search"-->
+  <!--app:showAsAction="always" />-->
 
-  <item
-    android:id="@+id/action_edit"
-    android:icon="@drawable/ic_toolbar_edit_white"
-    android:orderInCategory="20"
-    android:title="@string/action_edit"
-    app:showAsAction="always" />
+  <!--<item-->
+  <!--android:id="@+id/action_edit"-->
+  <!--android:icon="@drawable/ic_toolbar_edit_white"-->
+  <!--android:orderInCategory="20"-->
+  <!--android:title="@string/action_edit"-->
+  <!--app:showAsAction="always" />-->
 
 </menu>
