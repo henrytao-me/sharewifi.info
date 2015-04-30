@@ -20,6 +20,7 @@
 
   <EditText
     android:id="@+id/toolbar_search_text"
+    android:layout_height="match_parent"
     android:hint="@string/text_search"
     style="@style/MdEditText.SingleLine" />
 
