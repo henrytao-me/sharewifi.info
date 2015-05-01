@@ -16,7 +16,6 @@
 
 package me.henrytao.sharewifi.activity;
 
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,7 +53,7 @@ public class MdToolbarActivity extends BaseActivity {
       mToolbar = (Toolbar) findViewById(getToolbarId());
       setSupportActionBar(mToolbar);
       if (R.attr.appIcon_toolbarArrowBack > 0) {
-        mToolbar.setNavigationIcon(ResourceUtils.getResourceIdFromAttributeId(this, R.attr.appIcon_toolbarArrowBack));
+        mToolbar.setNavigationIcon(ResourceUtils.getDrawableIdFromAttribute(this, R.attr.appIcon_toolbarArrowBack));
       }
       mToolbar.setNavigationOnClickListener((v) -> onNavigationClicked(v));
       if (getToolbarContentLayout() > 0) {

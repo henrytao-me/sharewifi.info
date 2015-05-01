@@ -17,8 +17,11 @@
 package me.henrytao.sharewifi.fragment;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -32,6 +35,8 @@ import me.henrytao.sharewifi.activity.WifiDetailActivity;
 import me.henrytao.sharewifi.adapter.WifiAdapter;
 import me.henrytao.sharewifi.model.entity.WifiModel;
 import me.henrytao.sharewifi.service.WifiService;
+import me.henrytao.sharewifi.util.ResourceUtils;
+import me.henrytao.sharewifi.util.ToastUtils;
 import me.henrytao.sharewifi.widget.RecycleEmptyErrorView;
 import rx.Subscription;
 
@@ -43,6 +48,9 @@ public class MainFragment extends BaseFragment implements WifiAdapter.OnClickLis
   private Subscription mWifiSubscription;
 
   private List<WifiModel> mList = new ArrayList<>();
+
+  @InjectView(R.id.swipe_refresh_layout)
+  SwipeRefreshLayout mSwipeRefreshLayout;
 
   @InjectView(R.id.list)
   RecycleEmptyErrorView mRecyclerView;
@@ -71,6 +79,8 @@ public class MainFragment extends BaseFragment implements WifiAdapter.OnClickLis
   public void onViewCreated(View view, Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
 
+    setHasOptionsMenu(true);
+
     WifiAdapter adapter = new WifiAdapter(getActivity(), mList);
     adapter.setOnClickListener(this);
     mRecyclerView.setHasFixedSize(true);
@@ -78,6 +88,9 @@ public class MainFragment extends BaseFragment implements WifiAdapter.OnClickLis
     mRecyclerView.setAdapter(adapter);
     mRecyclerView.setEmptyView(mEmptyView);
     mRecyclerView.setErrorView(mErrorView);
+
+    mSwipeRefreshLayout.setColorSchemeColors(ResourceUtils.getColorFromAttribute(getActivity(), R.attr.mdColor_primaryPalette));
+    mSwipeRefreshLayout.setOnRefreshListener(() -> refreshContent());
   }
 
   @Override
@@ -104,6 +117,16 @@ public class MainFragment extends BaseFragment implements WifiAdapter.OnClickLis
   }
 
   @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+    switch (item.getItemId()) {
+      case R.id.action_refresh:
+        refreshContent();
+        return true;
+    }
+    return super.onOptionsItemSelected(item);
+  }
+
+  @Override
   public void onWifiAdapterClick(View view, WifiModel data) {
 
   }
@@ -111,6 +134,13 @@ public class MainFragment extends BaseFragment implements WifiAdapter.OnClickLis
   @Override
   public void onWifiAdapterInfoClick(View view, WifiModel data) {
     startActivity(WifiDetailActivity.getIntent(getActivity(), 0));
+  }
+
+  private void refreshContent() {
+    mSwipeRefreshLayout.setRefreshing(true);
+    new Handler().postDelayed(() -> {
+      mSwipeRefreshLayout.setRefreshing(false);
+    }, 2000);
   }
 
 }

@@ -16,25 +16,16 @@
 
 package me.henrytao.sharewifi.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
-
-import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import me.henrytao.sharewifi.R;
-import me.henrytao.sharewifi.model.entity.WifiModel;
-import me.henrytao.sharewifi.service.WifiService;
-import me.henrytao.sharewifi.util.ToastUtils;
-import rx.Observable;
-import rx.Subscription;
 
 /**
  * Created by henrytao on 3/28/15.
@@ -75,9 +66,7 @@ public class MainActivity extends MdDrawerLayoutActivity {
     switch (item.getItemId()) {
       case R.id.action_search:
         startActivity(SearchActivity.getIntent(this));
-        break;
-      case R.id.action_refresh:
-        break;
+        return true;
     }
     return super.onOptionsItemSelected(item);
   }
