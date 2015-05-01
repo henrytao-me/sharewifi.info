@@ -24,17 +24,25 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import me.henrytao.sharewifi.R;
 import me.henrytao.sharewifi.activity.WifiDetailActivity;
 import me.henrytao.sharewifi.adapter.WifiAdapter;
+import me.henrytao.sharewifi.model.entity.WifiModel;
+import me.henrytao.sharewifi.service.WifiService;
+import rx.Subscription;
 
 /**
  * Created by henrytao on 4/12/15.
  */
-public class MainFragment extends BaseFragment {
+public class MainFragment extends BaseFragment implements WifiAdapter.OnClickListener {
+
+  private Subscription mWifiSubscription;
+
+  private List<WifiModel> mList = new ArrayList<>();
 
   @InjectView(R.id.list)
   RecyclerView mRecyclerView;
@@ -57,15 +65,44 @@ public class MainFragment extends BaseFragment {
   public void onViewCreated(View view, Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
 
-    ArrayList<String> data = new ArrayList<>();
-    for (int i = 0; i < 200; i++) {
-      data.add("Wifi " + i);
-    }
-    WifiAdapter adapter = new WifiAdapter(getActivity(), data);
-    adapter.setOnItemClickListener((v, wifiId) -> startActivity(WifiDetailActivity.getIntent(getActivity(), wifiId)));
+    WifiAdapter adapter = new WifiAdapter(getActivity(), mList);
+    adapter.setOnClickListener(this);
     mRecyclerView.setHasFixedSize(true);
     mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     mRecyclerView.setAdapter(adapter);
+  }
+
+  @Override
+  public void onPause() {
+    super.onPause();
+    if (isAdded()) {
+      mWifiSubscription.unsubscribe();
+    }
+  }
+
+  @Override
+  public void onResume() {
+    super.onResume();
+    if (isAdded()) {
+      mWifiSubscription = WifiService.getAvailableWifi(getActivity())
+          .subscribe(list -> {
+            mList.clear();
+            mList.addAll(list);
+            mRecyclerView.getAdapter().notifyDataSetChanged();
+          }, throwable -> {
+
+          });
+    }
+  }
+
+  @Override
+  public void onWifiAdapterClick(View view, WifiModel data) {
+
+  }
+
+  @Override
+  public void onWifiAdapterInfoClick(View view, WifiModel data) {
+    startActivity(WifiDetailActivity.getIntent(getActivity(), 0));
   }
 
 }

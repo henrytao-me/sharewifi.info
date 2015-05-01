@@ -25,21 +25,26 @@
     style="@style/MdList.ThreeLine.AvatarIconWithText.Avatar" />
 
   <TextView
-    android:id="@+id/name"
-    tools:text="CodeLearn Chapter 1"
+    android:id="@+id/item_ssid"
+    tools:text="SSID"
     style="@style/MdList.ThreeLine.AvatarIconWithText.Text.First" />
 
   <TextView
-    android:id="@+id/status"
-    tools:text="No shared password"
+    android:id="@+id/item_name"
+    android:hint="@string/item_wifi_no_name_hint"
+    android:textColorHint="?attr/mdHintTextColor_backgroundPalette"
+    tools:text="location name"
     style="@style/MdList.ThreeLine.AvatarIconWithText.Text.Second" />
 
   <TextView
-    android:id="@+id/desc"
-    tools:text="Description"
+    android:id="@+id/item_address"
+    android:hint="@string/item_wifi_no_address_hint"
+    android:textColorHint="?attr/mdHintTextColor_backgroundPalette"
+    tools:text="location address"
     style="@style/MdList.ThreeLine.AvatarIconWithText.Text.Third" />
 
   <ImageView
+    android:id="@+id/button_info"
     android:background="@drawable/md_ripple_oval"
     android:clickable="true"
     android:src="@drawable/ic_info_inactive"

@@ -22,6 +22,10 @@ import android.content.IntentFilter;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import me.henrytao.sharewifi.model.entity.WifiModel;
 import rx.Observable;
 import rx.android.content.ContentObservable;
 
@@ -30,18 +34,17 @@ import rx.android.content.ContentObservable;
  */
 public class WifiService {
 
-  public static Observable<String> getAvailableWifi(Context context) {
+  public static Observable<List<WifiModel>> getAvailableWifi(Context context) {
     WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
     IntentFilter intentFilter = new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
     Observable<Intent> observable = ContentObservable.fromBroadcast(context, intentFilter);
     wifiManager.startScan();
     return observable.flatMap(intent -> {
-      StringBuilder builder = new StringBuilder();
+      List<WifiModel> res = new ArrayList<>();
       for (ScanResult scanResult : wifiManager.getScanResults()) {
-        builder.append(scanResult.toString());
-        builder.append("\n\n");
+        res.add(new WifiModel(scanResult));
       }
-      return Observable.just(builder.toString());
+      return Observable.just(res);
     });
   }
 }

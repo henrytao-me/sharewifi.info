@@ -23,11 +23,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import me.henrytao.sharewifi.R;
+import me.henrytao.sharewifi.model.entity.WifiModel;
 
 /**
  * Created by henrytao on 4/27/15.
@@ -36,11 +37,11 @@ public class WifiAdapter extends RecyclerView.Adapter<WifiAdapter.ViewHolder> {
 
   private Context mContext;
 
-  private ArrayList<String> mList;
+  private List<WifiModel> mList;
 
-  private OnItemClickListener mOnItemClickListener;
+  private OnClickListener mOnClickListener;
 
-  public WifiAdapter(Context context, ArrayList<String> list) {
+  public WifiAdapter(Context context, List<WifiModel> list) {
     mContext = context;
     mList = list;
   }
@@ -49,9 +50,14 @@ public class WifiAdapter extends RecyclerView.Adapter<WifiAdapter.ViewHolder> {
   public WifiAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
     View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_wifi, parent, false);
     ViewHolder viewHolder = new ViewHolder(view);
-    view.setOnClickListener((v) -> {
-      if (mOnItemClickListener != null) {
-        mOnItemClickListener.onLocationAdapterItemClick(view, viewHolder.mPosition);
+    view.setOnClickListener(v -> {
+      if (mOnClickListener != null) {
+        mOnClickListener.onWifiAdapterClick(view, viewHolder.data);
+      }
+    });
+    viewHolder.mButtonInfo.setOnClickListener(v -> {
+      if (mOnClickListener != null) {
+        mOnClickListener.onWifiAdapterInfoClick(view, viewHolder.data);
       }
     });
     return viewHolder;
@@ -59,10 +65,7 @@ public class WifiAdapter extends RecyclerView.Adapter<WifiAdapter.ViewHolder> {
 
   @Override
   public void onBindViewHolder(WifiAdapter.ViewHolder holder, int position) {
-    holder.setPosition(position);
-    holder.mName.setText(mList.get(position));
-    holder.mStatus.setText("No shared password");
-    holder.mDesc.setText("No description yet");
+    holder.bind(mList.get(position));
   }
 
   @Override
@@ -70,35 +73,43 @@ public class WifiAdapter extends RecyclerView.Adapter<WifiAdapter.ViewHolder> {
     return mList.size();
   }
 
-  public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
-    mOnItemClickListener = onItemClickListener;
+  public void setOnClickListener(OnClickListener onClickListener) {
+    mOnClickListener = onClickListener;
   }
 
-  public interface OnItemClickListener {
+  public interface OnClickListener {
 
-    public void onLocationAdapterItemClick(View view, int position);
+    void onWifiAdapterClick(View view, WifiModel data);
+
+    void onWifiAdapterInfoClick(View view, WifiModel data);
   }
 
   public static class ViewHolder extends RecyclerView.ViewHolder {
 
-    @InjectView(R.id.name)
-    TextView mName;
+    WifiModel data;
 
-    @InjectView(R.id.status)
-    TextView mStatus;
+    @InjectView(R.id.item_ssid)
+    TextView mItemSSID;
 
-    @InjectView(R.id.desc)
-    TextView mDesc;
+    @InjectView(R.id.item_name)
+    TextView mItemName;
 
-    int mPosition;
+    @InjectView(R.id.item_address)
+    TextView mItemAddress;
+
+    @InjectView(R.id.button_info)
+    View mButtonInfo;
 
     public ViewHolder(View view) {
       super(view);
       ButterKnife.inject(this, view);
     }
 
-    private void setPosition(int position) {
-      mPosition = position;
+    public void bind(WifiModel data) {
+      this.data = data;
+      mItemSSID.setText(data.getSSID());
+      mItemName.setText(data.getName());
+      mItemAddress.setText(data.getAddress());
     }
   }
 }

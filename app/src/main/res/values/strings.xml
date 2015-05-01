@@ -30,6 +30,9 @@
 
   <string name="text_search">Search</string>
 
+  <string name="item_wifi_no_name_hint">No name is updated</string>
+  <string name="item_wifi_no_address_hint">No address is updated</string>
+
   <!-- auto generated values -->
 
   <string name="app_name">sharewifi</string>
