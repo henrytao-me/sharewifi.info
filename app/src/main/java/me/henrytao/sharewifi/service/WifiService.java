@@ -17,13 +17,31 @@
 package me.henrytao.sharewifi.service;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.wifi.ScanResult;
+import android.net.wifi.WifiManager;
+
+import rx.Observable;
+import rx.android.content.ContentObservable;
 
 /**
  * Created by henrytao on 4/30/15.
  */
 public class WifiService {
 
-  public WifiService(Context context) {
-    //context.registerReceiver()
+  public static Observable<String> getAvailableWifi(Context context) {
+    WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+    IntentFilter intentFilter = new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
+    Observable<Intent> observable = ContentObservable.fromBroadcast(context, intentFilter);
+    wifiManager.startScan();
+    return observable.flatMap(intent -> {
+      StringBuilder builder = new StringBuilder();
+      for (ScanResult scanResult : wifiManager.getScanResults()) {
+        builder.append(scanResult.toString());
+        builder.append("\n\n");
+      }
+      return Observable.just(builder.toString());
+    });
   }
 }

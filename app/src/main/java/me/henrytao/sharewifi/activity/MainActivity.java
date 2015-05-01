@@ -23,17 +23,24 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import me.henrytao.sharewifi.R;
+import me.henrytao.sharewifi.service.WifiService;
+import me.henrytao.sharewifi.util.ToastUtils;
+import rx.Observable;
+import rx.Subscription;
 
 /**
  * Created by henrytao on 3/28/15.
  */
 public class MainActivity extends MdDrawerLayoutActivity {
+
+  private Subscription wifiSubscription;
 
   @InjectView(R.id.container)
   DrawerLayout mDrawerLayout;
@@ -56,6 +63,8 @@ public class MainActivity extends MdDrawerLayoutActivity {
     setSupportActionBar(mToolbar);
     mToolbar.setNavigationIcon(R.drawable.ic_toolbar_menu_white);
     mToolbar.setNavigationOnClickListener((v) -> openDrawer());
+
+    ToastUtils.showShortToast(this, "onCreate");
   }
 
   @Override
@@ -91,4 +100,28 @@ public class MainActivity extends MdDrawerLayoutActivity {
     return mDrawerView;
   }
 
+  @Override
+  protected void onPause() {
+    super.onPause();
+    ToastUtils.showShortToast(this, "onPause");
+    wifiSubscription.unsubscribe();
+  }
+
+  @Override
+  protected void onResume() {
+    super.onResume();
+    ToastUtils.showShortToast(this, "onResume");
+    wifiSubscription = WifiService.getAvailableWifi(this)
+        .subscribe(value -> {
+          ToastUtils.showShortToast(this, value);
+        }, throwable -> {
+
+        });
+  }
+
+  @Override
+  protected void onDestroy() {
+    super.onDestroy();
+    ToastUtils.showShortToast(this, "onDestroy");
+  }
 }
