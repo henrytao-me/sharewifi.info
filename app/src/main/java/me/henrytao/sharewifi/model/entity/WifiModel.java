@@ -47,11 +47,14 @@ public class WifiModel extends BaseModel<WifiModel> {
   @Column(name = Fields.PASSWORD)
   private String mPasswrod;
 
-  public WifiModel(ScanResult scanResult) {
+  int mSignalLevel;
+
+  public WifiModel(ScanResult scanResult, int signalLevel) {
     mSSID = scanResult.SSID;
     mBSSID = scanResult.BSSID;
     mCapabilities = scanResult.capabilities;
     mFrequency = scanResult.frequency;
+    mSignalLevel = signalLevel;
   }
 
   public String getSSID() {
@@ -108,6 +111,10 @@ public class WifiModel extends BaseModel<WifiModel> {
 
   public void setPasswrod(String passwrod) {
     mPasswrod = passwrod;
+  }
+
+  public int getSignalLevel() {
+    return mSignalLevel;
   }
 
   public interface Fields extends BaseModel.Fields {

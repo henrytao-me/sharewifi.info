@@ -21,7 +21,8 @@
   style="@style/MdList.ThreeLine.AvatarIconWithText">
 
   <ImageView
-    android:src="@drawable/ic_signal_wifi_2_bar_unlock"
+    android:id="@+id/item_signal_level"
+    android:src="@drawable/ic_signal_wifi_0_bar"
     style="@style/MdList.ThreeLine.AvatarIconWithText.Avatar" />
 
   <TextView

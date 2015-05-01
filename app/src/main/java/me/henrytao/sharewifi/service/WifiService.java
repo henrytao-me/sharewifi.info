@@ -34,6 +34,8 @@ import rx.android.content.ContentObservable;
  */
 public class WifiService {
 
+  public final static int SIGNAL_LEVEL = 5; // Level: 0, 1, 2, 3, 4
+
   public static Observable<List<WifiModel>> getAvailableWifi(Context context) {
     WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
     IntentFilter intentFilter = new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
@@ -42,7 +44,7 @@ public class WifiService {
     return observable.flatMap(intent -> {
       List<WifiModel> res = new ArrayList<>();
       for (ScanResult scanResult : wifiManager.getScanResults()) {
-        res.add(new WifiModel(scanResult));
+        res.add(new WifiModel(scanResult, WifiManager.calculateSignalLevel(scanResult.level, SIGNAL_LEVEL)));
       }
       return Observable.just(res);
     });

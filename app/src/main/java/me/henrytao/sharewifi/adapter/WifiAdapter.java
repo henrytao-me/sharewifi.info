@@ -21,6 +21,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -88,6 +89,17 @@ public class WifiAdapter extends RecyclerView.Adapter<WifiAdapter.ViewHolder> {
 
     WifiModel data;
 
+    int[] mSignalLevelRes = {
+        R.drawable.ic_signal_wifi_0_bar_lock,
+        R.drawable.ic_signal_wifi_1_bar_lock,
+        R.drawable.ic_signal_wifi_2_bar_lock,
+        R.drawable.ic_signal_wifi_3_bar_lock,
+        R.drawable.ic_signal_wifi_4_bar_lock
+    };
+
+    @InjectView(R.id.item_signal_level)
+    ImageView mItemSignalLevel;
+
     @InjectView(R.id.item_ssid)
     TextView mItemSSID;
 
@@ -110,6 +122,16 @@ public class WifiAdapter extends RecyclerView.Adapter<WifiAdapter.ViewHolder> {
       mItemSSID.setText(data.getSSID());
       mItemName.setText(data.getName());
       mItemAddress.setText(data.getAddress());
+      renderSignalLevel(data.getSignalLevel());
+    }
+
+    private void renderSignalLevel(int signalLevel) {
+      if (signalLevel < 0) {
+        signalLevel = 0;
+      } else if (signalLevel > mSignalLevelRes.length - 1) {
+        signalLevel = mSignalLevelRes.length - 1;
+      }
+      mItemSignalLevel.setImageResource(mSignalLevelRes[signalLevel]);
     }
   }
 }
