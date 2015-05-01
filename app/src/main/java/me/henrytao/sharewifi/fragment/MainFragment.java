@@ -18,7 +18,6 @@ package me.henrytao.sharewifi.fragment;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +32,7 @@ import me.henrytao.sharewifi.activity.WifiDetailActivity;
 import me.henrytao.sharewifi.adapter.WifiAdapter;
 import me.henrytao.sharewifi.model.entity.WifiModel;
 import me.henrytao.sharewifi.service.WifiService;
+import me.henrytao.sharewifi.widget.RecycleEmptyErrorView;
 import rx.Subscription;
 
 /**
@@ -45,7 +45,13 @@ public class MainFragment extends BaseFragment implements WifiAdapter.OnClickLis
   private List<WifiModel> mList = new ArrayList<>();
 
   @InjectView(R.id.list)
-  RecyclerView mRecyclerView;
+  RecycleEmptyErrorView mRecyclerView;
+
+  @InjectView(R.id.empty_view)
+  View mEmptyView;
+
+  @InjectView(R.id.error_view)
+  View mErrorView;
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -70,6 +76,8 @@ public class MainFragment extends BaseFragment implements WifiAdapter.OnClickLis
     mRecyclerView.setHasFixedSize(true);
     mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     mRecyclerView.setAdapter(adapter);
+    mRecyclerView.setEmptyView(mEmptyView);
+    mRecyclerView.setErrorView(mErrorView);
   }
 
   @Override
