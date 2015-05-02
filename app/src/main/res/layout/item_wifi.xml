@@ -21,18 +21,18 @@
   style="@style/MdList.ThreeLine.AvatarIconWithText">
 
   <ImageView
-    android:id="@+id/item_signal_level"
+    android:id="@+id/signal_level"
     android:src="@drawable/ic_signal_wifi_0_bar"
     style="@style/MdList.ThreeLine.AvatarIconWithText.Avatar" />
 
   <TextView
-    android:id="@+id/item_ssid"
+    android:id="@+id/ssid"
     tools:text="SSID"
     style="@style/MdList.ThreeLine.AvatarIconWithText.Text.First" />
 
   <TextView
-    android:id="@+id/item_is_connected"
-    android:layout_alignBaseline="@+id/item_name"
+    android:id="@+id/connected_state"
+    android:layout_alignBaseline="@+id/name"
     android:layout_alignParentLeft="true"
     android:layout_marginLeft="?attr/mdLayout_contentAssociatedWithIconOrAvatarLeftMargin"
     android:textColor="?attr/mdColor_primaryPalette"
@@ -40,8 +40,8 @@
     style="@style/MdText.Body1" />
 
   <TextView
-    android:id="@+id/item_name"
-    android:layout_toRightOf="@+id/item_is_connected"
+    android:id="@+id/name"
+    android:layout_toRightOf="@+id/connected_state"
     android:hint="@string/item_wifi_no_name_hint"
     android:paddingLeft="0dp"
     android:textColorHint="?attr/mdHintTextColor_backgroundPalette"
@@ -49,7 +49,7 @@
     style="@style/MdList.ThreeLine.AvatarIconWithText.Text.Second" />
 
   <TextView
-    android:id="@+id/item_address"
+    android:id="@+id/address"
     android:hint="@string/item_wifi_no_address_hint"
     android:textColorHint="?attr/mdHintTextColor_backgroundPalette"
     tools:text="location address"

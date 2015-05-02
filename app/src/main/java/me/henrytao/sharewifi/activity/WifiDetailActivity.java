@@ -29,10 +29,8 @@ import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import me.henrytao.sharewifi.R;
-import me.henrytao.sharewifi.fragment.WifiDetailFragment;
 import me.henrytao.sharewifi.fragment.WifiDetailFragment.WifiDetailInterface;
 import me.henrytao.sharewifi.model.entity.WifiModel;
-import me.henrytao.sharewifi.util.ToastUtils;
 
 public class WifiDetailActivity extends MdToolbarActivity implements WifiDetailInterface {
 
@@ -50,8 +48,8 @@ public class WifiDetailActivity extends MdToolbarActivity implements WifiDetailI
 
   private WifiModel mWifi = new WifiModel();
 
-  @InjectView(R.id.item_ssid)
-  TextView mItemSSID;
+  @InjectView(R.id.ssid)
+  TextView mViewSSID;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +81,7 @@ public class WifiDetailActivity extends MdToolbarActivity implements WifiDetailI
   }
 
   @Override
-  protected int getToolbarContentLayout() {
+  protected int getToolbarContentLayoutId() {
     return R.layout.view_toolbar_wifi_detail;
   }
 
@@ -95,7 +93,7 @@ public class WifiDetailActivity extends MdToolbarActivity implements WifiDetailI
   @Override
   public void setSSID(String SSID) {
     if (!TextUtils.isEmpty(SSID)) {
-      mItemSSID.setText(SSID);
+      mViewSSID.setText(SSID);
     }
   }
 }
