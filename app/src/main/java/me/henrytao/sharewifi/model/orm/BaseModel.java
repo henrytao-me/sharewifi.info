@@ -16,11 +16,17 @@
 
 package me.henrytao.sharewifi.model.orm;
 
+import com.google.gson.Gson;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -89,6 +95,18 @@ public abstract class BaseModel<T extends BaseModel> {
       }
     }
     return (T) this;
+  }
+
+  public T deserialize(String json) throws IllegalAccessException, JSONException {
+    Map<String, Object> map = new HashMap<>();
+    JSONObject jsonObject = new JSONObject(json);
+    Iterator<?> keys = jsonObject.keys();
+    while (keys.hasNext()) {
+      String key = (String) keys.next();
+      String value = jsonObject.getString(key);
+      map.put(key, value);
+    }
+    return deserialize(map);
   }
 
   public Map<String, Object> serialize() throws IllegalAccessException {

@@ -16,27 +16,42 @@
 
 package me.henrytao.sharewifi.activity;
 
+import org.json.JSONException;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import butterknife.ButterKnife;
+import butterknife.InjectView;
 import me.henrytao.sharewifi.R;
+import me.henrytao.sharewifi.fragment.WifiDetailFragment;
+import me.henrytao.sharewifi.fragment.WifiDetailFragment.WifiDetailInterface;
+import me.henrytao.sharewifi.model.entity.WifiModel;
 import me.henrytao.sharewifi.util.ToastUtils;
 
-public class WifiDetailActivity extends MdToolbarActivity {
+public class WifiDetailActivity extends MdToolbarActivity implements WifiDetailInterface {
 
-  private static String WIFI_ID = "WIFI_ID";
+  private static String WIFI_MODEL = "WIFI_MODEL";
 
-  public static Intent getIntent(Context context, int wifiId) {
+  public static Intent getIntent(Context context, WifiModel wifi) {
     Intent intent = new Intent(context, WifiDetailActivity.class);
-    intent.putExtra(WIFI_ID, wifiId);
+    try {
+      intent.putExtra(WIFI_MODEL, wifi.serialize().toString());
+    } catch (IllegalAccessException e) {
+      e.printStackTrace();
+    }
     return intent;
   }
 
-  private int mWifiId;
+  private WifiModel mWifi = new WifiModel();
+
+  @InjectView(R.id.item_ssid)
+  TextView mItemSSID;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +59,13 @@ public class WifiDetailActivity extends MdToolbarActivity {
     setContentView(R.layout.activity_wifi_detail);
     ButterKnife.inject(this);
 
-    mWifiId = getIntent().getIntExtra(WIFI_ID, -1);
-    ToastUtils.showShortToast(this, Integer.toString(mWifiId));
+    try {
+      mWifi.deserialize(getIntent().getStringExtra(WIFI_MODEL));
+    } catch (IllegalAccessException e) {
+      e.printStackTrace();
+    } catch (JSONException e) {
+      e.printStackTrace();
+    }
   }
 
   @Override
@@ -65,5 +85,17 @@ public class WifiDetailActivity extends MdToolbarActivity {
   @Override
   protected int getToolbarContentLayout() {
     return R.layout.view_toolbar_wifi_detail;
+  }
+
+  @Override
+  public WifiModel getWifi() {
+    return mWifi;
+  }
+
+  @Override
+  public void setSSID(String SSID) {
+    if (!TextUtils.isEmpty(SSID)) {
+      mItemSSID.setText(SSID);
+    }
   }
 }

@@ -23,11 +23,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import me.henrytao.sharewifi.R;
+import me.henrytao.sharewifi.model.entity.WifiModel;
 
 /**
  * A placeholder fragment containing a simple view.
  */
 public class WifiDetailFragment extends Fragment {
+
+  WifiModel mWifi;
 
   public WifiDetailFragment() {
   }
@@ -36,5 +39,24 @@ public class WifiDetailFragment extends Fragment {
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
     return inflater.inflate(R.layout.fragment_wifi_detail, container, false);
+  }
+
+  @Override
+  public void onViewCreated(View view, Bundle savedInstanceState) {
+    super.onViewCreated(view, savedInstanceState);
+    if (getActivity() instanceof WifiDetailInterface) {
+      WifiDetailInterface wifiDetailInterface = (WifiDetailInterface) getActivity();
+      mWifi = wifiDetailInterface.getWifi();
+      if (mWifi != null) {
+        wifiDetailInterface.setSSID(mWifi.getSSID());
+      }
+    }
+  }
+
+  public interface WifiDetailInterface {
+
+    WifiModel getWifi();
+
+    void setSSID(String SSID);
   }
 }

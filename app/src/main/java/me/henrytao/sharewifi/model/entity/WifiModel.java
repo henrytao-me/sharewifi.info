@@ -56,6 +56,9 @@ public class WifiModel extends BaseModel<WifiModel> {
 
   int mSignalLevel;
 
+  public WifiModel() {
+  }
+
   public WifiModel(String SSID, String BSSID, String capabilities, int frequency, int RSSI, String macAddress) {
     mSSID = SSID;
     mBSSID = BSSID;

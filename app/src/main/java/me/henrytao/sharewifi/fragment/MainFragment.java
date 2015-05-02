@@ -135,7 +135,7 @@ public class MainFragment extends BaseFragment implements WifiAdapter.OnClickLis
 
   @Override
   public void onWifiAdapterInfoClick(View view, WifiModel data) {
-    startActivity(WifiDetailActivity.getIntent(getActivity(), 0));
+    startActivity(WifiDetailActivity.getIntent(getActivity(), data));
   }
 
   private void refreshContent() {
