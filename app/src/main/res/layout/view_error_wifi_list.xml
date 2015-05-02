@@ -14,11 +14,29 @@
   ~ limitations under the License.
   -->
 
-<merge xmlns:android="http://schemas.android.com/apk/res/android">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:orientation="vertical"
+  android:gravity="center"
+  android:paddingBottom="?attr/mdLayout_spacing"
+  android:paddingLeft="?attr/mdLayout_spacing"
+  android:paddingRight="?attr/mdLayout_spacing"
+  android:paddingTop="?attr/mdLayout_spacing">
+
+  <ImageView
+    android:layout_width="72dp"
+    android:layout_height="72dp"
+    android:layout_marginBottom="?attr/mdLayout_spacing_sm"
+    android:src="@drawable/ic_signal_wifi_statusbar_connected_no_internet_inactive" />
 
   <TextView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="This is error view" />
+    android:gravity="top|center_horizontal"
+    android:minHeight="88dp"
+    android:text="@string/text_some_error_occurred"
+    android:textColor="?attr/mdHintTextColor_backgroundPalette"
+    android:textSize="?attr/mdFontSize_subhead" />
 
-</merge>
+</LinearLayout>
