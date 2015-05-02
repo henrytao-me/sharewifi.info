@@ -25,17 +25,21 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import me.henrytao.sharewifi.R;
 import me.henrytao.sharewifi.activity.WifiDetailActivity;
 import me.henrytao.sharewifi.adapter.WifiAdapter;
+import me.henrytao.sharewifi.model.entity.WifiModel;
 
 /**
  * A placeholder fragment containing a simple view.
  */
 public class SearchFragment extends Fragment {
+
+  List<WifiModel> mList = new ArrayList<>();
 
   @InjectView(R.id.list)
   RecyclerView mRecyclerView;
@@ -61,12 +65,7 @@ public class SearchFragment extends Fragment {
   public void onViewCreated(View view, Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
 
-    ArrayList<String> data = new ArrayList<>();
-    for (int i = 0; i < 50; i++) {
-      data.add("Wifi " + i);
-    }
-    WifiAdapter adapter = new WifiAdapter(getActivity(), data);
-    adapter.setOnItemClickListener((v, wifiId) -> startActivity(WifiDetailActivity.getIntent(getActivity(), wifiId)));
+    WifiAdapter adapter = new WifiAdapter(getActivity(), mList);
     mRecyclerView.setHasFixedSize(true);
     mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     mRecyclerView.setAdapter(adapter);

@@ -16,31 +16,24 @@
 
 package me.henrytao.sharewifi.model.entity;
 
-import com.google.gson.Gson;
-
 import java.util.Date;
 
-import me.henrytao.sharewifi.model.orm.BaseEntity;
+import me.henrytao.sharewifi.model.orm.BaseModel;
 import me.henrytao.sharewifi.model.orm.Column;
 
 /**
  * Created by henrytao on 3/31/15.
  */
-public class User extends BaseEntity<User> {
+public class UserModel extends BaseModel<UserModel> {
 
-  private static Gson GSON = new Gson();
-
-  @Column(name = Fields.NAME)
+  @Column(name = UserModel.Fields.NAME)
   private String mName;
 
-  @Column(name = Fields.AGE)
+  @Column(name = UserModel.Fields.AGE)
   private int mAge;
 
-  @Column(name = Fields.CREATED_AT)
+  @Column(name = UserModel.Fields.CREATED_AT)
   private Date mCreateAt;
-
-  public User() {
-  }
 
   public String getName() {
     return mName;
@@ -66,7 +59,7 @@ public class User extends BaseEntity<User> {
     mCreateAt = createAt;
   }
 
-  public interface Fields extends BaseEntityColumns {
+  public interface Fields extends BaseModel.Fields {
 
     final String NAME = "name";
 

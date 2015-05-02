@@ -27,7 +27,7 @@ import java.util.Map;
 /**
  * Created by henrytao on 3/31/15.
  */
-public abstract class BaseEntity<T extends BaseEntity> {
+public abstract class BaseModel<T extends BaseModel> {
 
   private static final Map<Class, Deserializer> deserializerMap;
 
@@ -41,7 +41,7 @@ public abstract class BaseEntity<T extends BaseEntity> {
     serializerMap.put(Date.class, new DateAdapter());
   }
 
-  @Column(name = BaseEntityColumns.ID)
+  @Column(name = Fields.ID)
   protected String mId;
 
   public String getId() {
@@ -118,7 +118,7 @@ public abstract class BaseEntity<T extends BaseEntity> {
     return map;
   }
 
-  public interface BaseEntityColumns {
+  public interface Fields {
 
     final String ID = "id";
   }

@@ -28,7 +28,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import me.henrytao.sharewifi.model.entity.User;
+import me.henrytao.sharewifi.model.entity.UserModel;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
@@ -78,12 +78,12 @@ public class GsonTest {
   public void user() throws IllegalAccessException {
     Date now = new Date();
     Map<String, Object> data = new HashMap<>();
-    data.put(User.Fields.ID, "222");
-    data.put(User.Fields.NAME, "henrytao");
-    data.put(User.Fields.AGE, 25);
-    data.put(User.Fields.CREATED_AT, now.getTime());
+    data.put(UserModel.Fields.ID, "222");
+    data.put(UserModel.Fields.NAME, "henrytao");
+    data.put(UserModel.Fields.AGE, 25);
+    data.put(UserModel.Fields.CREATED_AT, now.getTime());
 
-    User user = new User();
+    UserModel user = new UserModel();
     user.deserialize(data);
 
     assertThat(user.getId(), equalTo("222"));
@@ -92,10 +92,10 @@ public class GsonTest {
     assertThat(user.getCreateAt().getTime(), equalTo(now.getTime()));
 
     Map<String, Object> newData = user.serialize();
-    assertThat(newData.get(User.Fields.ID), equalTo(data.get(User.Fields.ID)));
-    assertThat(newData.get(User.Fields.NAME), equalTo(data.get(User.Fields.NAME)));
-    assertThat(newData.get(User.Fields.AGE), equalTo(data.get(User.Fields.AGE)));
-    assertThat(newData.get(User.Fields.CREATED_AT), equalTo(data.get(User.Fields.CREATED_AT)));
+    assertThat(newData.get(UserModel.Fields.ID), equalTo(data.get(UserModel.Fields.ID)));
+    assertThat(newData.get(UserModel.Fields.NAME), equalTo(data.get(UserModel.Fields.NAME)));
+    assertThat(newData.get(UserModel.Fields.AGE), equalTo(data.get(UserModel.Fields.AGE)));
+    assertThat(newData.get(UserModel.Fields.CREATED_AT), equalTo(data.get(UserModel.Fields.CREATED_AT)));
   }
 
   static class Cat {

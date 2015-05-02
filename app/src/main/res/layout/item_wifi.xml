@@ -21,25 +21,42 @@
   style="@style/MdList.ThreeLine.AvatarIconWithText">
 
   <ImageView
-    android:src="@drawable/ic_signal_wifi_2_bar_unlock"
+    android:id="@+id/item_signal_level"
+    android:src="@drawable/ic_signal_wifi_0_bar"
     style="@style/MdList.ThreeLine.AvatarIconWithText.Avatar" />
 
   <TextView
-    android:id="@+id/name"
-    tools:text="CodeLearn Chapter 1"
+    android:id="@+id/item_ssid"
+    tools:text="SSID"
     style="@style/MdList.ThreeLine.AvatarIconWithText.Text.First" />
 
   <TextView
-    android:id="@+id/status"
-    tools:text="No shared password"
+    android:id="@+id/item_is_connected"
+    android:layout_alignBaseline="@+id/item_name"
+    android:layout_alignParentLeft="true"
+    android:layout_marginLeft="?attr/mdLayout_contentAssociatedWithIconOrAvatarLeftMargin"
+    android:textColor="?attr/mdColor_primaryPalette"
+    tools:text="@string/item_wifi_is_connected"
+    style="@style/MdText.Body1" />
+
+  <TextView
+    android:id="@+id/item_name"
+    android:layout_toRightOf="@+id/item_is_connected"
+    android:hint="@string/item_wifi_no_name_hint"
+    android:paddingLeft="0dp"
+    android:textColorHint="?attr/mdHintTextColor_backgroundPalette"
+    tools:text="location name"
     style="@style/MdList.ThreeLine.AvatarIconWithText.Text.Second" />
 
   <TextView
-    android:id="@+id/desc"
-    tools:text="Description"
+    android:id="@+id/item_address"
+    android:hint="@string/item_wifi_no_address_hint"
+    android:textColorHint="?attr/mdHintTextColor_backgroundPalette"
+    tools:text="location address"
     style="@style/MdList.ThreeLine.AvatarIconWithText.Text.Third" />
 
   <ImageView
+    android:id="@+id/button_info"
     android:background="@drawable/md_ripple_oval"
     android:clickable="true"
     android:src="@drawable/ic_info_inactive"
