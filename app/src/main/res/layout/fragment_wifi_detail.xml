@@ -27,6 +27,40 @@
     android:paddingTop="?attr/mdLayout_spacing_sm">
 
     <RelativeLayout
+      android:layout_height="72dp"
+      style="@style/MdList.SingleLine.AvatarWithText">
+      <ImageView
+        android:id="@+id/item_status_icon"
+        android:src="@drawable/ic_signal_wifi_3_bar_lock"
+        style="@style/MdList.SingleLine.AvatarWithText.Avatar" />
+      <TextView
+        android:id="@+id/item_status_text"
+        android:layout_toLeftOf="@+id/button_container"
+        android:textColor="?attr/mdColor_primaryPalette"
+        tools:text="Connected"
+        style="@style/MdList.SingleLine.AvatarWithText.Text" />
+      <RelativeLayout
+        android:id="@+id/button_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="?attr/mdLayout_spacing">
+        <Button
+          android:id="@+id/button_connect"
+          android:text="@string/text_connect"
+          style="@style/MdButton.Primary" />
+        <Button
+          android:id="@+id/button_disconnect"
+          android:text="@string/text_disconnect"
+          android:visibility="gone"
+          style="@style/MdButton.BackgroundDark" />
+      </RelativeLayout>
+    </RelativeLayout>
+
+    <View style="@style/MdDivider" />
+
+    <RelativeLayout
       android:layout_height="wrap_content"
       android:minHeight="56dp"
       style="@style/MdList.SingleLine.AvatarIconWithText">
@@ -34,13 +68,13 @@
         android:src="@drawable/ic_location_on"
         style="@style/MdList.SingleLine.AvatarIconWithText.Avatar" />
       <ImageView
-        android:id="@+id/info_name"
+        android:id="@+id/edit_name"
         android:background="@drawable/md_ripple_oval"
         android:clickable="true"
         android:src="@drawable/ic_edit_inactive"
         style="@style/MdList.SingleLine.AvatarIconWithText.Icon" />
       <TextView
-        android:layout_toLeftOf="@+id/info_name"
+        android:id="@+id/item_name"
         android:minHeight="56dp"
         android:paddingBottom="?attr/mdLayout_spacing"
         android:paddingTop="?attr/mdLayout_spacing"
@@ -58,13 +92,13 @@
       android:minHeight="56dp"
       style="@style/MdList.SingleLine.AvatarIconWithText">
       <ImageView
-        android:id="@+id/info_address"
+        android:id="@+id/edit_address"
         android:background="@drawable/md_ripple_oval"
         android:clickable="true"
         android:src="@drawable/ic_edit_inactive"
         style="@style/MdList.SingleLine.AvatarIconWithText.Icon" />
       <TextView
-        android:layout_toLeftOf="@+id/info_address"
+        android:id="@+id/item_address"
         android:minHeight="56dp"
         android:paddingBottom="?attr/mdLayout_spacing"
         android:paddingTop="?attr/mdLayout_spacing"
@@ -75,24 +109,46 @@
 
     <View style="@style/MdDivider" />
 
-    <RelativeLayout style="@style/MdList.ThreeLine.AvatarIconWithText">
+    <RelativeLayout
+      android:layout_height="wrap_content"
+      android:minHeight="72dp"
+      android:paddingBottom="?attr/mdLayout_spacing"
+      style="@style/MdList.ThreeLine.AvatarIconWithText">
       <ImageView
         android:src="@drawable/ic_lock"
         style="@style/MdList.ThreeLine.AvatarIconWithText.Avatar" />
       <ImageView
-        android:id="@+id/info_password"
+        android:id="@+id/edit_password"
         android:background="@drawable/md_ripple_oval"
         android:clickable="true"
         android:src="@drawable/ic_edit_inactive"
         style="@style/MdList.ThreeLine.AvatarIconWithText.Icon" />
       <TextView
-        android:layout_toLeftOf="@+id/info_password"
+        android:id="@+id/item_password"
+        android:layout_height="wrap_content"
+        android:paddingTop="?attr/mdLayout_spacing"
         android:text="123456789"
         style="@style/MdList.ThreeLine.AvatarIconWithText.Text.First" />
       <TextView
-        android:layout_toLeftOf="@+id/info_password"
-        android:text="last connect successful / password expired"
-        style="@style/MdList.ThreeLine.AvatarIconWithText.Text.Second.MultipleLine" />
+        android:id="@+id/item_password_status"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/item_password"
+        android:layout_marginTop="?attr/mdLayout_spacing_xs"
+        android:text="last connect successful"
+        android:textColor="?attr/mdSecondaryTextColor_backgroundPalette"
+        style="@style/MdList.ThreeLine.AvatarIconWithText.Text.Second" />
+      <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/item_password_status"
+        android:layout_marginLeft="?attr/mdLayout_contentAssociatedWithIconOrAvatarLeftMargin"
+        android:layout_marginTop="?attr/mdLayout_spacing_xs">
+        <Button
+          android:id="@+id/button_report_password"
+          android:layout_marginLeft="-4dp"
+          android:text="@string/text_report_password"
+          style="@style/MdButton.BackgroundDark" />
+      </RelativeLayout>
     </RelativeLayout>
 
     <View style="@style/MdDivider" />
