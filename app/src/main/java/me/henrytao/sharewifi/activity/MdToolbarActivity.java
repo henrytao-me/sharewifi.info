@@ -28,7 +28,7 @@ import me.henrytao.sharewifi.util.ResourceUtils;
  */
 public class MdToolbarActivity extends BaseActivity {
 
-  protected Toolbar mToolbar;
+  protected Toolbar mViewToolbar;
 
   @Override
   public void setContentView(int layoutResID) {
@@ -49,24 +49,24 @@ public class MdToolbarActivity extends BaseActivity {
   }
 
   private void initToolbar() {
-    if (getToolbarId() > 0) {
-      mToolbar = (Toolbar) findViewById(getToolbarId());
-      setSupportActionBar(mToolbar);
+    if (getToolbarViewId() > 0) {
+      mViewToolbar = (Toolbar) findViewById(getToolbarViewId());
+      setSupportActionBar(mViewToolbar);
       if (R.attr.appIcon_toolbarArrowBack > 0) {
-        mToolbar.setNavigationIcon(ResourceUtils.getDrawableIdFromAttribute(this, R.attr.appIcon_toolbarArrowBack));
+        mViewToolbar.setNavigationIcon(ResourceUtils.getDrawableIdFromAttribute(this, R.attr.appIcon_toolbarArrowBack));
       }
-      mToolbar.setNavigationOnClickListener((v) -> onNavigationClicked(v));
-      if (getToolbarContentLayout() > 0) {
-        mToolbar.addView(getLayoutInflater().inflate(getToolbarContentLayout(), mToolbar, false));
+      mViewToolbar.setNavigationOnClickListener((v) -> onNavigationClicked(v));
+      if (getToolbarContentLayoutId() > 0) {
+        mViewToolbar.addView(getLayoutInflater().inflate(getToolbarContentLayoutId(), mViewToolbar, false));
       }
     }
   }
 
-  protected int getToolbarId() {
+  protected int getToolbarViewId() {
     return R.id.md_toolbar;
   }
 
-  protected int getToolbarContentLayout() {
+  protected int getToolbarContentLayoutId() {
     return 0;
   }
 

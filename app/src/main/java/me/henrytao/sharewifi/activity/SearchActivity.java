@@ -65,7 +65,7 @@ public class SearchActivity extends MdToolbarActivity {
   }
 
   @Override
-  protected int getToolbarContentLayout() {
+  protected int getToolbarContentLayoutId() {
     return R.layout.view_toolbar_search;
   }
 

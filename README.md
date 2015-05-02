@@ -9,5 +9,5 @@ sharewifi.info [![Build Status](https://api.shippable.com/projects/551732065ab6c
 
 - All the view which will be injected into `Activity` / `Fragment` / `Adapter` should have a prefix. It's recommended to use `view` as a standard prefix. Ex: `mViewUser`, `mViewPassword`, `mButtonReset`, `mButtonOK`
 
-
+- There are some exceptions depending on the meaning but usually they fix with suffix `Layout` or `View`. Ex: `mSwipeRefreshLayout`, `mErrorView`, `mEmptyView`
 
