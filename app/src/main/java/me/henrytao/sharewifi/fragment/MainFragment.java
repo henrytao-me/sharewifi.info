@@ -120,7 +120,9 @@ public class MainFragment extends BaseFragment implements WifiAdapter.OnClickLis
   public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()) {
       case R.id.action_refresh:
-        refreshContent();
+        if (!mSwipeRefreshLayout.isRefreshing()) {
+          refreshContent();
+        }
         return true;
     }
     return super.onOptionsItemSelected(item);
