@@ -20,7 +20,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.wifi.ScanResult;
+import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.text.TextUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,19 +36,37 @@ import rx.android.content.ContentObservable;
  */
 public class WifiService {
 
-  public final static int SIGNAL_LEVEL = 5; // Level: 0, 1, 2, 3, 4
-
   public static Observable<List<WifiModel>> getAvailableWifi(Context context) {
     WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
-    IntentFilter intentFilter = new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
+    IntentFilter intentFilter = new IntentFilter();
+    intentFilter.addAction(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
+    intentFilter.addAction(WifiManager.RSSI_CHANGED_ACTION);
+    intentFilter.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
     Observable<Intent> observable = ContentObservable.fromBroadcast(context, intentFilter);
     wifiManager.startScan();
     return observable.flatMap(intent -> {
       List<WifiModel> res = new ArrayList<>();
       for (ScanResult scanResult : wifiManager.getScanResults()) {
-        res.add(new WifiModel(scanResult, WifiManager.calculateSignalLevel(scanResult.level, SIGNAL_LEVEL)));
+        res.add(new WifiModel(scanResult));
       }
       return Observable.just(res);
     });
+  }
+
+  public static WifiModel getCurrentWifi(Context context) {
+    WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+    WifiInfo wifiInfo = wifiManager != null ? wifiManager.getConnectionInfo() : null;
+    if (wifiInfo != null) {
+      return new WifiModel(wifiInfo);
+    }
+    return null;
+  }
+
+  public static boolean isCurrentWifi(Context context, WifiModel wifiModel) {
+    WifiModel currentWifi = getCurrentWifi(context);
+    return currentWifi != null &&
+        wifiModel != null &&
+        TextUtils.equals(currentWifi.getSSID(), wifiModel.getSSID()) &&
+        TextUtils.equals(currentWifi.getBSSID(), wifiModel.getBSSID());
   }
 }

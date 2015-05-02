@@ -17,6 +17,8 @@
 package me.henrytao.sharewifi.model.entity;
 
 import android.net.wifi.ScanResult;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 
 import me.henrytao.sharewifi.model.orm.BaseModel;
 import me.henrytao.sharewifi.model.orm.Column;
@@ -25,6 +27,8 @@ import me.henrytao.sharewifi.model.orm.Column;
  * Created by henrytao on 5/1/15.
  */
 public class WifiModel extends BaseModel<WifiModel> {
+
+  public final static int SIGNAL_LEVEL = 5; // Level: 0, 1, 2, 3, 4
 
   @Column(name = Fields.SSID)
   private String mSSID;
@@ -38,6 +42,9 @@ public class WifiModel extends BaseModel<WifiModel> {
   @Column(name = Fields.FREQUENCY)
   private int mFrequency;
 
+  @Column(name = Fields.MAC_ADDRESS)
+  private String mMacAddress;
+
   @Column(name = Fields.NAME)
   private String mName;
 
@@ -49,44 +56,30 @@ public class WifiModel extends BaseModel<WifiModel> {
 
   int mSignalLevel;
 
-  public WifiModel(ScanResult scanResult, int signalLevel) {
-    mSSID = scanResult.SSID;
-    mBSSID = scanResult.BSSID;
-    mCapabilities = scanResult.capabilities;
-    mFrequency = scanResult.frequency;
-    mSignalLevel = signalLevel;
+  public WifiModel(String SSID, String BSSID, String capabilities, int frequency, int RSSI, String macAddress) {
+    mSSID = SSID;
+    mBSSID = BSSID;
+    mCapabilities = capabilities;
+    mFrequency = frequency;
+    mMacAddress = macAddress;
+    mSignalLevel = WifiManager.calculateSignalLevel(RSSI, SIGNAL_LEVEL);
+  }
+
+  public WifiModel(ScanResult scanResult) {
+    this(scanResult.SSID, scanResult.BSSID, scanResult.capabilities, scanResult.frequency, scanResult.level, null);
+  }
+
+  public WifiModel(WifiInfo wifiInfo) {
+    this(wifiInfo.getSSID().replaceFirst("^\"", "").replaceFirst("\"$", ""),
+        wifiInfo.getBSSID(), null, 0, wifiInfo.getRssi(), wifiInfo.getMacAddress());
   }
 
   public String getSSID() {
     return mSSID;
   }
 
-  public void setSSID(String SSID) {
-    mSSID = SSID;
-  }
-
   public String getBSSID() {
     return mBSSID;
-  }
-
-  public void setBSSID(String BSSID) {
-    mBSSID = BSSID;
-  }
-
-  public String getCapabilities() {
-    return mCapabilities;
-  }
-
-  public void setCapabilities(String capabilities) {
-    mCapabilities = capabilities;
-  }
-
-  public int getFrequency() {
-    return mFrequency;
-  }
-
-  public void setFrequency(int frequency) {
-    mFrequency = frequency;
   }
 
   public String getName() {
@@ -126,6 +119,8 @@ public class WifiModel extends BaseModel<WifiModel> {
     final String CAPABILITIES = "capabilities";
 
     final String FREQUENCY = "frequency";
+
+    final String MAC_ADDRESS = "mac_address";
 
     final String NAME = "name";
 
