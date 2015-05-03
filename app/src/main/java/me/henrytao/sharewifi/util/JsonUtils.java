@@ -16,6 +16,8 @@
 
 package me.henrytao.sharewifi.util;
 
+import com.orhanobut.logger.Logger;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -40,7 +42,7 @@ public class JsonUtils {
       }
       return map;
     } catch (JSONException e) {
-      e.printStackTrace();
+      Logger.e(JsonUtils.class.getName(), jsonString, e);
     }
     return null;
   }

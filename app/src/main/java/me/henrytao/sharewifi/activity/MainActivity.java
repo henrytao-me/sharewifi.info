@@ -26,6 +26,7 @@ import android.view.View;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import me.henrytao.sharewifi.R;
+import me.henrytao.sharewifi.util.JsonUtils;
 
 /**
  * Created by henrytao on 3/28/15.
