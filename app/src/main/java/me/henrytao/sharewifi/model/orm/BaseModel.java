@@ -54,7 +54,7 @@ public abstract class BaseModel<T extends BaseModel> {
     return mId;
   }
 
-  private Field[] getDeclaredFields() {
+  public Field[] getDeclaredFields() {
     List<Field> fields = new ArrayList<Field>();
     fields.addAll(Arrays.asList(getClass().getDeclaredFields()));
     fields.addAll(Arrays.asList(getClass().getSuperclass().getDeclaredFields()));

@@ -14,30 +14,25 @@
  * limitations under the License.
  */
 
-package me.henrytao.sharewifi.experiment;
+package me.henrytao.sharewifi.model.orm;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
-import rx.Observable;
-
-import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertThat;
-
 /**
- * Created by henrytao on 3/29/15.
+ * Created by henrytao on 5/3/15.
  */
 @RunWith(RobolectricTestRunner.class)
 @Config(manifest = Config.NONE)
-public class SampleTest {
+public class BaseModelTest {
 
   @Test
-  public void test() throws Exception {
-    Observable.just("Hello moto")
-        .subscribe((x) -> System.out.println(x));
-    assertThat(10, equalTo(10));
+  public void getDeclaredFields() {
+    TestModel model = new TestModel();
+    model.getDeclaredFields();
+    //assertThat(model.getDeclaredFields(), equalTo());
   }
 
 }
