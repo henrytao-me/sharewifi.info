@@ -31,7 +31,7 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import me.henrytao.sharewifi.R;
 import me.henrytao.sharewifi.adapter.WifiAdapter;
-import me.henrytao.sharewifi.model.entity.WifiModel;
+import me.henrytao.sharewifi.model.WifiModel;
 
 /**
  * A placeholder fragment containing a simple view.

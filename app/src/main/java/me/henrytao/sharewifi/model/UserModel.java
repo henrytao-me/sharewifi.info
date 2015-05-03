@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package me.henrytao.sharewifi.model.entity;
+package me.henrytao.sharewifi.model;
 
 import java.util.Date;
 

@@ -33,7 +33,7 @@ import butterknife.InjectView;
 import me.henrytao.sharewifi.R;
 import me.henrytao.sharewifi.activity.WifiDetailActivity;
 import me.henrytao.sharewifi.adapter.WifiAdapter;
-import me.henrytao.sharewifi.model.entity.WifiModel;
+import me.henrytao.sharewifi.model.WifiModel;
 import me.henrytao.sharewifi.service.WifiService;
 import me.henrytao.sharewifi.util.ResourceUtils;
 import me.henrytao.sharewifi.widget.RecycleEmptyErrorView;

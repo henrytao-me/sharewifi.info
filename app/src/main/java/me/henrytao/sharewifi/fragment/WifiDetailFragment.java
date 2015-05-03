@@ -23,7 +23,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import me.henrytao.sharewifi.R;
-import me.henrytao.sharewifi.model.entity.WifiModel;
+import me.henrytao.sharewifi.model.WifiModel;
 
 /**
  * A placeholder fragment containing a simple view.

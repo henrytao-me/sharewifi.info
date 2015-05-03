@@ -27,7 +27,7 @@ import android.text.TextUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.henrytao.sharewifi.model.entity.WifiModel;
+import me.henrytao.sharewifi.model.WifiModel;
 import rx.Observable;
 import rx.android.content.ContentObservable;
 

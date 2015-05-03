@@ -29,7 +29,7 @@ import java.util.List;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import me.henrytao.sharewifi.R;
-import me.henrytao.sharewifi.model.entity.WifiModel;
+import me.henrytao.sharewifi.model.WifiModel;
 import me.henrytao.sharewifi.service.WifiService;
 
 /**

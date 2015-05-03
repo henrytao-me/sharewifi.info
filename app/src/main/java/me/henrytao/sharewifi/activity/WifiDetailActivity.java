@@ -29,10 +29,8 @@ import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import me.henrytao.sharewifi.R;
-import me.henrytao.sharewifi.fragment.WifiDetailFragment;
 import me.henrytao.sharewifi.fragment.WifiDetailFragment.WifiDetailInterface;
-import me.henrytao.sharewifi.model.entity.WifiModel;
-import me.henrytao.sharewifi.util.ToastUtils;
+import me.henrytao.sharewifi.model.WifiModel;
 
 public class WifiDetailActivity extends MdToolbarActivity implements WifiDetailInterface {
 

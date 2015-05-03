@@ -30,6 +30,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import me.henrytao.sharewifi.util.JsonUtils;
+
 /**
  * Created by henrytao on 3/31/15.
  */
@@ -54,7 +56,7 @@ public abstract class BaseModel<T extends BaseModel> {
     return mId;
   }
 
-  public Field[] getDeclaredFields() {
+  private Field[] getDeclaredFields() {
     List<Field> fields = new ArrayList<Field>();
     fields.addAll(Arrays.asList(getClass().getDeclaredFields()));
     fields.addAll(Arrays.asList(getClass().getSuperclass().getDeclaredFields()));
@@ -92,21 +94,15 @@ public abstract class BaseModel<T extends BaseModel> {
         f.setByte(this, value == null ? 0 : (byte) value);
       } else if (String.class.isAssignableFrom(type)) {
         f.set(this, value);
+      } else if (JSONObject.class.isAssignableFrom(type)) {
+        // todo: nested object should be another model
       }
     }
     return (T) this;
   }
 
   public T deserialize(String json) throws IllegalAccessException, JSONException {
-    Map<String, Object> map = new HashMap<>();
-    JSONObject jsonObject = new JSONObject(json);
-    Iterator<?> keys = jsonObject.keys();
-    while (keys.hasNext()) {
-      String key = (String) keys.next();
-      String value = jsonObject.getString(key);
-      map.put(key, value);
-    }
-    return deserialize(map);
+    return deserialize(JsonUtils.decode(json));
   }
 
   public Map<String, Object> serialize() throws IllegalAccessException {

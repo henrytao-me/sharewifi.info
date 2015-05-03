@@ -32,7 +32,6 @@ public class BaseModelTest {
   @Test
   public void getDeclaredFields() {
     TestModel model = new TestModel();
-    model.getDeclaredFields();
     //assertThat(model.getDeclaredFields(), equalTo());
   }
 

@@ -21,7 +21,6 @@ import com.google.gson.Gson;
 import org.apache.maven.artifact.ant.shaded.StringUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import java.util.Date;
@@ -29,7 +28,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import me.henrytao.sharewifi.RobolectricGradleTestRunner;
-import me.henrytao.sharewifi.model.entity.UserModel;
+import me.henrytao.sharewifi.model.UserModel;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;

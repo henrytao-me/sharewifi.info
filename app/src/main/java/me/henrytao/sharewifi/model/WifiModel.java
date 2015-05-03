@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package me.henrytao.sharewifi.model.entity;
+package me.henrytao.sharewifi.model;
 
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiInfo;
