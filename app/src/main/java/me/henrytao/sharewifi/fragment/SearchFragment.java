@@ -30,7 +30,6 @@ import java.util.List;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import me.henrytao.sharewifi.R;
-import me.henrytao.sharewifi.activity.WifiDetailActivity;
 import me.henrytao.sharewifi.adapter.WifiAdapter;
 import me.henrytao.sharewifi.model.entity.WifiModel;
 
@@ -39,10 +38,10 @@ import me.henrytao.sharewifi.model.entity.WifiModel;
  */
 public class SearchFragment extends Fragment {
 
-  List<WifiModel> mList = new ArrayList<>();
+  List<WifiModel> mListWifi = new ArrayList<>();
 
   @InjectView(R.id.list)
-  RecyclerView mRecyclerView;
+  RecyclerView vRecyclerView;
 
   public SearchFragment() {
   }
@@ -65,9 +64,9 @@ public class SearchFragment extends Fragment {
   public void onViewCreated(View view, Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
 
-    WifiAdapter adapter = new WifiAdapter(getActivity(), mList);
-    mRecyclerView.setHasFixedSize(true);
-    mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-    mRecyclerView.setAdapter(adapter);
+    WifiAdapter adapter = new WifiAdapter(getActivity(), mListWifi);
+    vRecyclerView.setHasFixedSize(true);
+    vRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+    vRecyclerView.setAdapter(adapter);
   }
 }

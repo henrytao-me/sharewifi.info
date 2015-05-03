@@ -39,13 +39,13 @@ public class WifiAdapter extends RecyclerView.Adapter<WifiAdapter.ViewHolder> {
 
   private Context mContext;
 
-  private List<WifiModel> mList;
+  private List<WifiModel> mListWifi;
 
   private OnClickListener mOnClickListener;
 
-  public WifiAdapter(Context context, List<WifiModel> list) {
+  public WifiAdapter(Context context, List<WifiModel> listWifi) {
     mContext = context;
-    mList = list;
+    mListWifi = listWifi;
   }
 
   @Override
@@ -57,7 +57,7 @@ public class WifiAdapter extends RecyclerView.Adapter<WifiAdapter.ViewHolder> {
         mOnClickListener.onWifiAdapterClick(view, viewHolder.mData);
       }
     });
-    viewHolder.mButtonInfo.setOnClickListener(v -> {
+    viewHolder.vButtonInfo.setOnClickListener(v -> {
       if (mOnClickListener != null) {
         mOnClickListener.onWifiAdapterInfoClick(view, viewHolder.mData);
       }
@@ -67,12 +67,12 @@ public class WifiAdapter extends RecyclerView.Adapter<WifiAdapter.ViewHolder> {
 
   @Override
   public void onBindViewHolder(WifiAdapter.ViewHolder holder, int position) {
-    holder.bind(mList.get(position), WifiService.isCurrentWifi(mContext, mList.get(position)));
+    holder.bind(mListWifi.get(position), WifiService.isCurrentWifi(mContext, mListWifi.get(position)));
   }
 
   @Override
   public int getItemCount() {
-    return mList.size();
+    return mListWifi.size();
   }
 
   public void setOnClickListener(OnClickListener onClickListener) {
@@ -98,23 +98,23 @@ public class WifiAdapter extends RecyclerView.Adapter<WifiAdapter.ViewHolder> {
         R.drawable.ic_signal_wifi_4_bar_lock
     };
 
-    @InjectView(R.id.item_signal_level)
-    ImageView mItemSignalLevel;
+    @InjectView(R.id.signal_level)
+    ImageView vSignalLevel;
 
-    @InjectView(R.id.item_ssid)
-    TextView mItemSSID;
+    @InjectView(R.id.ssid)
+    TextView vSSID;
 
-    @InjectView(R.id.item_is_connected)
-    TextView mItemIsConnected;
+    @InjectView(R.id.connected_status)
+    TextView vConnectedStatus;
 
-    @InjectView(R.id.item_name)
-    TextView mItemName;
+    @InjectView(R.id.name)
+    TextView vName;
 
-    @InjectView(R.id.item_address)
-    TextView mItemAddress;
+    @InjectView(R.id.address)
+    TextView vAddress;
 
     @InjectView(R.id.button_info)
-    View mButtonInfo;
+    View vButtonInfo;
 
     public ViewHolder(View view) {
       super(view);
@@ -123,9 +123,9 @@ public class WifiAdapter extends RecyclerView.Adapter<WifiAdapter.ViewHolder> {
 
     public void bind(WifiModel data, boolean isConnected) {
       mData = data;
-      mItemSSID.setText(data.getSSID());
-      mItemName.setText(data.getName());
-      mItemAddress.setText(data.getAddress());
+      vSSID.setText(data.getSSID());
+      vName.setText(data.getName());
+      vAddress.setText(data.getAddress());
       renderSignalLevel(data.getSignalLevel());
       renderIsConnected(isConnected);
     }
@@ -136,14 +136,14 @@ public class WifiAdapter extends RecyclerView.Adapter<WifiAdapter.ViewHolder> {
       } else if (signalLevel > mSignalLevelRes.length - 1) {
         signalLevel = mSignalLevelRes.length - 1;
       }
-      mItemSignalLevel.setImageResource(mSignalLevelRes[signalLevel]);
+      vSignalLevel.setImageResource(mSignalLevelRes[signalLevel]);
     }
 
     private void renderIsConnected(boolean isConnected) {
       if (isConnected) {
-        mItemIsConnected.setText(R.string.item_wifi_is_connected);
+        vConnectedStatus.setText(R.string.item_wifi_is_connected);
       } else {
-        mItemIsConnected.setText(null);
+        vConnectedStatus.setText(null);
       }
     }
   }

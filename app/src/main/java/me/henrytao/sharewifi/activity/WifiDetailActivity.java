@@ -50,8 +50,8 @@ public class WifiDetailActivity extends MdToolbarActivity implements WifiDetailI
 
   private WifiModel mWifi = new WifiModel();
 
-  @InjectView(R.id.item_ssid)
-  TextView mItemSSID;
+  @InjectView(R.id.ssid)
+  TextView vSSID;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -95,7 +95,7 @@ public class WifiDetailActivity extends MdToolbarActivity implements WifiDetailI
   @Override
   public void setSSID(String SSID) {
     if (!TextUtils.isEmpty(SSID)) {
-      mItemSSID.setText(SSID);
+      vSSID.setText(SSID);
     }
   }
 }
