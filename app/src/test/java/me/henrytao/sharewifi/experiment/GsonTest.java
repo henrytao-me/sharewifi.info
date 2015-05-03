@@ -28,6 +28,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import me.henrytao.sharewifi.RobolectricGradleTestRunner;
 import me.henrytao.sharewifi.model.entity.UserModel;
 
 import static org.hamcrest.Matchers.equalTo;
@@ -37,8 +38,8 @@ import static org.junit.Assert.assertTrue;
 /**
  * Created by henrytao on 3/30/15.
  */
-@RunWith(RobolectricTestRunner.class)
-@Config(manifest = Config.NONE)
+@RunWith(RobolectricGradleTestRunner.class)
+@Config(emulateSdk = 21)
 public class GsonTest {
 
   @Test

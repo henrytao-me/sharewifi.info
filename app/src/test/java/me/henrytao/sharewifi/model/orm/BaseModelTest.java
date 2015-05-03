@@ -18,14 +18,15 @@ package me.henrytao.sharewifi.model.orm;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
+
+import me.henrytao.sharewifi.RobolectricGradleTestRunner;
 
 /**
  * Created by henrytao on 5/3/15.
  */
-@RunWith(RobolectricTestRunner.class)
-@Config(manifest = Config.NONE)
+@RunWith(RobolectricGradleTestRunner.class)
+@Config(emulateSdk = 21)
 public class BaseModelTest {
 
   @Test
