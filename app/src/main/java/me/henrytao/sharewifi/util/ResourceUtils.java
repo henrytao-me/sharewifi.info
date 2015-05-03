@@ -17,21 +17,29 @@
 package me.henrytao.sharewifi.util;
 
 import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
-
-import java.util.List;
+import android.util.TypedValue;
 
 /**
- * Created by henrytao on 4/15/15.
+ * Created by henrytao on 4/29/15.
  */
-public class IntentUtils {
+public class ResourceUtils {
 
-  public static boolean isAvailable(Context context, Intent intent) {
-    PackageManager mgr = context.getPackageManager();
-    List<ResolveInfo> list = mgr.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
-    return list.size() > 0;
+  public static int getDrawableIdFromAttribute(Context context, int attrId) {
+    if (attrId == 0) {
+      return 0;
+    }
+    TypedValue typedValue = new TypedValue();
+    context.getTheme().resolveAttribute(attrId, typedValue, true);
+    return typedValue.resourceId;
+  }
+
+  public static int getColorFromAttribute(Context context, int attrId) {
+    if (attrId == 0) {
+      return 0;
+    }
+    TypedValue typedValue = new TypedValue();
+    context.getTheme().resolveAttribute(attrId, typedValue, true);
+    return typedValue.data;
   }
 
 }

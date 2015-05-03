@@ -16,18 +16,22 @@
 
 package me.henrytao.sharewifi.model.orm;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 /**
  * Created by henrytao on 3/31/15.
  */
-public abstract class BaseEntity<T extends BaseEntity> {
+public abstract class BaseModel<T extends BaseModel> {
 
   private static final Map<Class, Deserializer> deserializerMap;
 
@@ -41,14 +45,14 @@ public abstract class BaseEntity<T extends BaseEntity> {
     serializerMap.put(Date.class, new DateAdapter());
   }
 
-  @Column(name = BaseEntityColumns.ID)
+  @Column(name = Fields.ID)
   protected String mId;
 
   public String getId() {
     return mId;
   }
 
-  private Field[] getDeclaredFields() {
+  public Field[] getDeclaredFields() {
     List<Field> fields = new ArrayList<Field>();
     fields.addAll(Arrays.asList(getClass().getDeclaredFields()));
     fields.addAll(Arrays.asList(getClass().getSuperclass().getDeclaredFields()));
@@ -91,6 +95,18 @@ public abstract class BaseEntity<T extends BaseEntity> {
     return (T) this;
   }
 
+  public T deserialize(String json) throws IllegalAccessException, JSONException {
+    Map<String, Object> map = new HashMap<>();
+    JSONObject jsonObject = new JSONObject(json);
+    Iterator<?> keys = jsonObject.keys();
+    while (keys.hasNext()) {
+      String key = (String) keys.next();
+      String value = jsonObject.getString(key);
+      map.put(key, value);
+    }
+    return deserialize(map);
+  }
+
   public Map<String, Object> serialize() throws IllegalAccessException {
     Map<String, Object> map = new HashMap<>();
     Field[] fields = getDeclaredFields();
@@ -118,7 +134,7 @@ public abstract class BaseEntity<T extends BaseEntity> {
     return map;
   }
 
-  public interface BaseEntityColumns {
+  public interface Fields {
 
     final String ID = "id";
   }

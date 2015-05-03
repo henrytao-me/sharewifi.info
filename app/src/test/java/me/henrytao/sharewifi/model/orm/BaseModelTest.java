@@ -14,24 +14,25 @@
  * limitations under the License.
  */
 
-package me.henrytao.sharewifi.util;
+package me.henrytao.sharewifi.model.orm;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
-
-import java.util.List;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 
 /**
- * Created by henrytao on 4/15/15.
+ * Created by henrytao on 5/3/15.
  */
-public class IntentUtils {
+@RunWith(RobolectricTestRunner.class)
+@Config(manifest = Config.NONE)
+public class BaseModelTest {
 
-  public static boolean isAvailable(Context context, Intent intent) {
-    PackageManager mgr = context.getPackageManager();
-    List<ResolveInfo> list = mgr.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
-    return list.size() > 0;
+  @Test
+  public void getDeclaredFields() {
+    TestModel model = new TestModel();
+    model.getDeclaredFields();
+    //assertThat(model.getDeclaredFields(), equalTo());
   }
 
 }
