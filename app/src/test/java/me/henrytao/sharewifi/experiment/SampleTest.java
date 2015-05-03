@@ -20,6 +20,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 
+import me.henrytao.sharewifi.RobolectricGradleTestRunner;
 import rx.Observable;
 
 import static org.hamcrest.Matchers.equalTo;
@@ -28,7 +29,7 @@ import static org.junit.Assert.assertThat;
 /**
  * Created by henrytao on 3/29/15.
  */
-@RunWith(RobolectricTestRunner.class)
+@RunWith(RobolectricGradleTestRunner.class)
 public class SampleTest {
 
   @Test
