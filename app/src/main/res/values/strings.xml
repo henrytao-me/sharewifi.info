@@ -17,6 +17,7 @@
 <resources>
 
   <string name="action_edit">Edit</string>
+  <string name="action_refresh">Refresh</string>
   <string name="action_search">Search</string>
   <string name="action_settings">Settings</string>
 
@@ -27,10 +28,25 @@
   <string name="navigation_drawer_open">Open</string>
   <string name="navigation_drawer_close">Close</string>
 
+  <string name="text_search">Search</string>
+  <string name="text_looking_for_networks">Looking for networks...</string>
+  <string name="text_some_error_occurred">Some error occurred.\nPlease try again!</string>
+  <string name="text_connect">Connect</string>
+  <string name="text_disconnect">Disconnect</string>
+  <string name="text_connected">Connected</string>
+  <string name="text_not_available">Not available</string>
+  <string name="text_available">Available</string>
+  <string name="text_report_password">Report password</string>
+
+  <string name="item_wifi_no_name_hint">No name is updated</string>
+  <string name="item_wifi_no_address_hint">No address is updated</string>
+  <string name="item_wifi_is_connected">Connected |\u0020</string>
+
   <!-- auto generated values -->
-  
+
   <string name="app_name">sharewifi</string>
   <string name="hello_world">Hello moto!</string>
   <string name="title_activity_location_detail">Location info</string>
+  <string name="title_activity_search"></string>
 
 </resources>

@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright 2015 "Henry Tao <hi@henrytao.me>"
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,10 +16,8 @@
 
 <resources>
 
-  <style name="AppTheme.TranslucentNavigation" parent="AppTheme.Base">
-    <item name="android:windowTranslucentStatus">true</item>
-    <item name="mdDrawerLayout_fitsSystemWindows">true</item>
-    <item name="mdDrawerLayout_translucentNavigationBackground">?attr/mdColor_primaryPalette</item>
-  </style>
+  <!--<style name="AppStyle.ToolbarNavigationButtonStyle" parent="@style/Widget.AppCompat.Toolbar.Button.Navigation">-->
+    <!--<item name="android:background">#99aa33</item>-->
+  <!--</style>-->
 
 </resources>

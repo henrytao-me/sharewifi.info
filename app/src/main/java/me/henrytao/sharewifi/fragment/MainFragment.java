@@ -16,38 +16,49 @@
 
 package me.henrytao.sharewifi.fragment;
 
-import com.quinny898.library.persistentsearch.SearchBox;
-import com.quinny898.library.persistentsearch.SearchBox.MenuListener;
-
-import android.content.Intent;
 import android.os.Bundle;
-import android.speech.RecognizerIntent;
+import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import me.henrytao.sharewifi.R;
-import me.henrytao.sharewifi.activity.LocationDetailActivity;
-import me.henrytao.sharewifi.activity.MdDrawerLayoutActivity;
-import me.henrytao.sharewifi.adapter.LocationAdapter;
+import me.henrytao.sharewifi.activity.WifiDetailActivity;
+import me.henrytao.sharewifi.adapter.WifiAdapter;
+import me.henrytao.sharewifi.model.entity.WifiModel;
+import me.henrytao.sharewifi.service.WifiService;
+import me.henrytao.sharewifi.util.ResourceUtils;
+import me.henrytao.sharewifi.widget.RecycleEmptyErrorView;
+import rx.Subscription;
 
 /**
  * Created by henrytao on 4/12/15.
  */
-public class MainFragment extends BaseFragment implements SearchBox.SearchListener, MenuListener {
+public class MainFragment extends BaseFragment implements WifiAdapter.OnClickListener {
 
-  @InjectView(R.id.search_box)
-  SearchBox mSearchBox;
+  private Subscription mWifiSubscription;
 
-  @InjectView(R.id.recycle_view)
-  RecyclerView mRecyclerView;
+  private List<WifiModel> mListWifi = new ArrayList<>();
+
+  @InjectView(R.id.swipe_refresh_layout)
+  SwipeRefreshLayout vSwipeRefreshLayout;
+
+  @InjectView(R.id.list)
+  RecycleEmptyErrorView vRecyclerView;
+
+  @InjectView(R.id.empty_view)
+  View vEmptyView;
+
+  @InjectView(R.id.error_view)
+  View vErrorView;
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -66,63 +77,71 @@ public class MainFragment extends BaseFragment implements SearchBox.SearchListen
   @Override
   public void onViewCreated(View view, Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
-    mSearchBox.setLogoText("sharewifi.info");
-    mSearchBox.enableVoiceRecognition(this);
-    mSearchBox.setSearchListener(this);
-    mSearchBox.setMenuListener(this);
 
-    ArrayList<String> data = new ArrayList<>();
-    for (int i = 0; i < 200; i++) {
-      data.add("Location title " + i);
-    }
-    LocationAdapter adapter = new LocationAdapter(getActivity(), data);
-    adapter.setOnItemClickListener((v, locationId) -> startActivity(LocationDetailActivity.getIntent(getActivity(), locationId)));
-    mRecyclerView.setHasFixedSize(true);
-    mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-    mRecyclerView.setAdapter(adapter);
+    setHasOptionsMenu(true);
+
+    WifiAdapter adapter = new WifiAdapter(getActivity(), mListWifi);
+    adapter.setOnClickListener(this);
+    vRecyclerView.setHasFixedSize(true);
+    vRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+    vRecyclerView.setAdapter(adapter);
+    vRecyclerView.setEmptyView(vEmptyView);
+    vRecyclerView.setErrorView(vErrorView);
+
+    vSwipeRefreshLayout.setColorSchemeColors(ResourceUtils.getColorFromAttribute(getActivity(), R.attr.mdColor_primaryPalette));
+    vSwipeRefreshLayout.setOnRefreshListener(() -> refreshContent());
   }
 
   @Override
-  public void onActivityResult(int requestCode, int resultCode, Intent data) {
-    if (isAdded() && requestCode == SearchBox.VOICE_RECOGNITION_CODE && resultCode == getActivity().RESULT_OK) {
-      ArrayList<String> matches = data
-          .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-      mSearchBox.populateEditText(matches);
-    }
-    super.onActivityResult(requestCode, resultCode, data);
-  }
-
-  @Override
-  public void onMenuClick() {
-    if (getActivity() instanceof MdDrawerLayoutActivity) {
-      MdDrawerLayoutActivity drawer = (MdDrawerLayoutActivity) getActivity();
-      drawer.openDrawer();
+  public void onPause() {
+    super.onPause();
+    if (isAdded()) {
+      mWifiSubscription.unsubscribe();
     }
   }
 
   @Override
-  public void onSearchOpened() {
+  public void onResume() {
+    super.onResume();
+    if (isAdded()) {
+      mWifiSubscription = WifiService.getAvailableWifi(getActivity())
+          .subscribe(list -> {
+            mListWifi.clear();
+            mListWifi.addAll(list);
+            vRecyclerView.getAdapter().notifyDataSetChanged();
+          }, throwable -> {
+
+          });
+    }
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+    switch (item.getItemId()) {
+      case R.id.action_refresh:
+        if (!vSwipeRefreshLayout.isRefreshing()) {
+          refreshContent();
+        }
+        return true;
+    }
+    return super.onOptionsItemSelected(item);
+  }
+
+  @Override
+  public void onWifiAdapterClick(View view, WifiModel data) {
 
   }
 
   @Override
-  public void onSearchCleared() {
-
+  public void onWifiAdapterInfoClick(View view, WifiModel data) {
+    startActivity(WifiDetailActivity.getIntent(getActivity(), data));
   }
 
-  @Override
-  public void onSearchClosed() {
-
-  }
-
-  @Override
-  public void onSearchTermChanged() {
-
-  }
-
-  @Override
-  public void onSearch(String result) {
-    Toast.makeText(getActivity(), "Searched", Toast.LENGTH_LONG).show();
+  private void refreshContent() {
+    vSwipeRefreshLayout.setRefreshing(true);
+    new Handler().postDelayed(() -> {
+      vSwipeRefreshLayout.setRefreshing(false);
+    }, 2000);
   }
 
 }

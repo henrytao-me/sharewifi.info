@@ -18,6 +18,7 @@ package me.henrytao.sharewifi.activity;
 
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,52 +33,57 @@ import me.henrytao.sharewifi.R;
 public class MainActivity extends MdDrawerLayoutActivity {
 
   @InjectView(R.id.container)
-  DrawerLayout mDrawerLayout;
+  DrawerLayout vDrawerLayout;
 
   @InjectView(R.id.content)
-  View mContentView;
+  View vDrawerContent;
 
   @InjectView(R.id.drawer)
-  View mDrawerView;
+  View vDrawerNavigation;
+
+  @InjectView(R.id.toolbar)
+  Toolbar vToolbar;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
     ButterKnife.inject(this);
+
+    setSupportActionBar(vToolbar);
+    vToolbar.setNavigationIcon(R.drawable.ic_toolbar_menu_white);
+    vToolbar.setNavigationOnClickListener((v) -> openDrawer());
   }
 
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
-    // Inflate the menu; this adds items to the action bar if it is present.
     getMenuInflater().inflate(R.menu.menu_main, menu);
     return true;
   }
 
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
-    // Handle action bar item clicks here. The action bar will
-    // automatically handle clicks on the Home/Up button, so long
-    // as you specify a parent activity in AndroidManifest.xml.
     switch (item.getItemId()) {
-
+      case R.id.action_search:
+        startActivity(SearchActivity.getIntent(this));
+        return true;
     }
     return super.onOptionsItemSelected(item);
   }
 
   @Override
   public DrawerLayout getDrawerLayout() {
-    return mDrawerLayout;
+    return vDrawerLayout;
   }
 
   @Override
-  public View getContentView() {
-    return mContentView;
+  public View getDrawerContent() {
+    return vDrawerContent;
   }
 
   @Override
-  public View getDrawerView() {
-    return mDrawerView;
+  public View getDrawerNavigation() {
+    return vDrawerNavigation;
   }
 
 }

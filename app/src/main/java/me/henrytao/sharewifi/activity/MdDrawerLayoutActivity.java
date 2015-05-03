@@ -19,16 +19,9 @@ package me.henrytao.sharewifi.activity;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 
-import butterknife.ButterKnife;
-import butterknife.InjectView;
 import me.henrytao.sharewifi.R;
-import me.henrytao.sharewifi.fragment.NavigationDrawerFragment;
-import me.henrytao.sharewifi.util.ToastUtils;
 
 /**
  * Created by henrytao on 3/28/15.
@@ -37,9 +30,9 @@ public abstract class MdDrawerLayoutActivity extends BaseActivity {
 
   public abstract DrawerLayout getDrawerLayout();
 
-  public abstract View getContentView();
+  public abstract View getDrawerContent();
 
-  public abstract View getDrawerView();
+  public abstract View getDrawerNavigation();
 
   ActionBarDrawerToggle mDrawerToggle;
 
@@ -83,12 +76,12 @@ public abstract class MdDrawerLayoutActivity extends BaseActivity {
   }
 
   private boolean isValidated() {
-    return getDrawerLayout() != null && getContentView() != null && getDrawerView() != null;
+    return getDrawerLayout() != null && getDrawerContent() != null && getDrawerNavigation() != null;
   }
 
   public void openDrawer() {
     if (isValidated()) {
-      getDrawerLayout().openDrawer(getDrawerView());
+      getDrawerLayout().openDrawer(getDrawerNavigation());
     }
   }
 
