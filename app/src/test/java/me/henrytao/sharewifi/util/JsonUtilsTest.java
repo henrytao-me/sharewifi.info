@@ -26,7 +26,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.annotation.Config;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import me.henrytao.sharewifi.RobolectricGradleTestRunner;
@@ -44,7 +46,7 @@ import static org.junit.Assert.assertThat;
 public class JsonUtilsTest {
 
   @Test
-  public void decode_single() throws JSONException {
+  public void testDecode_single() throws JSONException {
     Map<String, Object> map = new HashMap<>();
     map.put("key1", "value1");
     map.put("key2", "2");
@@ -58,7 +60,7 @@ public class JsonUtilsTest {
   }
 
   @Test
-  public void decode_nested() throws JSONException {
+  public void testDecode_nested() throws JSONException {
     Map<String, Object> nested = new HashMap<>();
     nested.put("key1", "value1");
     nested.put("key2", 2);
@@ -85,13 +87,13 @@ public class JsonUtilsTest {
   }
 
   @Test
-  public void decode_success() {
+  public void testDecode_success() {
     assertThat(JsonUtils.decode("{hello: 1, moto: 2}"), notNullValue());
     assertThat(JsonUtils.decode("{\"hello\": 1, \"moto\": 2}"), notNullValue());
   }
 
   @Test
-  public void decode_failed() {
+  public void testDecode_failed() {
     assertThat(JsonUtils.decode(""), nullValue());
     assertThat(JsonUtils.decode("true"), nullValue());
     assertThat(JsonUtils.decode("0"), nullValue());
@@ -99,4 +101,35 @@ public class JsonUtilsTest {
     assertThat(JsonUtils.decode("{\"hello\": 1, \"moto\": 2,}"), nullValue());
   }
 
+  @Test
+  public void testEncode() throws Exception {
+    Map<String, Object> nested = new HashMap<>();
+    nested.put("key1", "value1");
+    nested.put("key2", 2);
+    nested.put("key3", false);
+
+    Map<String, Object> map = new HashMap<>();
+    map.put("key1", "value1");
+    map.put("key2", 2);
+    map.put("key3", false);
+    map.put("key4", nested);
+    assertThat(JsonUtils.encode(map),
+        equalTo("{\"key1\":\"value1\",\"key2\":2,\"key3\":false,\"key4\":{\"key1\":\"value1\",\"key2\":2,\"key3\":false}}"));
+  }
+
+  @Test
+  public void testEncode_list() throws Exception {
+    List<String> list = new ArrayList<>();
+    list.add("item 1");
+    list.add("item 2");
+    list.add("item 3");
+
+    Map<String, Object> map = new HashMap<>();
+    map.put("key1", "value1");
+    map.put("key2", 2);
+    map.put("key3", false);
+    map.put("key4", list);
+    assertThat(JsonUtils.encode(map),
+        equalTo("{\"key1\":\"value1\",\"key2\":2,\"key3\":false,\"key4\":[\"item 1\",\"item 2\",\"item 3\"]}"));
+  }
 }
