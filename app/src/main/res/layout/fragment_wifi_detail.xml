@@ -37,7 +37,7 @@
         android:id="@+id/status"
         android:layout_toLeftOf="@+id/button_container"
         android:textColor="?attr/mdColor_primaryPalette"
-        tools:text="Connected"
+        android:text="Available"
         style="@style/MdList.SingleLine.AvatarWithText.Text" />
       <RelativeLayout
         android:id="@+id/button_container"

@@ -56,14 +56,6 @@ public class WifiDetailActivity extends MdToolbarActivity implements WifiDetailI
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_wifi_detail);
     ButterKnife.inject(this);
-
-    try {
-      mWifi.deserialize(getIntent().getStringExtra(WIFI_MODEL));
-    } catch (IllegalAccessException e) {
-      e.printStackTrace();
-    } catch (JSONException e) {
-      e.printStackTrace();
-    }
   }
 
   @Override

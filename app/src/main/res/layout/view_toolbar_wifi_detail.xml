@@ -31,7 +31,7 @@
     android:layout_height="?attr/actionBarSize"
     android:gravity="left|center_vertical"
     android:textColor="?attr/mdTextColor_primaryPalette"
-    tools:text="wifi-name"
+    android:text="wifi-name"
     style="@style/MdText.Headline.SingleLine" />
 
 </LinearLayout>
