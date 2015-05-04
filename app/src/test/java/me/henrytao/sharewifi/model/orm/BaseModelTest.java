@@ -23,6 +23,7 @@ import org.robolectric.annotation.Config;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Map;
+import java.util.Objects;
 
 import me.henrytao.sharewifi.RobolectricGradleTestRunner;
 
@@ -38,7 +39,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class BaseModelTest {
 
   @Test
-  public void testSerialize_noNotNullField_success() throws Exception {
+  public void testSerialize_noNotNullField() throws Exception {
     long time = new GregorianCalendar(2015, 05, 04).getTimeInMillis();
     CommonModel model = new CommonModel("henry", 26, new Date(time));
     Map<String, Object> map = model.serialize();
@@ -74,5 +75,23 @@ public class BaseModelTest {
     assertThat(map.get(CommonModel.Fields.NAME), equalTo("henry"));
     assertThat(map.get(CommonModel.Fields.AGE), equalTo(26));
     assertThat(map.get(CommonModel.Fields.CREATED_AT), nullValue());
+  }
+
+  @Test
+  public void testSerialize_nestedModel() throws Exception {
+    long time = new GregorianCalendar(2015, 05, 04).getTimeInMillis();
+    CommonModel commonModel = new CommonModel("common-henry", 26, new Date(time));
+    NestedModel nestedModel = new NestedModel("nested-henry", 25, new Date(time), commonModel);
+    Map<String, Object> map = nestedModel.serialize();
+    assertThat(map.size(), equalTo(4));
+    assertThat(map.get(NestedModel.Fields.NAME), equalTo("nested-henry"));
+    assertThat(map.get(NestedModel.Fields.AGE), equalTo(25));
+    assertThat(map.get(NestedModel.Fields.CREATED_AT), equalTo(time));
+
+    Map<String, Object> commonRes = (Map<String, Object>) map.get(NestedModel.Fields.NESTED);
+    assertThat(commonRes.size(), equalTo(3));
+    assertThat(commonRes.get(CommonModel.Fields.NAME), equalTo("common-henry"));
+    assertThat(commonRes.get(CommonModel.Fields.AGE), equalTo(26));
+    assertThat(commonRes.get(CommonModel.Fields.CREATED_AT), equalTo(time));
   }
 }

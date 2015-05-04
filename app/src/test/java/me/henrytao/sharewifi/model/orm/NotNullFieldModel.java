@@ -32,13 +32,13 @@ public class NotNullFieldModel extends BaseModel<NotNullFieldModel> {
     final String CREATED_AT = "created_at";
   }
 
-  @Column(name = NotNullFieldModel.Fields.NAME, notNull = true)
+  @Column(name = Fields.NAME, notNull = true)
   private String mName;
 
-  @Column(name = NotNullFieldModel.Fields.AGE)
+  @Column(name = Fields.AGE)
   private int mAge;
 
-  @Column(name = NotNullFieldModel.Fields.CREATED_AT)
+  @Column(name = Fields.CREATED_AT)
   private Date mCreateAt;
 
   public NotNullFieldModel() {

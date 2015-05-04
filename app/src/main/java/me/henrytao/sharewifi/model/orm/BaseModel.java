@@ -79,7 +79,6 @@ public abstract class BaseModel<T extends BaseModel> {
         } else if (serializer != null) {
           map.put(name, serializer.serialize(value));
         } else if (BaseModel.class.isAssignableFrom(type)) {
-          // todo: need to test
           map.put(name, ((BaseModel) value).serialize());
         } else {
           map.put(name, value);

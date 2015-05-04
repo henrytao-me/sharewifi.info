@@ -21,13 +21,15 @@ import java.util.Date;
 /**
  * Created by henrytao on 5/3/15.
  */
-public class CommonModel extends BaseModel<CommonModel> {
+public class NestedModel extends BaseModel<NestedModel> {
 
   public interface Fields extends BaseModel.Fields {
 
     final String NAME = "name";
 
     final String AGE = "age";
+
+    final String NESTED = "nested";
 
     final String CREATED_AT = "created_at";
   }
@@ -41,14 +43,18 @@ public class CommonModel extends BaseModel<CommonModel> {
   @Column(name = Fields.CREATED_AT)
   private Date mCreateAt;
 
-  public CommonModel() {
+  @Column(name = Fields.NESTED)
+  private CommonModel mNested;
+
+  public NestedModel() {
 
   }
 
-  public CommonModel(String name, int age, Date createAt) {
+  public NestedModel(String name, int age, Date createAt, CommonModel nested) {
     mName = name;
     mAge = age;
     mCreateAt = createAt;
+    mNested = nested;
   }
 
   public String getName() {
