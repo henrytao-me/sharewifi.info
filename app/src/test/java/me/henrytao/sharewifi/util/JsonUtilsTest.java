@@ -16,13 +16,7 @@
 
 package me.henrytao.sharewifi.util;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-
-import org.hamcrest.CoreMatchers;
-import org.json.JSONException;
 import org.json.JSONObject;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.annotation.Config;

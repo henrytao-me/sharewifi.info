@@ -90,47 +90,61 @@ public abstract class BaseModel<T extends BaseModel> {
     }
   }
 
-  public T deserialize(Map<String, Object> map) throws IllegalAccessException {
-    Field[] fields = getDeclaredFields();
-    for (Field f : fields) {
-      if (!f.isAnnotationPresent(Column.class)) {
-        continue;
+  public T deserialize(Map<String, Object> map) throws DeserializerException {
+    try {
+      Field[] fields = getDeclaredFields();
+      for (Field f : fields) {
+        if (!f.isAnnotationPresent(Column.class)) {
+          continue;
+        }
+        Column column = f.getAnnotation(Column.class);
+        if (!column.deserialize()) {
+          continue;
+        }
+        f.setAccessible(true);
+        String name = column.name();
+        Object value = map.get(name);
+        Class type = f.getType();
+        Deserializer deserializer = deserializerMap.get(type);
+        if (column.notNull() && value == null) {
+          throw new DeserializerException("Field <" + name + "> is required but null");
+        } else if (deserializer != null) {
+          f.set(this, deserializer.deserialize(value));
+        } else if (BaseModel.class.isAssignableFrom(type)) {
+          BaseModel model = (BaseModel) type.newInstance();
+          if (value instanceof JSONObject) {
+            model.deserialize(JsonUtils.encode((JSONObject) value));
+          } else if (value instanceof Map) {
+            model.deserialize((Map) value);
+          } else {
+            throw new DeserializerException("Field <" + name + "> does not have correct input data");
+          }
+          f.set(this, model);
+        } else if (boolean.class.isAssignableFrom(type)) {
+          f.setBoolean(this, value == null ? false : (Boolean) value);
+        } else if (double.class.isAssignableFrom(type)) {
+          f.setDouble(this, value == null ? 0.0 : (Double) value);
+        } else if (float.class.isAssignableFrom(type)) {
+          f.setFloat(this, value == null ? 0f : (Float) value);
+        } else if (int.class.isAssignableFrom(type)) {
+          f.setInt(this, value == null ? 0 : (int) value);
+        } else if (short.class.isAssignableFrom(type)) {
+          f.setShort(this, value == null ? 0 : (short) value);
+        } else if (byte.class.isAssignableFrom(type)) {
+          f.setByte(this, value == null ? 0 : (byte) value);
+        } else if (String.class.isAssignableFrom(type)) {
+          f.set(this, value);
+        }
       }
-      Column column = f.getAnnotation(Column.class);
-      if (!column.deserialize()) {
-        continue;
-      }
-      f.setAccessible(true);
-      String name = column.name();
-      Object value = map.get(name);
-      Class type = f.getType();
-      Deserializer deserializer = deserializerMap.get(type);
-      if (column.notNull() && value == null) {
-
-      } else if (deserializer != null) {
-        f.set(this, deserializer.deserialize(value));
-      } else if (boolean.class.isAssignableFrom(type)) {
-        f.setBoolean(this, value == null ? false : (Boolean) value);
-      } else if (double.class.isAssignableFrom(type)) {
-        f.setDouble(this, value == null ? 0.0 : (Double) value);
-      } else if (float.class.isAssignableFrom(type)) {
-        f.setFloat(this, value == null ? 0f : (Float) value);
-      } else if (int.class.isAssignableFrom(type)) {
-        f.setInt(this, value == null ? 0 : (int) value);
-      } else if (short.class.isAssignableFrom(type)) {
-        f.setShort(this, value == null ? 0 : (short) value);
-      } else if (byte.class.isAssignableFrom(type)) {
-        f.setByte(this, value == null ? 0 : (byte) value);
-      } else if (String.class.isAssignableFrom(type)) {
-        f.set(this, value);
-      } else if (JSONObject.class.isAssignableFrom(type)) {
-        // todo: nested object should be converted to another model
-      }
+    } catch (IllegalAccessException e) {
+      throw new DeserializerException(e.getMessage());
+    } catch (InstantiationException e) {
+      throw new DeserializerException(e.getMessage());
     }
     return (T) this;
   }
 
-  public T deserialize(String json) throws IllegalAccessException {
+  public T deserialize(String json) throws DeserializerException {
     return deserialize(JsonUtils.decode(json));
   }
 

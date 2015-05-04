@@ -16,20 +16,16 @@
 
 package me.henrytao.sharewifi.service;
 
-import com.google.gson.Gson;
-
-import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.robolectric.annotation.Config;
 
 import me.henrytao.sharewifi.RobolectricGradleTestRunner;
-
-import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertThat;
 
 /**
  * Created by henrytao on 5/1/15.
  */
 @RunWith(RobolectricGradleTestRunner.class)
+@Config(emulateSdk = 21)
 public class WifiServiceTest {
 
 

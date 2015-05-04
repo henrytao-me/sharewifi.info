@@ -21,4 +21,7 @@ package me.henrytao.sharewifi.model.orm;
  */
 public class DeserializerException extends Exception {
 
+  public DeserializerException(String detailMessage) {
+    super(detailMessage);
+  }
 }

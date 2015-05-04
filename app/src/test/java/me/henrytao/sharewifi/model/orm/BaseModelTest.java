@@ -16,12 +16,16 @@
 
 package me.henrytao.sharewifi.model.orm;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.annotation.Config;
 
+import android.os.Parcelable;
+
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
@@ -39,7 +43,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class BaseModelTest {
 
   @Test
-  public void testSerialize_noNotNullField() throws Exception {
+  public void testSerialize_commonModel() throws Exception {
     long time = new GregorianCalendar(2015, 05, 04).getTimeInMillis();
     CommonModel model = new CommonModel("henry", 26, new Date(time));
     Map<String, Object> map = model.serialize();
@@ -59,14 +63,14 @@ public class BaseModelTest {
   }
 
   @Test(expected = SerializerException.class)
-  public void testSerialize_hasNotNullField_failed() throws Exception {
+  public void testSerialize_notNullFieldModel_failed() throws Exception {
     NotNullFieldModel model = new NotNullFieldModel();
     model.setAge(26);
     model.serialize();
   }
 
   @Test
-  public void testSerialize_hasNotNullField_success() throws Exception {
+  public void testSerialize_notNullFieldModel_success() throws Exception {
     NotNullFieldModel model = new NotNullFieldModel();
     model.setName("henry");
     model.setAge(26);
@@ -93,5 +97,70 @@ public class BaseModelTest {
     assertThat(commonRes.get(CommonModel.Fields.NAME), equalTo("common-henry"));
     assertThat(commonRes.get(CommonModel.Fields.AGE), equalTo(26));
     assertThat(commonRes.get(CommonModel.Fields.CREATED_AT), equalTo(time));
+  }
+
+  @Test
+  public void testDeserialize_commonModel() throws Exception {
+    long time = new GregorianCalendar(2015, 05, 04).getTimeInMillis();
+    Map<String, Object> map = new HashMap<>();
+    map.put(CommonModel.Fields.NAME, "henry");
+    map.put(CommonModel.Fields.AGE, 26);
+    map.put(CommonModel.Fields.CREATED_AT, time);
+
+    CommonModel model = new CommonModel();
+    model.deserialize(map);
+    assertThat(model.getName(), equalTo("henry"));
+    assertThat(model.getAge(), equalTo(26));
+    assertThat(model.getCreateAt(), equalTo(new Date(time)));
+  }
+
+  @Test(expected = DeserializerException.class)
+  public void testDeserialize_notNullFieldModel_failed() throws Exception {
+    long time = new GregorianCalendar(2015, 05, 04).getTimeInMillis();
+    Map<String, Object> map = new HashMap<>();
+    map.put(NotNullFieldModel.Fields.AGE, 26);
+    map.put(NotNullFieldModel.Fields.CREATED_AT, time);
+
+    NotNullFieldModel model = new NotNullFieldModel();
+    model.deserialize(map);
+  }
+
+  @Test
+  public void testDeserialize_notNullFieldModel_success() throws Exception {
+    long time = new GregorianCalendar(2015, 05, 04).getTimeInMillis();
+    Map<String, Object> map = new HashMap<>();
+    map.put(NotNullFieldModel.Fields.NAME, "henry");
+    map.put(NotNullFieldModel.Fields.AGE, 26);
+    map.put(NotNullFieldModel.Fields.CREATED_AT, time);
+
+    NotNullFieldModel model = new NotNullFieldModel();
+    model.deserialize(map);
+    assertThat(model.getName(), equalTo("henry"));
+    assertThat(model.getAge(), equalTo(26));
+    assertThat(model.getCreateAt(), equalTo(new Date(time)));
+  }
+
+  @Test
+  public void testDeserialize_nestedModel() throws Exception {
+    long time = new GregorianCalendar(2015, 05, 04).getTimeInMillis();
+    Map<String, Object> commonMap = new HashMap<>();
+    commonMap.put(CommonModel.Fields.NAME, "henry");
+    commonMap.put(CommonModel.Fields.AGE, 26);
+    commonMap.put(CommonModel.Fields.CREATED_AT, time);
+
+    Map<String, Object> nestedMap = new HashMap<>();
+    nestedMap.put(NestedModel.Fields.NAME, "henry-nested");
+    nestedMap.put(NestedModel.Fields.AGE, 25);
+    nestedMap.put(NestedModel.Fields.CREATED_AT, time);
+    nestedMap.put(NestedModel.Fields.NESTED, commonMap);
+
+    NestedModel model = new NestedModel();
+    model.deserialize(nestedMap);
+    assertThat(model.getName(), equalTo("henry-nested"));
+    assertThat(model.getAge(), equalTo(25));
+    assertThat(model.getCreateAt(), equalTo(new Date(time)));
+    assertThat(model.getNested().getName(), equalTo("henry"));
+    assertThat(model.getNested().getAge(), equalTo(26));
+    assertThat(model.getNested().getCreateAt(), equalTo(new Date(time)));
   }
 }

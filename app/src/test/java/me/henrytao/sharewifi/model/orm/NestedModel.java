@@ -81,4 +81,7 @@ public class NestedModel extends BaseModel<NestedModel> {
     mCreateAt = createAt;
   }
 
+  public CommonModel getNested() {
+    return mNested;
+  }
 }
