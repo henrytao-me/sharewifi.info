@@ -16,6 +16,8 @@
 
 package me.henrytao.sharewifi.activity;
 
+import com.orhanobut.logger.Logger;
+
 import org.json.JSONException;
 
 import android.content.Context;
@@ -31,6 +33,7 @@ import butterknife.InjectView;
 import me.henrytao.sharewifi.R;
 import me.henrytao.sharewifi.fragment.WifiDetailFragment.WifiDetailInterface;
 import me.henrytao.sharewifi.model.WifiModel;
+import me.henrytao.sharewifi.model.orm.SerializerException;
 
 public class WifiDetailActivity extends MdToolbarActivity implements WifiDetailInterface {
 
@@ -40,8 +43,8 @@ public class WifiDetailActivity extends MdToolbarActivity implements WifiDetailI
     Intent intent = new Intent(context, WifiDetailActivity.class);
     try {
       intent.putExtra(WIFI_MODEL, wifi.serialize().toString());
-    } catch (IllegalAccessException e) {
-      e.printStackTrace();
+    } catch (SerializerException e) {
+      Logger.e(e);
     }
     return intent;
   }

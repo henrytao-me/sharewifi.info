@@ -14,17 +14,14 @@
  * limitations under the License.
  */
 
-package me.henrytao.sharewifi.model;
+package me.henrytao.sharewifi.model.orm;
 
 import java.util.Date;
 
-import me.henrytao.sharewifi.model.orm.BaseModel;
-import me.henrytao.sharewifi.model.orm.Column;
-
 /**
- * Created by henrytao on 3/31/15.
+ * Created by henrytao on 5/3/15.
  */
-public class UserModel extends BaseModel<UserModel> {
+public class NotNullFieldModel extends BaseModel<NotNullFieldModel> {
 
   public interface Fields extends BaseModel.Fields {
 
@@ -35,14 +32,24 @@ public class UserModel extends BaseModel<UserModel> {
     final String CREATED_AT = "created_at";
   }
 
-  @Column(name = UserModel.Fields.NAME)
+  @Column(name = NotNullFieldModel.Fields.NAME, notNull = true)
   private String mName;
 
-  @Column(name = UserModel.Fields.AGE)
+  @Column(name = NotNullFieldModel.Fields.AGE)
   private int mAge;
 
-  @Column(name = UserModel.Fields.CREATED_AT)
+  @Column(name = NotNullFieldModel.Fields.CREATED_AT)
   private Date mCreateAt;
+
+  public NotNullFieldModel() {
+
+  }
+
+  public NotNullFieldModel(String name, int age, Date createAt) {
+    mName = name;
+    mAge = age;
+    mCreateAt = createAt;
+  }
 
   public String getName() {
     return mName;

@@ -16,7 +16,7 @@
 
 package me.henrytao.sharewifi.model.orm;
 
-import com.google.gson.Gson;
+import com.orhanobut.logger.Logger;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,7 +26,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -49,18 +48,47 @@ public abstract class BaseModel<T extends BaseModel> {
     serializerMap.put(Date.class, new DateAdapter());
   }
 
-  @Column(name = Fields.ID)
-  protected String mId;
-
-  public String getId() {
-    return mId;
-  }
-
   private Field[] getDeclaredFields() {
     List<Field> fields = new ArrayList<Field>();
     fields.addAll(Arrays.asList(getClass().getDeclaredFields()));
     fields.addAll(Arrays.asList(getClass().getSuperclass().getDeclaredFields()));
     return fields.toArray(new Field[fields.size()]);
+  }
+
+  public Map<String, Object> serialize() throws SerializerException {
+    try {
+      Map<String, Object> map = new HashMap<>();
+      Field[] fields = getDeclaredFields();
+      for (Field f : fields) {
+        if (!f.isAnnotationPresent(Column.class)) {
+          continue;
+        }
+        Column column = f.getAnnotation(Column.class);
+        if (!column.serialize()) {
+          continue;
+        }
+        f.setAccessible(true);
+        String name = column.name();
+        Object value = f.get(this);
+        Class type = f.getType();
+        Serializer serializer = serializerMap.get(type);
+        if (column.notNull() && value == null) {
+          throw new SerializerException("Field <" + name + "> is required but null");
+        } else if (value == null) {
+          continue;
+        } else if (serializer != null) {
+          map.put(name, serializer.serialize(value));
+        } else if (BaseModel.class.isAssignableFrom(type)) {
+          // todo: need to test
+          map.put(name, ((BaseModel) value).serialize());
+        } else {
+          map.put(name, value);
+        }
+      }
+      return map;
+    } catch (IllegalAccessException e) {
+      throw new SerializerException(e.getMessage());
+    }
   }
 
   public T deserialize(Map<String, Object> map) throws IllegalAccessException {
@@ -78,7 +106,9 @@ public abstract class BaseModel<T extends BaseModel> {
       Object value = map.get(name);
       Class type = f.getType();
       Deserializer deserializer = deserializerMap.get(type);
-      if (deserializer != null) {
+      if (column.notNull() && value == null) {
+
+      } else if (deserializer != null) {
         f.set(this, deserializer.deserialize(value));
       } else if (boolean.class.isAssignableFrom(type)) {
         f.setBoolean(this, value == null ? false : (Boolean) value);
@@ -95,46 +125,26 @@ public abstract class BaseModel<T extends BaseModel> {
       } else if (String.class.isAssignableFrom(type)) {
         f.set(this, value);
       } else if (JSONObject.class.isAssignableFrom(type)) {
-        // todo: nested object should be another model
+        // todo: nested object should be converted to another model
       }
     }
     return (T) this;
   }
 
-  public T deserialize(String json) throws IllegalAccessException, JSONException {
+  public T deserialize(String json) throws IllegalAccessException {
     return deserialize(JsonUtils.decode(json));
-  }
-
-  public Map<String, Object> serialize() throws IllegalAccessException {
-    Map<String, Object> map = new HashMap<>();
-    Field[] fields = getDeclaredFields();
-    for (Field f : fields) {
-      if (!f.isAnnotationPresent(Column.class)) {
-        continue;
-      }
-      Column column = f.getAnnotation(Column.class);
-      if (!column.serialize()) {
-        continue;
-      }
-      f.setAccessible(true);
-      String name = column.name();
-      Object value = f.get(this);
-      Class type = f.getType();
-      Serializer serializer = serializerMap.get(type);
-      if (value == null) {
-        continue;
-      } else if (serializer != null) {
-        map.put(name, serializer.serialize(value));
-      } else {
-        map.put(name, value);
-      }
-    }
-    return map;
   }
 
   public interface Fields {
 
     final String ID = "id";
+  }
+
+  @Column(name = Fields.ID)
+  protected String mId;
+
+  public String getId() {
+    return mId;
   }
 
 }

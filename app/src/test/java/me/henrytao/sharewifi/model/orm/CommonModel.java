@@ -21,16 +21,35 @@ import java.util.Date;
 /**
  * Created by henrytao on 5/3/15.
  */
-public class TestModel extends BaseModel<TestModel> {
+public class CommonModel extends BaseModel<CommonModel> {
 
-  @Column(name = TestModel.Fields.NAME)
+  public interface Fields extends BaseModel.Fields {
+
+    final String NAME = "name";
+
+    final String AGE = "age";
+
+    final String CREATED_AT = "created_at";
+  }
+
+  @Column(name = CommonModel.Fields.NAME)
   private String mName;
 
-  @Column(name = TestModel.Fields.AGE)
+  @Column(name = CommonModel.Fields.AGE)
   private int mAge;
 
-  @Column(name = TestModel.Fields.CREATED_AT)
+  @Column(name = CommonModel.Fields.CREATED_AT)
   private Date mCreateAt;
+
+  public CommonModel() {
+
+  }
+
+  public CommonModel(String name, int age, Date createAt) {
+    mName = name;
+    mAge = age;
+    mCreateAt = createAt;
+  }
 
   public String getName() {
     return mName;
@@ -54,15 +73,6 @@ public class TestModel extends BaseModel<TestModel> {
 
   public void setCreateAt(Date createAt) {
     mCreateAt = createAt;
-  }
-
-  public interface Fields extends BaseModel.Fields {
-
-    final String NAME = "name";
-
-    final String AGE = "age";
-
-    final String CREATED_AT = "created_at";
   }
 
 }

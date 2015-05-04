@@ -47,8 +47,12 @@ public class JsonUtils {
     return null;
   }
 
+  public static String encode(JSONObject json) {
+    return json == null ? null : json.toString();
+  }
+
   public static String encode(Map<String, Object> json) {
-    return (new JSONObject(json)).toString();
+    return json == null ? null : (new JSONObject(json)).toString();
   }
 
 }

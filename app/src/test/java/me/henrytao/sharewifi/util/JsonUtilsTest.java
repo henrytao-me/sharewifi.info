@@ -21,6 +21,7 @@ import com.google.gson.JsonElement;
 
 import org.hamcrest.CoreMatchers;
 import org.json.JSONException;
+import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -46,7 +47,7 @@ import static org.junit.Assert.assertThat;
 public class JsonUtilsTest {
 
   @Test
-  public void testDecode_single() throws JSONException {
+  public void testDecode_single() throws Exception {
     Map<String, Object> map = new HashMap<>();
     map.put("key1", "value1");
     map.put("key2", "2");
@@ -60,7 +61,7 @@ public class JsonUtilsTest {
   }
 
   @Test
-  public void testDecode_nested() throws JSONException {
+  public void testDecode_nested() throws Exception {
     Map<String, Object> nested = new HashMap<>();
     nested.put("key1", "value1");
     nested.put("key2", 2);
@@ -93,7 +94,7 @@ public class JsonUtilsTest {
   }
 
   @Test
-  public void testDecode_failed() {
+  public void testDecode_failed() throws Exception {
     assertThat(JsonUtils.decode(""), nullValue());
     assertThat(JsonUtils.decode("true"), nullValue());
     assertThat(JsonUtils.decode("0"), nullValue());
@@ -115,6 +116,15 @@ public class JsonUtilsTest {
     map.put("key4", nested);
     assertThat(JsonUtils.encode(map),
         equalTo("{\"key1\":\"value1\",\"key2\":2,\"key3\":false,\"key4\":{\"key1\":\"value1\",\"key2\":2,\"key3\":false}}"));
+  }
+
+  @Test
+  public void testEncode_null() throws Exception {
+    Map<String, Object> list = null;
+    assertThat(JsonUtils.encode(list), nullValue());
+
+    JSONObject json = null;
+    assertThat(JsonUtils.encode(json), nullValue());
   }
 
   @Test

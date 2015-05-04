@@ -20,7 +20,15 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.annotation.Config;
 
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Map;
+
 import me.henrytao.sharewifi.RobolectricGradleTestRunner;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.nullValue;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * Created by henrytao on 5/3/15.
@@ -30,9 +38,41 @@ import me.henrytao.sharewifi.RobolectricGradleTestRunner;
 public class BaseModelTest {
 
   @Test
-  public void getDeclaredFields() {
-    TestModel model = new TestModel();
-    //assertThat(model.getDeclaredFields(), equalTo());
+  public void testSerialize_noNotNullField_success() throws Exception {
+    long time = new GregorianCalendar(2015, 05, 04).getTimeInMillis();
+    CommonModel model = new CommonModel("henry", 26, new Date(time));
+    Map<String, Object> map = model.serialize();
+    assertThat(map.size(), equalTo(3));
+    assertThat(map.get(CommonModel.Fields.NAME), equalTo("henry"));
+    assertThat(map.get(CommonModel.Fields.AGE), equalTo(26));
+    assertThat(map.get(CommonModel.Fields.CREATED_AT), equalTo(time));
+
+    model = new CommonModel();
+    model.setName("henry");
+    model.setAge(26);
+    map = model.serialize();
+    assertThat(map.size(), equalTo(2));
+    assertThat(map.get(CommonModel.Fields.NAME), equalTo("henry"));
+    assertThat(map.get(CommonModel.Fields.AGE), equalTo(26));
+    assertThat(map.get(CommonModel.Fields.CREATED_AT), nullValue());
   }
 
+  @Test(expected = SerializerException.class)
+  public void testSerialize_hasNotNullField_failed() throws Exception {
+    NotNullFieldModel model = new NotNullFieldModel();
+    model.setAge(26);
+    model.serialize();
+  }
+
+  @Test
+  public void testSerialize_hasNotNullField_success() throws Exception {
+    NotNullFieldModel model = new NotNullFieldModel();
+    model.setName("henry");
+    model.setAge(26);
+    Map<String, Object> map = model.serialize();
+    assertThat(map.size(), equalTo(2));
+    assertThat(map.get(CommonModel.Fields.NAME), equalTo("henry"));
+    assertThat(map.get(CommonModel.Fields.AGE), equalTo(26));
+    assertThat(map.get(CommonModel.Fields.CREATED_AT), nullValue());
+  }
 }
