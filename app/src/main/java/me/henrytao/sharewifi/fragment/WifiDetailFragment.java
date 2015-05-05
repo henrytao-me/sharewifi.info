@@ -29,7 +29,7 @@ import me.henrytao.sharewifi.model.WifiModel;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class WifiDetailFragment extends Fragment {
+public class WifiDetailFragment extends BaseFragment {
 
   public interface WifiDetailInterface {
 
@@ -39,7 +39,6 @@ public class WifiDetailFragment extends Fragment {
   public static WifiDetailFragment newInstance(String wifiID, String wifiModel) {
     WifiDetailFragment fragment = new WifiDetailFragment();
     Bundle bundle = new Bundle();
-
     fragment.setArguments(bundle);
     return fragment;
   }

@@ -33,9 +33,11 @@ import me.henrytao.sharewifi.config.Constants;
 import me.henrytao.sharewifi.fragment.WifiDetailFragment;
 import me.henrytao.sharewifi.fragment.WifiDetailFragment.WifiDetailInterface;
 import me.henrytao.sharewifi.model.WifiModel;
-import me.henrytao.sharewifi.model.orm.DeserializerException;
 import me.henrytao.sharewifi.model.orm.SerializerException;
 import me.henrytao.sharewifi.util.JsonUtils;
+import rx.Observable;
+import rx.Observer;
+import rx.android.content.ContentObservable;
 
 public class WifiDetailActivity extends MdToolbarActivity implements WifiDetailInterface {
 
@@ -73,6 +75,10 @@ public class WifiDetailActivity extends MdToolbarActivity implements WifiDetailI
         .beginTransaction()
         .add(R.id.fragment, mWifiDetailFragment)
         .commit();
+
+    mWifiDetailFragment.observe("key").subscribe(o -> {
+
+    });
   }
 
   @Override
