@@ -33,7 +33,6 @@ import me.henrytao.sharewifi.config.Constants;
 import me.henrytao.sharewifi.fragment.WifiDetailFragment;
 import me.henrytao.sharewifi.fragment.WifiDetailFragment.WifiDetailInterface;
 import me.henrytao.sharewifi.model.WifiModel;
-import me.henrytao.sharewifi.model.orm.DeserializerException;
 import me.henrytao.sharewifi.model.orm.SerializerException;
 import me.henrytao.sharewifi.util.JsonUtils;
 
@@ -47,11 +46,7 @@ public class WifiDetailActivity extends MdToolbarActivity implements WifiDetailI
 
   public static Intent getIntent(Context context, WifiModel wifi) {
     Intent intent = new Intent(context, WifiDetailActivity.class);
-    try {
-      intent.putExtra(Constants.EXTRA.MODEL, JsonUtils.encode(wifi.serialize()));
-    } catch (SerializerException e) {
-      Logger.w(e.getMessage());
-    }
+    intent.putExtra(Constants.EXTRA.MODEL, wifi);
     return intent;
   }
 
@@ -66,8 +61,6 @@ public class WifiDetailActivity extends MdToolbarActivity implements WifiDetailI
     setContentView(R.layout.activity_wifi_detail);
     ButterKnife.inject(this);
 
-    mWifiDetailFragment = WifiDetailFragment
-        .newInstance(getIntent().getStringExtra(Constants.EXTRA.ID), getIntent().getStringExtra(Constants.EXTRA.MODEL));
     mWifiDetailFragment = WifiDetailFragment.newInstance(getIntent().getExtras());
     getSupportFragmentManager()
         .beginTransaction()

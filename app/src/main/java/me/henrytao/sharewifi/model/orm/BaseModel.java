@@ -21,6 +21,7 @@ import com.orhanobut.logger.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,7 +35,7 @@ import me.henrytao.sharewifi.util.JsonUtils;
 /**
  * Created by henrytao on 3/31/15.
  */
-public abstract class BaseModel<T extends BaseModel> {
+public abstract class BaseModel<T extends BaseModel> implements Serializable {
 
   private static final Map<Class, Deserializer> deserializerMap;
 
