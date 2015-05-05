@@ -16,25 +16,92 @@
 
 package me.henrytao.sharewifi.fragment;
 
+import android.app.Activity;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.io.Serializable;
+
+import butterknife.ButterKnife;
 import me.henrytao.sharewifi.R;
+import me.henrytao.sharewifi.config.Constants;
+import me.henrytao.sharewifi.model.WifiModel;
 
 /**
  * A placeholder fragment containing a simple view.
  */
 public class WifiDetailFragment extends Fragment {
 
+  public interface WifiDetailInterface {
+
+    void onSSIDChanged(String SSID);
+  }
+
+  public static WifiDetailFragment newInstance(Bundle bundle) {
+    WifiDetailFragment fragment = new WifiDetailFragment();
+    fragment.setArguments(bundle);
+    return fragment;
+  }
+
+  public static WifiDetailFragment newInstance(@Nullable String wifiID, @Nullable WifiModel wifiModel) {
+    Bundle bundle = new Bundle();
+    bundle.putString(Constants.EXTRA.ID, wifiID);
+    bundle.putSerializable(Constants.EXTRA.MODEL, wifiModel);
+    return newInstance(bundle);
+  }
+
+  public static WifiDetailFragment newInstance(String wifiID) {
+    return newInstance(wifiID, null);
+  }
+
+  public static WifiDetailFragment newInstance(WifiModel wifiModel) {
+    return newInstance(null, wifiModel);
+  }
+
+  private String mWifiID;
+
+  private WifiModel mWifiModel;
+
   public WifiDetailFragment() {
+
+  }
+
+  @Override
+  public void onAttach(Activity activity) {
+    super.onAttach(activity);
+    mWifiID = getArguments().getString(Constants.EXTRA.ID);
+    Serializable serializable = getArguments().getSerializable(Constants.EXTRA.MODEL);
+    mWifiModel = serializable == null ? null : (WifiModel) serializable;
   }
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
-    return inflater.inflate(R.layout.fragment_wifi_detail, container, false);
+    View view = inflater.inflate(R.layout.fragment_wifi_detail, container, false);
+    ButterKnife.inject(this, view);
+    return view;
   }
+
+  @Override
+  public void onDestroyView() {
+    super.onDestroyView();
+    ButterKnife.reset(this);
+  }
+
+  @Override
+  public void onViewCreated(View view, Bundle savedInstanceState) {
+    super.onViewCreated(view, savedInstanceState);
+
+    if (getActivity() instanceof WifiDetailInterface) {
+      WifiDetailInterface wifiDetailInterface = (WifiDetailInterface) getActivity();
+      if (mWifiModel != null) {
+        wifiDetailInterface.onSSIDChanged(mWifiModel.getSSID());
+      }
+    }
+  }
+
 }

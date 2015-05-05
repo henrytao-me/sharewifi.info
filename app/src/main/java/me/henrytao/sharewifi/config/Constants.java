@@ -14,19 +14,18 @@
  * limitations under the License.
  */
 
-package me.henrytao.sharewifi.service;
-
-import org.junit.runner.RunWith;
-import org.robolectric.annotation.Config;
-
-import me.henrytao.sharewifi.RobolectricGradleTestRunner;
+package me.henrytao.sharewifi.config;
 
 /**
- * Created by henrytao on 5/1/15.
+ * Created by henrytao on 5/5/15.
  */
-@RunWith(RobolectricGradleTestRunner.class)
-@Config(emulateSdk = 21)
-public class WifiServiceTest {
+public final class Constants {
 
+  public interface EXTRA {
+
+    String ID = "id";
+
+    String MODEL = "model";
+  }
 
 }

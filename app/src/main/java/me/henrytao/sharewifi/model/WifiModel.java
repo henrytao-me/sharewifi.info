@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package me.henrytao.sharewifi.model.entity;
+package me.henrytao.sharewifi.model;
 
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiInfo;
@@ -27,6 +27,25 @@ import me.henrytao.sharewifi.model.orm.Column;
  * Created by henrytao on 5/1/15.
  */
 public class WifiModel extends BaseModel<WifiModel> {
+
+  public interface Fields extends BaseModel.Fields {
+
+    final String SSID = "ssid";
+
+    final String BSSID = "bssid";
+
+    final String CAPABILITIES = "capabilities";
+
+    final String FREQUENCY = "frequency";
+
+    final String MAC_ADDRESS = "mac_address";
+
+    final String NAME = "name";
+
+    final String ADDRESS = "address";
+
+    final String PASSWORD = "password";
+  }
 
   public final static int SIGNAL_LEVEL = 5; // Level: 0, 1, 2, 3, 4
 
@@ -54,7 +73,11 @@ public class WifiModel extends BaseModel<WifiModel> {
   @Column(name = Fields.PASSWORD)
   private String mPasswrod;
 
-  int mSignalLevel;
+  private int mSignalLevel;
+
+  public WifiModel() {
+    
+  }
 
   public WifiModel(String SSID, String BSSID, String capabilities, int frequency, int RSSI, String macAddress) {
     mSSID = SSID;
@@ -108,25 +131,6 @@ public class WifiModel extends BaseModel<WifiModel> {
 
   public int getSignalLevel() {
     return mSignalLevel;
-  }
-
-  public interface Fields extends BaseModel.Fields {
-
-    final String SSID = "ssid";
-
-    final String BSSID = "bssid";
-
-    final String CAPABILITIES = "capabilities";
-
-    final String FREQUENCY = "frequency";
-
-    final String MAC_ADDRESS = "mac_address";
-
-    final String NAME = "name";
-
-    final String ADDRESS = "address";
-
-    final String PASSWORD = "password";
   }
 
 }

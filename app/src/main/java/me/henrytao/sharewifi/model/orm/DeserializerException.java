@@ -14,19 +14,14 @@
  * limitations under the License.
  */
 
-package me.henrytao.sharewifi.service;
-
-import org.junit.runner.RunWith;
-import org.robolectric.annotation.Config;
-
-import me.henrytao.sharewifi.RobolectricGradleTestRunner;
+package me.henrytao.sharewifi.model.orm;
 
 /**
- * Created by henrytao on 5/1/15.
+ * Created by henrytao on 5/4/15.
  */
-@RunWith(RobolectricGradleTestRunner.class)
-@Config(emulateSdk = 21)
-public class WifiServiceTest {
+public class DeserializerException extends Exception {
 
-
+  public DeserializerException(String detailMessage) {
+    super(detailMessage);
+  }
 }

@@ -33,10 +33,9 @@ import butterknife.InjectView;
 import me.henrytao.sharewifi.R;
 import me.henrytao.sharewifi.activity.WifiDetailActivity;
 import me.henrytao.sharewifi.adapter.WifiAdapter;
-import me.henrytao.sharewifi.model.entity.WifiModel;
+import me.henrytao.sharewifi.model.WifiModel;
 import me.henrytao.sharewifi.service.WifiService;
 import me.henrytao.sharewifi.util.ResourceUtils;
-import me.henrytao.sharewifi.util.ToastUtils;
 import me.henrytao.sharewifi.widget.RecycleEmptyErrorView;
 import rx.Subscription;
 
@@ -47,19 +46,19 @@ public class MainFragment extends BaseFragment implements WifiAdapter.OnClickLis
 
   private Subscription mWifiSubscription;
 
-  private List<WifiModel> mList = new ArrayList<>();
+  private List<WifiModel> mListWifi = new ArrayList<>();
 
   @InjectView(R.id.swipe_refresh_layout)
-  SwipeRefreshLayout mSwipeRefreshLayout;
+  SwipeRefreshLayout vSwipeRefreshLayout;
 
   @InjectView(R.id.list)
-  RecycleEmptyErrorView mRecyclerView;
+  RecycleEmptyErrorView vRecyclerView;
 
   @InjectView(R.id.empty_view)
-  View mEmptyView;
+  View vEmptyView;
 
   @InjectView(R.id.error_view)
-  View mErrorView;
+  View vErrorView;
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -81,16 +80,16 @@ public class MainFragment extends BaseFragment implements WifiAdapter.OnClickLis
 
     setHasOptionsMenu(true);
 
-    WifiAdapter adapter = new WifiAdapter(getActivity(), mList);
+    WifiAdapter adapter = new WifiAdapter(getActivity(), mListWifi);
     adapter.setOnClickListener(this);
-    mRecyclerView.setHasFixedSize(true);
-    mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-    mRecyclerView.setAdapter(adapter);
-    mRecyclerView.setEmptyView(mEmptyView);
-    mRecyclerView.setErrorView(mErrorView);
+    vRecyclerView.setHasFixedSize(true);
+    vRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+    vRecyclerView.setAdapter(adapter);
+    vRecyclerView.setEmptyView(vEmptyView);
+    vRecyclerView.setErrorView(vErrorView);
 
-    mSwipeRefreshLayout.setColorSchemeColors(ResourceUtils.getColorFromAttribute(getActivity(), R.attr.mdColor_primaryPalette));
-    mSwipeRefreshLayout.setOnRefreshListener(() -> refreshContent());
+    vSwipeRefreshLayout.setColorSchemeColors(ResourceUtils.getColorFromAttribute(getActivity(), R.attr.mdColor_primaryPalette));
+    vSwipeRefreshLayout.setOnRefreshListener(() -> refreshContent());
   }
 
   @Override
@@ -107,9 +106,9 @@ public class MainFragment extends BaseFragment implements WifiAdapter.OnClickLis
     if (isAdded()) {
       mWifiSubscription = WifiService.getAvailableWifi(getActivity())
           .subscribe(list -> {
-            mList.clear();
-            mList.addAll(list);
-            mRecyclerView.getAdapter().notifyDataSetChanged();
+            mListWifi.clear();
+            mListWifi.addAll(list);
+            vRecyclerView.getAdapter().notifyDataSetChanged();
           }, throwable -> {
 
           });
@@ -120,7 +119,7 @@ public class MainFragment extends BaseFragment implements WifiAdapter.OnClickLis
   public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()) {
       case R.id.action_refresh:
-        if (!mSwipeRefreshLayout.isRefreshing()) {
+        if (!vSwipeRefreshLayout.isRefreshing()) {
           refreshContent();
         }
         return true;
@@ -135,13 +134,13 @@ public class MainFragment extends BaseFragment implements WifiAdapter.OnClickLis
 
   @Override
   public void onWifiAdapterInfoClick(View view, WifiModel data) {
-    startActivity(WifiDetailActivity.getIntent(getActivity(), 0));
+    startActivity(WifiDetailActivity.getIntent(getActivity(), data));
   }
 
   private void refreshContent() {
-    mSwipeRefreshLayout.setRefreshing(true);
+    vSwipeRefreshLayout.setRefreshing(true);
     new Handler().postDelayed(() -> {
-      mSwipeRefreshLayout.setRefreshing(false);
+      vSwipeRefreshLayout.setRefreshing(false);
     }, 2000);
   }
 

@@ -14,26 +14,48 @@
  * limitations under the License.
  */
 
-package me.henrytao.sharewifi.model.entity;
+package me.henrytao.sharewifi.model.orm;
 
 import java.util.Date;
 
-import me.henrytao.sharewifi.model.orm.BaseModel;
-import me.henrytao.sharewifi.model.orm.Column;
-
 /**
- * Created by henrytao on 3/31/15.
+ * Created by henrytao on 5/3/15.
  */
-public class UserModel extends BaseModel<UserModel> {
+public class NestedModel extends BaseModel<NestedModel> {
 
-  @Column(name = UserModel.Fields.NAME)
+  public interface Fields extends BaseModel.Fields {
+
+    final String NAME = "name";
+
+    final String AGE = "age";
+
+    final String NESTED = "nested";
+
+    final String CREATED_AT = "created_at";
+  }
+
+  @Column(name = Fields.NAME)
   private String mName;
 
-  @Column(name = UserModel.Fields.AGE)
+  @Column(name = Fields.AGE)
   private int mAge;
 
-  @Column(name = UserModel.Fields.CREATED_AT)
+  @Column(name = Fields.CREATED_AT)
   private Date mCreateAt;
+
+  @Column(name = Fields.NESTED)
+  private CommonModel mNested;
+
+  public NestedModel() {
+
+  }
+
+  public NestedModel(String name, int age, Date createAt, CommonModel nested) {
+    mName = name;
+    mAge = age;
+    mCreateAt = createAt;
+    mNested = nested;
+  }
 
   public String getName() {
     return mName;
@@ -59,13 +81,7 @@ public class UserModel extends BaseModel<UserModel> {
     mCreateAt = createAt;
   }
 
-  public interface Fields extends BaseModel.Fields {
-
-    final String NAME = "name";
-
-    final String AGE = "age";
-
-    final String CREATED_AT = "created_at";
+  public CommonModel getNested() {
+    return mNested;
   }
-
 }

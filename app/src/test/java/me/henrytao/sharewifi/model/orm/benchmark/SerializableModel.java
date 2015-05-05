@@ -14,19 +14,37 @@
  * limitations under the License.
  */
 
-package me.henrytao.sharewifi.service;
+package me.henrytao.sharewifi.model.orm.benchmark;
 
-import org.junit.runner.RunWith;
-import org.robolectric.annotation.Config;
-
-import me.henrytao.sharewifi.RobolectricGradleTestRunner;
+import java.io.Serializable;
+import java.util.Date;
 
 /**
- * Created by henrytao on 5/1/15.
+ * Created by henrytao on 5/5/15.
  */
-@RunWith(RobolectricGradleTestRunner.class)
-@Config(emulateSdk = 21)
-public class WifiServiceTest {
+public class SerializableModel implements Serializable {
 
+  private String mName;
 
+  private int mAge;
+
+  private long mCreatedAt;
+
+  public SerializableModel(String name, int age, long createdAt) {
+    mName = name;
+    mAge = age;
+    mCreatedAt = createdAt;
+  }
+
+  public String getName() {
+    return mName;
+  }
+
+  public int getAge() {
+    return mAge;
+  }
+
+  public long getCreatedAt() {
+    return mCreatedAt;
+  }
 }

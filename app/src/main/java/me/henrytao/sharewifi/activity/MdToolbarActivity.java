@@ -28,7 +28,7 @@ import me.henrytao.sharewifi.util.ResourceUtils;
  */
 public class MdToolbarActivity extends BaseActivity {
 
-  protected Toolbar mToolbar;
+  protected Toolbar vToolbar;
 
   @Override
   public void setContentView(int layoutResID) {
@@ -50,14 +50,14 @@ public class MdToolbarActivity extends BaseActivity {
 
   private void initToolbar() {
     if (getToolbarId() > 0) {
-      mToolbar = (Toolbar) findViewById(getToolbarId());
-      setSupportActionBar(mToolbar);
+      vToolbar = (Toolbar) findViewById(getToolbarId());
+      setSupportActionBar(vToolbar);
       if (R.attr.appIcon_toolbarArrowBack > 0) {
-        mToolbar.setNavigationIcon(ResourceUtils.getDrawableIdFromAttribute(this, R.attr.appIcon_toolbarArrowBack));
+        vToolbar.setNavigationIcon(ResourceUtils.getDrawableIdFromAttribute(this, R.attr.appIcon_toolbarArrowBack));
       }
-      mToolbar.setNavigationOnClickListener((v) -> onNavigationClicked(v));
+      vToolbar.setNavigationOnClickListener((v) -> onNavigationClicked(v));
       if (getToolbarContentLayout() > 0) {
-        mToolbar.addView(getLayoutInflater().inflate(getToolbarContentLayout(), mToolbar, false));
+        vToolbar.addView(getLayoutInflater().inflate(getToolbarContentLayout(), vToolbar, false));
       }
     }
   }

@@ -16,27 +16,44 @@
 
 package me.henrytao.sharewifi.activity;
 
+import com.orhanobut.logger.Logger;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import butterknife.ButterKnife;
+import butterknife.InjectView;
 import me.henrytao.sharewifi.R;
-import me.henrytao.sharewifi.util.ToastUtils;
+import me.henrytao.sharewifi.config.Constants;
+import me.henrytao.sharewifi.fragment.WifiDetailFragment;
+import me.henrytao.sharewifi.fragment.WifiDetailFragment.WifiDetailInterface;
+import me.henrytao.sharewifi.model.WifiModel;
+import me.henrytao.sharewifi.model.orm.SerializerException;
+import me.henrytao.sharewifi.util.JsonUtils;
 
-public class WifiDetailActivity extends MdToolbarActivity {
+public class WifiDetailActivity extends MdToolbarActivity implements WifiDetailInterface {
 
-  private static String WIFI_ID = "WIFI_ID";
-
-  public static Intent getIntent(Context context, int wifiId) {
+  public static Intent getIntent(Context context, String wifiID) {
     Intent intent = new Intent(context, WifiDetailActivity.class);
-    intent.putExtra(WIFI_ID, wifiId);
+    intent.putExtra(Constants.EXTRA.ID, wifiID);
     return intent;
   }
 
-  private int mWifiId;
+  public static Intent getIntent(Context context, WifiModel wifi) {
+    Intent intent = new Intent(context, WifiDetailActivity.class);
+    intent.putExtra(Constants.EXTRA.MODEL, wifi);
+    return intent;
+  }
+
+  private WifiDetailFragment mWifiDetailFragment;
+
+  @InjectView(R.id.ssid)
+  TextView vSSID;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +61,11 @@ public class WifiDetailActivity extends MdToolbarActivity {
     setContentView(R.layout.activity_wifi_detail);
     ButterKnife.inject(this);
 
-    mWifiId = getIntent().getIntExtra(WIFI_ID, -1);
-    ToastUtils.showShortToast(this, Integer.toString(mWifiId));
+    mWifiDetailFragment = WifiDetailFragment.newInstance(getIntent().getExtras());
+    getSupportFragmentManager()
+        .beginTransaction()
+        .add(R.id.fragment, mWifiDetailFragment)
+        .commit();
   }
 
   @Override
@@ -65,5 +85,10 @@ public class WifiDetailActivity extends MdToolbarActivity {
   @Override
   protected int getToolbarContentLayout() {
     return R.layout.view_toolbar_wifi_detail;
+  }
+
+  @Override
+  public void onSSIDChanged(String SSID) {
+    vSSID.setText(TextUtils.isEmpty(SSID) ? "" : SSID);
   }
 }

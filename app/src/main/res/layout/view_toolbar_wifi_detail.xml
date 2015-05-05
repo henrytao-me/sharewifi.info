@@ -26,10 +26,10 @@
     android:layout_height="?attr/actionBarSize" />
 
   <TextView
+    android:id="@+id/ssid"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
     android:gravity="left|center_vertical"
-    android:text="wifi-name"
     android:textColor="?attr/mdTextColor_primaryPalette"
     tools:text="wifi-name"
     style="@style/MdText.Headline.SingleLine" />
