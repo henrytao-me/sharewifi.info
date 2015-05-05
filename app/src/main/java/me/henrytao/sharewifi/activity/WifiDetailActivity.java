@@ -18,8 +18,6 @@ package me.henrytao.sharewifi.activity;
 
 import com.orhanobut.logger.Logger;
 
-import org.json.JSONException;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -31,25 +29,33 @@ import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import me.henrytao.sharewifi.R;
+import me.henrytao.sharewifi.config.Constants;
+import me.henrytao.sharewifi.fragment.WifiDetailFragment;
 import me.henrytao.sharewifi.fragment.WifiDetailFragment.WifiDetailInterface;
 import me.henrytao.sharewifi.model.WifiModel;
+import me.henrytao.sharewifi.model.orm.DeserializerException;
 import me.henrytao.sharewifi.model.orm.SerializerException;
+import me.henrytao.sharewifi.util.JsonUtils;
 
 public class WifiDetailActivity extends MdToolbarActivity implements WifiDetailInterface {
 
-  private static String WIFI_MODEL = "WIFI_MODEL";
+  public static Intent getIntent(Context context, String wifiID) {
+    Intent intent = new Intent(context, WifiDetailActivity.class);
+    intent.putExtra(Constants.EXTRA.ID, wifiID);
+    return intent;
+  }
 
   public static Intent getIntent(Context context, WifiModel wifi) {
     Intent intent = new Intent(context, WifiDetailActivity.class);
     try {
-      intent.putExtra(WIFI_MODEL, wifi.serialize().toString());
+      intent.putExtra(Constants.EXTRA.MODEL, JsonUtils.encode(wifi.serialize()));
     } catch (SerializerException e) {
-      Logger.e(e);
+      Logger.w(e.getMessage());
     }
     return intent;
   }
 
-  private WifiModel mWifi = new WifiModel();
+  private WifiDetailFragment mWifiDetailFragment;
 
   @InjectView(R.id.ssid)
   TextView vSSID;
@@ -59,6 +65,14 @@ public class WifiDetailActivity extends MdToolbarActivity implements WifiDetailI
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_wifi_detail);
     ButterKnife.inject(this);
+
+    mWifiDetailFragment = WifiDetailFragment
+        .newInstance(getIntent().getStringExtra(Constants.EXTRA.ID), getIntent().getStringExtra(Constants.EXTRA.MODEL));
+    mWifiDetailFragment = WifiDetailFragment.newInstance(getIntent().getExtras());
+    getSupportFragmentManager()
+        .beginTransaction()
+        .add(R.id.fragment, mWifiDetailFragment)
+        .commit();
   }
 
   @Override
@@ -81,14 +95,7 @@ public class WifiDetailActivity extends MdToolbarActivity implements WifiDetailI
   }
 
   @Override
-  public WifiModel getWifi() {
-    return mWifi;
-  }
-
-  @Override
-  public void setSSID(String SSID) {
-    if (!TextUtils.isEmpty(SSID)) {
-      vSSID.setText(SSID);
-    }
+  public void onSSIDChanged(String SSID) {
+    vSSID.setText(TextUtils.isEmpty(SSID) ? "" : SSID);
   }
 }

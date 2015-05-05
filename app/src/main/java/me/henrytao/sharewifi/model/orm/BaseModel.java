@@ -117,11 +117,14 @@ public abstract class BaseModel<T extends BaseModel> {
           } else if (value instanceof Map) {
             model.deserialize((Map) value);
           } else {
-            throw new DeserializerException("Field <" + name + "> does not have correct input data");
+            throw new DeserializerException(
+                "Field <" + name + "> does not have correct input data or Model <" + type.getName() + "> should have default contructor");
           }
           f.set(this, model);
         } else if (boolean.class.isAssignableFrom(type)) {
           f.setBoolean(this, value == null ? false : (Boolean) value);
+        } else if (long.class.isAssignableFrom(type)) {
+          f.setLong(this, value == null ? 0L : (Long) value);
         } else if (double.class.isAssignableFrom(type)) {
           f.setDouble(this, value == null ? 0.0 : (Double) value);
         } else if (float.class.isAssignableFrom(type)) {

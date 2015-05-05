@@ -23,6 +23,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import me.henrytao.sharewifi.R;
+import me.henrytao.sharewifi.config.Constants;
 import me.henrytao.sharewifi.model.WifiModel;
 
 /**
@@ -30,9 +31,29 @@ import me.henrytao.sharewifi.model.WifiModel;
  */
 public class WifiDetailFragment extends Fragment {
 
-  WifiModel mWifi;
+  public interface WifiDetailInterface {
+
+    void onSSIDChanged(String SSID);
+  }
+
+  public static WifiDetailFragment newInstance(String wifiID, String wifiModel) {
+    WifiDetailFragment fragment = new WifiDetailFragment();
+    Bundle bundle = new Bundle();
+
+    fragment.setArguments(bundle);
+    return fragment;
+  }
+
+  public static WifiDetailFragment newInstance(Bundle bundle) {
+    return newInstance(bundle.getString(Constants.EXTRA.ID), bundle.getString(Constants.EXTRA.MODEL));
+  }
+
+  private String mWifiID;
+
+  private WifiModel mWifiModel;
 
   public WifiDetailFragment() {
+
   }
 
   @Override
@@ -46,17 +67,10 @@ public class WifiDetailFragment extends Fragment {
     super.onViewCreated(view, savedInstanceState);
     if (getActivity() instanceof WifiDetailInterface) {
       WifiDetailInterface wifiDetailInterface = (WifiDetailInterface) getActivity();
-      mWifi = wifiDetailInterface.getWifi();
-      if (mWifi != null) {
-        wifiDetailInterface.setSSID(mWifi.getSSID());
+      if (mWifiModel != null) {
+        wifiDetailInterface.onSSIDChanged(mWifiModel.getSSID());
       }
     }
   }
 
-  public interface WifiDetailInterface {
-
-    WifiModel getWifi();
-
-    void setSSID(String SSID);
-  }
 }

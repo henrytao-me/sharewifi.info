@@ -14,24 +14,18 @@
  * limitations under the License.
  */
 
-package me.henrytao.sharewifi.activity;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+package me.henrytao.sharewifi.config;
 
 /**
- * Created by henrytao on 4/14/15.
+ * Created by henrytao on 5/5/15.
  */
-public class BaseActivity extends AppCompatActivity {
+public final class Constants {
 
-  protected void onInitializeIntentExtra(Intent intent) {
+  public interface EXTRA {
 
+    String ID = "id";
+
+    String MODEL = "model";
   }
 
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    onInitializeIntentExtra(getIntent());
-  }
 }

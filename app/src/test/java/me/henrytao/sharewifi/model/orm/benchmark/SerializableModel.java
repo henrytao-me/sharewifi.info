@@ -14,24 +14,37 @@
  * limitations under the License.
  */
 
-package me.henrytao.sharewifi.activity;
+package me.henrytao.sharewifi.model.orm.benchmark;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import java.io.Serializable;
+import java.util.Date;
 
 /**
- * Created by henrytao on 4/14/15.
+ * Created by henrytao on 5/5/15.
  */
-public class BaseActivity extends AppCompatActivity {
+public class SerializableModel implements Serializable {
 
-  protected void onInitializeIntentExtra(Intent intent) {
+  private String mName;
 
+  private int mAge;
+
+  private long mCreatedAt;
+
+  public SerializableModel(String name, int age, long createdAt) {
+    mName = name;
+    mAge = age;
+    mCreatedAt = createdAt;
   }
 
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    onInitializeIntentExtra(getIntent());
+  public String getName() {
+    return mName;
+  }
+
+  public int getAge() {
+    return mAge;
+  }
+
+  public long getCreatedAt() {
+    return mCreatedAt;
   }
 }
