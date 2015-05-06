@@ -20,41 +20,45 @@ import android.net.wifi.ScanResult;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 import me.henrytao.sharewifi.model.orm.BaseModel;
 import me.henrytao.sharewifi.model.orm.Column;
 
 /**
  * Created by henrytao on 5/1/15.
  */
+@Accessors(prefix = "m")
 public class WifiModel extends BaseModel<WifiModel> {
 
   public final static int SIGNAL_LEVEL = 5; // Level: 0, 1, 2, 3, 4
 
   @Column(name = Fields.ADDRESS)
-  private String mAddress;
+  @Getter @Setter private String mAddress;
 
   @Column(name = Fields.BSSID)
-  private String mBSSID;
+  @Getter @Setter private String mBSSID;
 
   @Column(name = Fields.CAPABILITIES)
-  private String mCapabilities;
+  @Getter @Setter private String mCapabilities;
 
   @Column(name = Fields.FREQUENCY)
-  private int mFrequency;
+  @Getter @Setter private int mFrequency;
 
   @Column(name = Fields.MAC_ADDRESS)
-  private String mMacAddress;
+  @Getter @Setter private String mMacAddress;
 
   @Column(name = Fields.NAME)
-  private String mName;
+  @Getter @Setter private String mName;
 
   @Column(name = Fields.PASSWORD)
-  private String mPasswrod;
+  @Getter @Setter private String mPasswrod;
 
   @Column(name = Fields.SSID)
-  private String mSSID;
+  @Getter @Setter private String mSSID;
 
-  private int mSignalLevel;
+  @Getter @Setter private int mSignalLevel;
 
   public WifiModel() {
 
@@ -76,42 +80,6 @@ public class WifiModel extends BaseModel<WifiModel> {
   public WifiModel(WifiInfo wifiInfo) {
     this(wifiInfo.getSSID().replaceFirst("^\"", "").replaceFirst("\"$", ""),
         wifiInfo.getBSSID(), null, 0, wifiInfo.getRssi(), wifiInfo.getMacAddress());
-  }
-
-  public String getAddress() {
-    return mAddress;
-  }
-
-  public void setAddress(String address) {
-    mAddress = address;
-  }
-
-  public String getBSSID() {
-    return mBSSID;
-  }
-
-  public String getName() {
-    return mName;
-  }
-
-  public void setName(String name) {
-    mName = name;
-  }
-
-  public String getPasswrod() {
-    return mPasswrod;
-  }
-
-  public void setPasswrod(String passwrod) {
-    mPasswrod = passwrod;
-  }
-
-  public String getSSID() {
-    return mSSID;
-  }
-
-  public int getSignalLevel() {
-    return mSignalLevel;
   }
 
   public interface Fields extends BaseModel.Fields {

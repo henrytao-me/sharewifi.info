@@ -20,6 +20,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.wifi.ScanResult;
+import android.net.wifi.WifiConfiguration;
+import android.net.wifi.WifiEnterpriseConfig;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.text.TextUtils;
@@ -36,6 +38,18 @@ import rx.android.content.ContentObservable;
  * Created by henrytao on 4/30/15.
  */
 public class WifiService {
+
+  public static void connectToWifi(Context context, String SSID, String password) {
+    setWifiEnabled(context, true);
+    WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+    WifiConfiguration config = new WifiConfiguration();
+    config.SSID = String.format("\"%s\"", SSID);
+    config.preSharedKey = String.format("\"%s\"", password);
+    int networkId = wifiManager.addNetwork(config);
+    wifiManager.disconnect();
+    wifiManager.enableNetwork(networkId, true);
+    wifiManager.reconnect();
+  }
 
   public static WifiModel getCurrentWifi(Context context) {
     WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);

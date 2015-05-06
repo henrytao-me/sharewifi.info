@@ -30,11 +30,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 import me.henrytao.sharewifi.util.JsonUtils;
 
 /**
  * Created by henrytao on 3/31/15.
  */
+@Accessors(prefix = "m")
 public abstract class BaseModel<T extends BaseModel> implements Serializable {
 
   private static final Map<Class, Deserializer> deserializerMap;
@@ -50,7 +54,7 @@ public abstract class BaseModel<T extends BaseModel> implements Serializable {
   }
 
   @Column(name = Fields.ID)
-  protected String mId;
+  @Getter @Setter protected String mId;
 
   public T deserialize(Map<String, Object> map) throws DeserializerException {
     try {
@@ -111,10 +115,6 @@ public abstract class BaseModel<T extends BaseModel> implements Serializable {
 
   public T deserialize(String json) throws DeserializerException {
     return deserialize(JsonUtils.decode(json));
-  }
-
-  public String getId() {
-    return mId;
   }
 
   public Map<String, Object> serialize() throws SerializerException {

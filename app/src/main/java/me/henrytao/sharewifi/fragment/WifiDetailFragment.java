@@ -36,6 +36,7 @@ import butterknife.OnClick;
 import me.henrytao.sharewifi.R;
 import me.henrytao.sharewifi.config.Constants;
 import me.henrytao.sharewifi.model.WifiModel;
+import me.henrytao.sharewifi.service.WifiService;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -94,28 +95,17 @@ public class WifiDetailFragment extends Fragment {
   @Override
   public void onViewCreated(View view, Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
-
     if (getActivity() instanceof WifiDetailInterface) {
       WifiDetailInterface wifiDetailInterface = (WifiDetailInterface) getActivity();
       if (mWifiModel != null) {
-        wifiDetailInterface.onSSIDChanged(mWifiModel.getSSID());
+        wifiDetailInterface.onSSIDChanged(mWifiModel.getAddress());
       }
     }
   }
 
   @OnClick(R.id.button_connect)
   protected void onButtonConnectClicked() {
-    WifiManager wifiManager = (WifiManager) getActivity().getSystemService(Context.WIFI_SERVICE);
-    if (!wifiManager.isWifiEnabled() && wifiManager.getWifiState() != WifiManager.WIFI_STATE_ENABLING) {
-      wifiManager.setWifiEnabled(true);
-    }
-    WifiConfiguration config = new WifiConfiguration();
-    config.SSID = String.format("\"%s\"", mWifiModel.getSSID());
-    config.preSharedKey = String.format("\"%s\"", "ekitqwert12345");
-    int netID = wifiManager.addNetwork(config);
-    wifiManager.disconnect();
-    wifiManager.enableNetwork(netID, true);
-    wifiManager.reconnect();
+    WifiService.connectToWifi(getActivity(), mWifiModel.getSSID(), "ekitqwert12345");
   }
 
   public interface WifiDetailInterface {

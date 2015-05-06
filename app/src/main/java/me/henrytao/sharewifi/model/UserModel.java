@@ -18,46 +18,26 @@ package me.henrytao.sharewifi.model;
 
 import java.util.Date;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 import me.henrytao.sharewifi.model.orm.BaseModel;
 import me.henrytao.sharewifi.model.orm.Column;
 
 /**
  * Created by henrytao on 3/31/15.
  */
+@Accessors(prefix = "m")
 public class UserModel extends BaseModel<UserModel> {
 
   @Column(name = UserModel.Fields.AGE)
-  private int mAge;
+  @Getter @Setter private int mAge;
 
   @Column(name = UserModel.Fields.CREATED_AT)
-  private Date mCreateAt;
+  @Getter @Setter private Date mCreateAt;
 
   @Column(name = UserModel.Fields.NAME)
-  private String mName;
-
-  public int getAge() {
-    return mAge;
-  }
-
-  public void setAge(int age) {
-    mAge = age;
-  }
-
-  public Date getCreateAt() {
-    return mCreateAt;
-  }
-
-  public void setCreateAt(Date createAt) {
-    mCreateAt = createAt;
-  }
-
-  public String getName() {
-    return mName;
-  }
-
-  public void setName(String name) {
-    mName = name;
-  }
+  @Getter @Setter private String mName;
 
   public interface Fields extends BaseModel.Fields {
 
