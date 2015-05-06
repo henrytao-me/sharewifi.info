@@ -23,25 +23,14 @@ import java.util.Date;
  */
 public class NestedModel extends BaseModel<NestedModel> {
 
-  public interface Fields extends BaseModel.Fields {
-
-    final String NAME = "name";
-
-    final String AGE = "age";
-
-    final String NESTED = "nested";
-
-    final String CREATED_AT = "created_at";
-  }
-
-  @Column(name = Fields.NAME)
-  private String mName;
-
   @Column(name = Fields.AGE)
   private int mAge;
 
   @Column(name = Fields.CREATED_AT)
   private Date mCreateAt;
+
+  @Column(name = Fields.NAME)
+  private String mName;
 
   @Column(name = Fields.NESTED)
   private CommonModel mNested;
@@ -55,14 +44,6 @@ public class NestedModel extends BaseModel<NestedModel> {
     mAge = age;
     mCreateAt = createAt;
     mNested = nested;
-  }
-
-  public String getName() {
-    return mName;
-  }
-
-  public void setName(String name) {
-    mName = name;
   }
 
   public int getAge() {
@@ -81,7 +62,23 @@ public class NestedModel extends BaseModel<NestedModel> {
     mCreateAt = createAt;
   }
 
+  public String getName() {
+    return mName;
+  }
+
+  public void setName(String name) {
+    mName = name;
+  }
+
   public CommonModel getNested() {
     return mNested;
+  }
+
+  public interface Fields extends BaseModel.Fields {
+
+    final String AGE = "age";
+    final String CREATED_AT = "created_at";
+    final String NAME = "name";
+    final String NESTED = "nested";
   }
 }

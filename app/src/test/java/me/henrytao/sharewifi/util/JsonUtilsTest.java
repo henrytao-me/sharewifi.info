@@ -41,17 +41,12 @@ import static org.junit.Assert.assertThat;
 public class JsonUtilsTest {
 
   @Test
-  public void testDecode_single() throws Exception {
-    Map<String, Object> map = new HashMap<>();
-    map.put("key1", "value1");
-    map.put("key2", "2");
-    map.put("key3", "false");
-
-    Map<String, Object> res = JsonUtils.decode(map.toString());
-    assertThat(res.size(), equalTo(map.size()));
-    assertThat(res.get("key1").toString(), equalTo(map.get("key1").toString()));
-    assertThat(res.get("key2").toString(), equalTo(map.get("key2").toString()));
-    assertThat(res.get("key3").toString(), equalTo(map.get("key3").toString()));
+  public void testDecode_failed() throws Exception {
+    assertThat(JsonUtils.decode(""), nullValue());
+    assertThat(JsonUtils.decode("true"), nullValue());
+    assertThat(JsonUtils.decode("0"), nullValue());
+    assertThat(JsonUtils.decode("{hello: 1, moto: 2,}"), nullValue());
+    assertThat(JsonUtils.decode("{\"hello\": 1, \"moto\": 2,}"), nullValue());
   }
 
   @Test
@@ -82,18 +77,23 @@ public class JsonUtilsTest {
   }
 
   @Test
-  public void testDecode_success() {
-    assertThat(JsonUtils.decode("{hello: 1, moto: 2}"), notNullValue());
-    assertThat(JsonUtils.decode("{\"hello\": 1, \"moto\": 2}"), notNullValue());
+  public void testDecode_single() throws Exception {
+    Map<String, Object> map = new HashMap<>();
+    map.put("key1", "value1");
+    map.put("key2", "2");
+    map.put("key3", "false");
+
+    Map<String, Object> res = JsonUtils.decode(map.toString());
+    assertThat(res.size(), equalTo(map.size()));
+    assertThat(res.get("key1").toString(), equalTo(map.get("key1").toString()));
+    assertThat(res.get("key2").toString(), equalTo(map.get("key2").toString()));
+    assertThat(res.get("key3").toString(), equalTo(map.get("key3").toString()));
   }
 
   @Test
-  public void testDecode_failed() throws Exception {
-    assertThat(JsonUtils.decode(""), nullValue());
-    assertThat(JsonUtils.decode("true"), nullValue());
-    assertThat(JsonUtils.decode("0"), nullValue());
-    assertThat(JsonUtils.decode("{hello: 1, moto: 2,}"), nullValue());
-    assertThat(JsonUtils.decode("{\"hello\": 1, \"moto\": 2,}"), nullValue());
+  public void testDecode_success() {
+    assertThat(JsonUtils.decode("{hello: 1, moto: 2}"), notNullValue());
+    assertThat(JsonUtils.decode("{\"hello\": 1, \"moto\": 2}"), notNullValue());
   }
 
   @Test
@@ -113,15 +113,6 @@ public class JsonUtilsTest {
   }
 
   @Test
-  public void testEncode_null() throws Exception {
-    Map<String, Object> list = null;
-    assertThat(JsonUtils.encode(list), nullValue());
-
-    JSONObject json = null;
-    assertThat(JsonUtils.encode(json), nullValue());
-  }
-
-  @Test
   public void testEncode_list() throws Exception {
     List<String> list = new ArrayList<>();
     list.add("item 1");
@@ -135,5 +126,14 @@ public class JsonUtilsTest {
     map.put("key4", list);
     assertThat(JsonUtils.encode(map),
         equalTo("{\"key1\":\"value1\",\"key2\":2,\"key3\":false,\"key4\":[\"item 1\",\"item 2\",\"item 3\"]}"));
+  }
+
+  @Test
+  public void testEncode_null() throws Exception {
+    Map<String, Object> list = null;
+    assertThat(JsonUtils.encode(list), nullValue());
+
+    JSONObject json = null;
+    assertThat(JsonUtils.encode(json), nullValue());
   }
 }

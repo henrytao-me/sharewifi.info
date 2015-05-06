@@ -43,63 +43,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class BaseModelTest {
 
   @Test
-  public void testSerialize_commonModel() throws Exception {
-    long time = new GregorianCalendar(2015, 05, 04).getTimeInMillis();
-    CommonModel model = new CommonModel("henry", 26, new Date(time));
-    Map<String, Object> map = model.serialize();
-    assertThat(map.size(), equalTo(3));
-    assertThat(map.get(CommonModel.Fields.NAME), equalTo("henry"));
-    assertThat(map.get(CommonModel.Fields.AGE), equalTo(26));
-    assertThat(map.get(CommonModel.Fields.CREATED_AT), equalTo(time));
-
-    model = new CommonModel();
-    model.setName("henry");
-    model.setAge(26);
-    map = model.serialize();
-    assertThat(map.size(), equalTo(2));
-    assertThat(map.get(CommonModel.Fields.NAME), equalTo("henry"));
-    assertThat(map.get(CommonModel.Fields.AGE), equalTo(26));
-    assertThat(map.get(CommonModel.Fields.CREATED_AT), nullValue());
-  }
-
-  @Test(expected = SerializerException.class)
-  public void testSerialize_notNullFieldModel_failed() throws Exception {
-    NotNullFieldModel model = new NotNullFieldModel();
-    model.setAge(26);
-    model.serialize();
-  }
-
-  @Test
-  public void testSerialize_notNullFieldModel_success() throws Exception {
-    NotNullFieldModel model = new NotNullFieldModel();
-    model.setName("henry");
-    model.setAge(26);
-    Map<String, Object> map = model.serialize();
-    assertThat(map.size(), equalTo(2));
-    assertThat(map.get(CommonModel.Fields.NAME), equalTo("henry"));
-    assertThat(map.get(CommonModel.Fields.AGE), equalTo(26));
-    assertThat(map.get(CommonModel.Fields.CREATED_AT), nullValue());
-  }
-
-  @Test
-  public void testSerialize_nestedModel() throws Exception {
-    long time = new GregorianCalendar(2015, 05, 04).getTimeInMillis();
-    CommonModel commonModel = new CommonModel("common-henry", 26, new Date(time));
-    NestedModel nestedModel = new NestedModel("nested-henry", 25, new Date(time), commonModel);
-    Map<String, Object> map = nestedModel.serialize();
-    assertThat(map.size(), equalTo(4));
-    assertThat(map.get(NestedModel.Fields.NAME), equalTo("nested-henry"));
-    assertThat(map.get(NestedModel.Fields.AGE), equalTo(25));
-    assertThat(map.get(NestedModel.Fields.CREATED_AT), equalTo(time));
-
-    Map<String, Object> commonRes = (Map<String, Object>) map.get(NestedModel.Fields.NESTED);
-    assertThat(commonRes.size(), equalTo(3));
-    assertThat(commonRes.get(CommonModel.Fields.NAME), equalTo("common-henry"));
-    assertThat(commonRes.get(CommonModel.Fields.AGE), equalTo(26));
-    assertThat(commonRes.get(CommonModel.Fields.CREATED_AT), equalTo(time));
-  }
-
-  @Test
   public void testDeserialize_commonModel() throws Exception {
     long time = new GregorianCalendar(2015, 05, 04).getTimeInMillis();
     Map<String, Object> map = new HashMap<>();
@@ -112,6 +55,30 @@ public class BaseModelTest {
     assertThat(model.getName(), equalTo("henry"));
     assertThat(model.getAge(), equalTo(26));
     assertThat(model.getCreateAt(), equalTo(new Date(time)));
+  }
+
+  @Test
+  public void testDeserialize_nestedModel() throws Exception {
+    long time = new GregorianCalendar(2015, 05, 04).getTimeInMillis();
+    Map<String, Object> commonMap = new HashMap<>();
+    commonMap.put(CommonModel.Fields.NAME, "henry");
+    commonMap.put(CommonModel.Fields.AGE, 26);
+    commonMap.put(CommonModel.Fields.CREATED_AT, time);
+
+    Map<String, Object> nestedMap = new HashMap<>();
+    nestedMap.put(NestedModel.Fields.NAME, "henry-nested");
+    nestedMap.put(NestedModel.Fields.AGE, 25);
+    nestedMap.put(NestedModel.Fields.CREATED_AT, time);
+    nestedMap.put(NestedModel.Fields.NESTED, commonMap);
+
+    NestedModel model = new NestedModel();
+    model.deserialize(nestedMap);
+    assertThat(model.getName(), equalTo("henry-nested"));
+    assertThat(model.getAge(), equalTo(25));
+    assertThat(model.getCreateAt(), equalTo(new Date(time)));
+    assertThat(model.getNested().getName(), equalTo("henry"));
+    assertThat(model.getNested().getAge(), equalTo(26));
+    assertThat(model.getNested().getCreateAt(), equalTo(new Date(time)));
   }
 
   @Test(expected = DeserializerException.class)
@@ -141,26 +108,59 @@ public class BaseModelTest {
   }
 
   @Test
-  public void testDeserialize_nestedModel() throws Exception {
+  public void testSerialize_commonModel() throws Exception {
     long time = new GregorianCalendar(2015, 05, 04).getTimeInMillis();
-    Map<String, Object> commonMap = new HashMap<>();
-    commonMap.put(CommonModel.Fields.NAME, "henry");
-    commonMap.put(CommonModel.Fields.AGE, 26);
-    commonMap.put(CommonModel.Fields.CREATED_AT, time);
+    CommonModel model = new CommonModel("henry", 26, new Date(time));
+    Map<String, Object> map = model.serialize();
+    assertThat(map.size(), equalTo(3));
+    assertThat(map.get(CommonModel.Fields.NAME), equalTo("henry"));
+    assertThat(map.get(CommonModel.Fields.AGE), equalTo(26));
+    assertThat(map.get(CommonModel.Fields.CREATED_AT), equalTo(time));
 
-    Map<String, Object> nestedMap = new HashMap<>();
-    nestedMap.put(NestedModel.Fields.NAME, "henry-nested");
-    nestedMap.put(NestedModel.Fields.AGE, 25);
-    nestedMap.put(NestedModel.Fields.CREATED_AT, time);
-    nestedMap.put(NestedModel.Fields.NESTED, commonMap);
+    model = new CommonModel();
+    model.setName("henry");
+    model.setAge(26);
+    map = model.serialize();
+    assertThat(map.size(), equalTo(2));
+    assertThat(map.get(CommonModel.Fields.NAME), equalTo("henry"));
+    assertThat(map.get(CommonModel.Fields.AGE), equalTo(26));
+    assertThat(map.get(CommonModel.Fields.CREATED_AT), nullValue());
+  }
 
-    NestedModel model = new NestedModel();
-    model.deserialize(nestedMap);
-    assertThat(model.getName(), equalTo("henry-nested"));
-    assertThat(model.getAge(), equalTo(25));
-    assertThat(model.getCreateAt(), equalTo(new Date(time)));
-    assertThat(model.getNested().getName(), equalTo("henry"));
-    assertThat(model.getNested().getAge(), equalTo(26));
-    assertThat(model.getNested().getCreateAt(), equalTo(new Date(time)));
+  @Test
+  public void testSerialize_nestedModel() throws Exception {
+    long time = new GregorianCalendar(2015, 05, 04).getTimeInMillis();
+    CommonModel commonModel = new CommonModel("common-henry", 26, new Date(time));
+    NestedModel nestedModel = new NestedModel("nested-henry", 25, new Date(time), commonModel);
+    Map<String, Object> map = nestedModel.serialize();
+    assertThat(map.size(), equalTo(4));
+    assertThat(map.get(NestedModel.Fields.NAME), equalTo("nested-henry"));
+    assertThat(map.get(NestedModel.Fields.AGE), equalTo(25));
+    assertThat(map.get(NestedModel.Fields.CREATED_AT), equalTo(time));
+
+    Map<String, Object> commonRes = (Map<String, Object>) map.get(NestedModel.Fields.NESTED);
+    assertThat(commonRes.size(), equalTo(3));
+    assertThat(commonRes.get(CommonModel.Fields.NAME), equalTo("common-henry"));
+    assertThat(commonRes.get(CommonModel.Fields.AGE), equalTo(26));
+    assertThat(commonRes.get(CommonModel.Fields.CREATED_AT), equalTo(time));
+  }
+
+  @Test(expected = SerializerException.class)
+  public void testSerialize_notNullFieldModel_failed() throws Exception {
+    NotNullFieldModel model = new NotNullFieldModel();
+    model.setAge(26);
+    model.serialize();
+  }
+
+  @Test
+  public void testSerialize_notNullFieldModel_success() throws Exception {
+    NotNullFieldModel model = new NotNullFieldModel();
+    model.setName("henry");
+    model.setAge(26);
+    Map<String, Object> map = model.serialize();
+    assertThat(map.size(), equalTo(2));
+    assertThat(map.get(CommonModel.Fields.NAME), equalTo("henry"));
+    assertThat(map.get(CommonModel.Fields.AGE), equalTo(26));
+    assertThat(map.get(CommonModel.Fields.CREATED_AT), nullValue());
   }
 }
