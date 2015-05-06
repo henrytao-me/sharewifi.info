@@ -19,19 +19,63 @@ package me.henrytao.sharewifi.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+
+import rx.Subscription;
 
 /**
  * Created by henrytao on 4/14/15.
  */
 public class BaseActivity extends AppCompatActivity {
 
-  protected void onInitializeIntentExtra(Intent intent) {
-
-  }
+  protected Map<String, Subscription> mSubscription;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     onInitializeIntentExtra(getIntent());
   }
+
+  @Override
+  protected void onPause() {
+    super.onPause();
+    if (mSubscription != null) {
+      for (Subscription subscription : mSubscription.values()) {
+        subscription.unsubscribe();
+      }
+      mSubscription.clear();
+    }
+  }
+
+  protected void addSubscription(String key, Subscription subscription) {
+    if (mSubscription == null) {
+      mSubscription = new HashMap<>();
+    }
+    if (TextUtils.isEmpty(key)) {
+      key = UUID.randomUUID().toString();
+    }
+    mSubscription.put(key, subscription);
+  }
+
+  protected void addSubscription(Subscription subscription) {
+    addSubscription(null, subscription);
+  }
+
+  protected void onInitializeIntentExtra(Intent intent) {
+
+  }
+
+  protected void removeSubscription(String key) {
+    if (mSubscription.get(key) != null) {
+      mSubscription.get(key).unsubscribe();
+      mSubscription.remove(key);
+    }
+  }
+
 }

@@ -49,47 +49,8 @@ public abstract class BaseModel<T extends BaseModel> implements Serializable {
     serializerMap.put(Date.class, new DateAdapter());
   }
 
-  private Field[] getDeclaredFields() {
-    List<Field> fields = new ArrayList<Field>();
-    fields.addAll(Arrays.asList(getClass().getDeclaredFields()));
-    fields.addAll(Arrays.asList(getClass().getSuperclass().getDeclaredFields()));
-    return fields.toArray(new Field[fields.size()]);
-  }
-
-  public Map<String, Object> serialize() throws SerializerException {
-    try {
-      Map<String, Object> map = new HashMap<>();
-      Field[] fields = getDeclaredFields();
-      for (Field f : fields) {
-        if (!f.isAnnotationPresent(Column.class)) {
-          continue;
-        }
-        Column column = f.getAnnotation(Column.class);
-        if (!column.serialize()) {
-          continue;
-        }
-        f.setAccessible(true);
-        String name = column.name();
-        Object value = f.get(this);
-        Class type = f.getType();
-        Serializer serializer = serializerMap.get(type);
-        if (column.notNull() && value == null) {
-          throw new SerializerException("Field <" + name + "> is required but null");
-        } else if (value == null) {
-          continue;
-        } else if (serializer != null) {
-          map.put(name, serializer.serialize(value));
-        } else if (BaseModel.class.isAssignableFrom(type)) {
-          map.put(name, ((BaseModel) value).serialize());
-        } else {
-          map.put(name, value);
-        }
-      }
-      return map;
-    } catch (IllegalAccessException e) {
-      throw new SerializerException(e.getMessage());
-    }
-  }
+  @Column(name = Fields.ID)
+  protected String mId;
 
   public T deserialize(Map<String, Object> map) throws DeserializerException {
     try {
@@ -152,16 +113,55 @@ public abstract class BaseModel<T extends BaseModel> implements Serializable {
     return deserialize(JsonUtils.decode(json));
   }
 
+  public String getId() {
+    return mId;
+  }
+
+  public Map<String, Object> serialize() throws SerializerException {
+    try {
+      Map<String, Object> map = new HashMap<>();
+      Field[] fields = getDeclaredFields();
+      for (Field f : fields) {
+        if (!f.isAnnotationPresent(Column.class)) {
+          continue;
+        }
+        Column column = f.getAnnotation(Column.class);
+        if (!column.serialize()) {
+          continue;
+        }
+        f.setAccessible(true);
+        String name = column.name();
+        Object value = f.get(this);
+        Class type = f.getType();
+        Serializer serializer = serializerMap.get(type);
+        if (column.notNull() && value == null) {
+          throw new SerializerException("Field <" + name + "> is required but null");
+        } else if (value == null) {
+          continue;
+        } else if (serializer != null) {
+          map.put(name, serializer.serialize(value));
+        } else if (BaseModel.class.isAssignableFrom(type)) {
+          map.put(name, ((BaseModel) value).serialize());
+        } else {
+          map.put(name, value);
+        }
+      }
+      return map;
+    } catch (IllegalAccessException e) {
+      throw new SerializerException(e.getMessage());
+    }
+  }
+
+  private Field[] getDeclaredFields() {
+    List<Field> fields = new ArrayList<Field>();
+    fields.addAll(Arrays.asList(getClass().getDeclaredFields()));
+    fields.addAll(Arrays.asList(getClass().getSuperclass().getDeclaredFields()));
+    return fields.toArray(new Field[fields.size()]);
+  }
+
   public interface Fields {
 
     final String ID = "id";
-  }
-
-  @Column(name = Fields.ID)
-  protected String mId;
-
-  public String getId() {
-    return mId;
   }
 
 }

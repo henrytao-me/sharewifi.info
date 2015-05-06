@@ -32,11 +32,11 @@ import me.henrytao.sharewifi.R;
  */
 public class MainActivity extends MdDrawerLayoutActivity {
 
-  @InjectView(R.id.container)
-  DrawerLayout vDrawerLayout;
-
   @InjectView(R.id.content)
   View vDrawerContent;
+
+  @InjectView(R.id.container)
+  DrawerLayout vDrawerLayout;
 
   @InjectView(R.id.drawer)
   View vDrawerNavigation;
@@ -45,14 +45,18 @@ public class MainActivity extends MdDrawerLayoutActivity {
   Toolbar vToolbar;
 
   @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_main);
-    ButterKnife.inject(this);
+  public View getDrawerContent() {
+    return vDrawerContent;
+  }
 
-    setSupportActionBar(vToolbar);
-    vToolbar.setNavigationIcon(R.drawable.ic_toolbar_menu_white);
-    vToolbar.setNavigationOnClickListener((v) -> openDrawer());
+  @Override
+  public DrawerLayout getDrawerLayout() {
+    return vDrawerLayout;
+  }
+
+  @Override
+  public View getDrawerNavigation() {
+    return vDrawerNavigation;
   }
 
   @Override
@@ -72,18 +76,14 @@ public class MainActivity extends MdDrawerLayoutActivity {
   }
 
   @Override
-  public DrawerLayout getDrawerLayout() {
-    return vDrawerLayout;
-  }
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_main);
+    ButterKnife.inject(this);
 
-  @Override
-  public View getDrawerContent() {
-    return vDrawerContent;
-  }
-
-  @Override
-  public View getDrawerNavigation() {
-    return vDrawerNavigation;
+    setSupportActionBar(vToolbar);
+    vToolbar.setNavigationIcon(R.drawable.ic_toolbar_menu_white);
+    vToolbar.setNavigationOnClickListener((v) -> openDrawer());
   }
 
 }

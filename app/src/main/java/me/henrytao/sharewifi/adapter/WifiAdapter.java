@@ -49,6 +49,16 @@ public class WifiAdapter extends RecyclerView.Adapter<WifiAdapter.ViewHolder> {
   }
 
   @Override
+  public int getItemCount() {
+    return mListWifi.size();
+  }
+
+  @Override
+  public void onBindViewHolder(WifiAdapter.ViewHolder holder, int position) {
+    holder.bind(mListWifi.get(position), WifiService.isCurrentWifi(mContext, mListWifi.get(position)));
+  }
+
+  @Override
   public WifiAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
     View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_wifi, parent, false);
     ViewHolder viewHolder = new ViewHolder(view);
@@ -63,16 +73,6 @@ public class WifiAdapter extends RecyclerView.Adapter<WifiAdapter.ViewHolder> {
       }
     });
     return viewHolder;
-  }
-
-  @Override
-  public void onBindViewHolder(WifiAdapter.ViewHolder holder, int position) {
-    holder.bind(mListWifi.get(position), WifiService.isCurrentWifi(mContext, mListWifi.get(position)));
-  }
-
-  @Override
-  public int getItemCount() {
-    return mListWifi.size();
   }
 
   public void setOnClickListener(OnClickListener onClickListener) {
@@ -98,11 +98,11 @@ public class WifiAdapter extends RecyclerView.Adapter<WifiAdapter.ViewHolder> {
         R.drawable.ic_signal_wifi_4_bar_lock
     };
 
-    @InjectView(R.id.signal_level)
-    ImageView vSignalLevel;
+    @InjectView(R.id.address)
+    TextView vAddress;
 
-    @InjectView(R.id.ssid)
-    TextView vSSID;
+    @InjectView(R.id.button_info)
+    View vButtonInfo;
 
     @InjectView(R.id.connected_status)
     TextView vConnectedStatus;
@@ -110,11 +110,11 @@ public class WifiAdapter extends RecyclerView.Adapter<WifiAdapter.ViewHolder> {
     @InjectView(R.id.name)
     TextView vName;
 
-    @InjectView(R.id.address)
-    TextView vAddress;
+    @InjectView(R.id.ssid)
+    TextView vSSID;
 
-    @InjectView(R.id.button_info)
-    View vButtonInfo;
+    @InjectView(R.id.signal_level)
+    ImageView vSignalLevel;
 
     public ViewHolder(View view) {
       super(view);
@@ -130,6 +130,14 @@ public class WifiAdapter extends RecyclerView.Adapter<WifiAdapter.ViewHolder> {
       renderIsConnected(isConnected);
     }
 
+    private void renderIsConnected(boolean isConnected) {
+      if (isConnected) {
+        vConnectedStatus.setText(R.string.item_wifi_is_connected);
+      } else {
+        vConnectedStatus.setText(null);
+      }
+    }
+
     private void renderSignalLevel(int signalLevel) {
       if (signalLevel < 0) {
         signalLevel = 0;
@@ -137,14 +145,6 @@ public class WifiAdapter extends RecyclerView.Adapter<WifiAdapter.ViewHolder> {
         signalLevel = mSignalLevelRes.length - 1;
       }
       vSignalLevel.setImageResource(mSignalLevelRes[signalLevel]);
-    }
-
-    private void renderIsConnected(boolean isConnected) {
-      if (isConnected) {
-        vConnectedStatus.setText(R.string.item_wifi_is_connected);
-      } else {
-        vConnectedStatus.setText(null);
-      }
     }
   }
 }

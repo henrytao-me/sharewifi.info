@@ -31,6 +31,7 @@
   <string name="text_search">Search</string>
   <string name="text_looking_for_networks">Looking for networks...</string>
   <string name="text_some_error_occurred">Some error occurred.\nPlease try again!</string>
+  <string name="text_tap_to_turn_on_wifi">Tap here to turn on your wifi</string>
   <string name="text_connect">Connect</string>
   <string name="text_disconnect">Disconnect</string>
   <string name="text_connected">Connected</string>

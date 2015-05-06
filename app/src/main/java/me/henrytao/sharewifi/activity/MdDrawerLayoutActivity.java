@@ -28,12 +28,6 @@ import me.henrytao.sharewifi.R;
  */
 public abstract class MdDrawerLayoutActivity extends BaseActivity {
 
-  public abstract DrawerLayout getDrawerLayout();
-
-  public abstract View getDrawerContent();
-
-  public abstract View getDrawerNavigation();
-
   ActionBarDrawerToggle mDrawerToggle;
 
   @Override
@@ -48,15 +42,15 @@ public abstract class MdDrawerLayoutActivity extends BaseActivity {
           R.string.navigation_drawer_close) {
 
         @Override
-        public void onDrawerOpened(View drawerView) {
-          super.onDrawerOpened(drawerView);
-          MdDrawerLayoutActivity.this.onDrawerOpened(drawerView);
-        }
-
-        @Override
         public void onDrawerClosed(View drawerView) {
           super.onDrawerClosed(drawerView);
           MdDrawerLayoutActivity.this.onDrawerClosed(drawerView);
+        }
+
+        @Override
+        public void onDrawerOpened(View drawerView) {
+          super.onDrawerOpened(drawerView);
+          MdDrawerLayoutActivity.this.onDrawerOpened(drawerView);
         }
 
         @Override
@@ -75,21 +69,17 @@ public abstract class MdDrawerLayoutActivity extends BaseActivity {
     }
   }
 
-  private boolean isValidated() {
-    return getDrawerLayout() != null && getDrawerContent() != null && getDrawerNavigation() != null;
-  }
+  public abstract View getDrawerContent();
 
-  public void openDrawer() {
-    if (isValidated()) {
-      getDrawerLayout().openDrawer(getDrawerNavigation());
-    }
-  }
+  public abstract DrawerLayout getDrawerLayout();
 
-  public void onDrawerOpened(View drawerView) {
+  public abstract View getDrawerNavigation();
+
+  public void onDrawerClosed(View drawerView) {
     // todo
   }
 
-  public void onDrawerClosed(View drawerView) {
+  public void onDrawerOpened(View drawerView) {
     // todo
   }
 
@@ -99,5 +89,15 @@ public abstract class MdDrawerLayoutActivity extends BaseActivity {
 
   public void onDrawerStateChanged(int newState) {
     // todo
+  }
+
+  public void openDrawer() {
+    if (isValidated()) {
+      getDrawerLayout().openDrawer(getDrawerNavigation());
+    }
+  }
+
+  private boolean isValidated() {
+    return getDrawerLayout() != null && getDrawerContent() != null && getDrawerNavigation() != null;
   }
 }

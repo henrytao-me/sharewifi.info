@@ -26,11 +26,11 @@ import android.view.View;
  */
 public class RecycleEmptyErrorView extends RecyclerView {
 
+  private boolean isError;
+
   private View mEmptyView;
 
   private View mErrorView;
-
-  private boolean isError;
 
   private int mVisibility;
 
@@ -41,12 +41,12 @@ public class RecycleEmptyErrorView extends RecyclerView {
     }
 
     @Override
-    public void onItemRangeRemoved(int positionStart, int itemCount) {
+    public void onItemRangeInserted(int positionStart, int itemCount) {
       updateEmptyView();
     }
 
     @Override
-    public void onItemRangeInserted(int positionStart, int itemCount) {
+    public void onItemRangeRemoved(int positionStart, int itemCount) {
       updateEmptyView();
     }
   };
@@ -87,6 +87,48 @@ public class RecycleEmptyErrorView extends RecyclerView {
     updateEmptyView();
   }
 
+  public RecycleEmptyErrorView hideErrorView() {
+    isError = false;
+    updateErrorView();
+    updateEmptyView();
+    return this;
+  }
+
+  public RecycleEmptyErrorView setEmptyView(View emptyView) {
+    if (mEmptyView != null) {
+      mEmptyView.setVisibility(GONE);
+    }
+    mEmptyView = emptyView;
+    mEmptyView.setVisibility(GONE);
+    updateEmptyView();
+    return this;
+  }
+
+  public RecycleEmptyErrorView setErrorView(View errorView) {
+    if (mErrorView != null) {
+      mErrorView.setVisibility(GONE);
+    }
+    mErrorView = errorView;
+    mErrorView.setVisibility(GONE);
+    updateErrorView();
+    updateEmptyView();
+    return this;
+  }
+
+  public RecycleEmptyErrorView showErrorView() {
+    isError = true;
+    updateErrorView();
+    updateEmptyView();
+    return this;
+  }
+
+  private boolean shouldShowErrorView() {
+    if (mErrorView != null && isError) {
+      return true;
+    }
+    return false;
+  }
+
   private void updateEmptyView() {
     if (mEmptyView != null && getAdapter() != null) {
       boolean isShowEmptyView = getAdapter().getItemCount() == 0;
@@ -99,36 +141,6 @@ public class RecycleEmptyErrorView extends RecyclerView {
     if (mErrorView != null) {
       mErrorView.setVisibility(shouldShowErrorView() && mVisibility == VISIBLE ? VISIBLE : GONE);
     }
-  }
-
-  private boolean shouldShowErrorView() {
-    if (mErrorView != null && isError) {
-      return true;
-    }
-    return false;
-  }
-
-  public void setEmptyView(View emptyView) {
-    mEmptyView = emptyView;
-    updateEmptyView();
-  }
-
-  public void setErrorView(View errorView) {
-    mErrorView = errorView;
-    updateErrorView();
-    updateEmptyView();
-  }
-
-  public void showErrorView() {
-    isError = true;
-    updateErrorView();
-    updateEmptyView();
-  }
-
-  public void hideErrorView() {
-    isError = false;
-    updateErrorView();
-    updateEmptyView();
   }
 
 }

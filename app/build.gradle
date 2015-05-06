@@ -66,6 +66,8 @@ dependencies {
   apt 'com.google.dagger:dagger-compiler:2.0'
   provided 'org.glassfish:javax.annotation:10.0-b28'
 
+  provided 'org.projectlombok:lombok:1.16.4'
+
   compile(project(':libs:android-md-core')) {
     exclude group: 'com.android.support', module: 'appcompat-v7'
     exclude group: 'com.android.support', module: 'cardview-v7'

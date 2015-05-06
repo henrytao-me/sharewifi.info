@@ -38,19 +38,6 @@ public class SearchActivity extends MdToolbarActivity {
   }
 
   @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_search);
-    ButterKnife.inject(this);
-  }
-
-  @Override
-  protected void onPause() {
-    super.onPause();
-    overridePendingTransition(0, 0);
-  }
-
-  @Override
   public boolean onCreateOptionsMenu(Menu menu) {
     getMenuInflater().inflate(R.menu.menu_search, menu);
     return true;
@@ -67,6 +54,19 @@ public class SearchActivity extends MdToolbarActivity {
   @Override
   protected int getToolbarContentLayout() {
     return R.layout.view_toolbar_search;
+  }
+
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_search);
+    ButterKnife.inject(this);
+  }
+
+  @Override
+  protected void onPause() {
+    super.onPause();
+    overridePendingTransition(0, 0);
   }
 
 }

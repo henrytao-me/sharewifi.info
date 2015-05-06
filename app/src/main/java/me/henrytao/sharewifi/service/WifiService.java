@@ -24,6 +24,7 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.text.TextUtils;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,23 +36,6 @@ import rx.android.content.ContentObservable;
  * Created by henrytao on 4/30/15.
  */
 public class WifiService {
-
-  public static Observable<List<WifiModel>> getAvailableWifi(Context context) {
-    WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
-    IntentFilter intentFilter = new IntentFilter();
-    intentFilter.addAction(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
-    intentFilter.addAction(WifiManager.RSSI_CHANGED_ACTION);
-    intentFilter.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
-    Observable<Intent> observable = ContentObservable.fromBroadcast(context, intentFilter);
-    wifiManager.startScan();
-    return observable.flatMap(intent -> {
-      List<WifiModel> res = new ArrayList<>();
-      for (ScanResult scanResult : wifiManager.getScanResults()) {
-        res.add(new WifiModel(scanResult));
-      }
-      return Observable.just(res);
-    });
-  }
 
   public static WifiModel getCurrentWifi(Context context) {
     WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
@@ -69,4 +53,39 @@ public class WifiService {
         TextUtils.equals(currentWifi.getSSID(), wifiModel.getSSID()) &&
         TextUtils.equals(currentWifi.getBSSID(), wifiModel.getBSSID());
   }
+
+  public static boolean isWifiEnabled(Context context) {
+    WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+    return wifiManager.isWifiEnabled();
+  }
+
+  public static Observable<List<WifiModel>> observeAvailableWifiList(Context context) {
+    WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+    IntentFilter intentFilter = new IntentFilter();
+    intentFilter.addAction(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
+    intentFilter.addAction(WifiManager.RSSI_CHANGED_ACTION);
+    intentFilter.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
+    Observable<Intent> observable = ContentObservable.fromBroadcast(context, intentFilter);
+    wifiManager.startScan();
+    return observable.flatMap(intent -> {
+      List<WifiModel> res = new ArrayList<>();
+      for (ScanResult scanResult : wifiManager.getScanResults()) {
+        res.add(new WifiModel(scanResult));
+      }
+      return Observable.just(res);
+    });
+  }
+
+  public static Observable<Integer> observeWifiEnabled(Context context) {
+    IntentFilter intentFilter = new IntentFilter();
+    intentFilter.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
+    Observable<Intent> observable = ContentObservable.fromBroadcast(context, intentFilter);
+    return observable.flatMap(intent -> Observable.just(intent.getIntExtra(WifiManager.EXTRA_WIFI_STATE, -1)));
+  }
+
+  public static void setWifiEnabled(Context context, boolean isEnable) {
+    WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+    wifiManager.setWifiEnabled(isEnable);
+  }
+
 }

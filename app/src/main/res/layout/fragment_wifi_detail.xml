@@ -36,8 +36,8 @@
       <TextView
         android:id="@+id/status"
         android:layout_toLeftOf="@+id/button_container"
-        android:textColor="?attr/mdColor_primaryPalette"
         android:text="Available"
+        android:textColor="?attr/mdColor_primaryPalette"
         style="@style/MdList.SingleLine.AvatarWithText.Text" />
       <RelativeLayout
         android:id="@+id/button_container"

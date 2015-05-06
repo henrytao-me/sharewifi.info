@@ -48,6 +48,18 @@ public class MdToolbarActivity extends BaseActivity {
     initToolbar();
   }
 
+  protected int getToolbarContentLayout() {
+    return 0;
+  }
+
+  protected int getToolbarId() {
+    return R.id.md_toolbar;
+  }
+
+  protected void onNavigationClicked(View view) {
+    onBackPressed();
+  }
+
   private void initToolbar() {
     if (getToolbarId() > 0) {
       vToolbar = (Toolbar) findViewById(getToolbarId());
@@ -60,18 +72,6 @@ public class MdToolbarActivity extends BaseActivity {
         vToolbar.addView(getLayoutInflater().inflate(getToolbarContentLayout(), vToolbar, false));
       }
     }
-  }
-
-  protected int getToolbarId() {
-    return R.id.md_toolbar;
-  }
-
-  protected int getToolbarContentLayout() {
-    return 0;
-  }
-
-  protected void onNavigationClicked(View view) {
-    onBackPressed();
   }
 
 }

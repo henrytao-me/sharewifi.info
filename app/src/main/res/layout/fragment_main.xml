@@ -43,4 +43,8 @@
     android:id="@+id/error_view"
     layout="@layout/view_error_wifi_list" />
 
+  <include
+    android:id="@+id/turn_on_wifi_view"
+    layout="@layout/view_turn_on_wifi" />
+
 </RelativeLayout>

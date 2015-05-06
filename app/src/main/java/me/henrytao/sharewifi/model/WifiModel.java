@@ -28,29 +28,10 @@ import me.henrytao.sharewifi.model.orm.Column;
  */
 public class WifiModel extends BaseModel<WifiModel> {
 
-  public interface Fields extends BaseModel.Fields {
-
-    final String SSID = "ssid";
-
-    final String BSSID = "bssid";
-
-    final String CAPABILITIES = "capabilities";
-
-    final String FREQUENCY = "frequency";
-
-    final String MAC_ADDRESS = "mac_address";
-
-    final String NAME = "name";
-
-    final String ADDRESS = "address";
-
-    final String PASSWORD = "password";
-  }
-
   public final static int SIGNAL_LEVEL = 5; // Level: 0, 1, 2, 3, 4
 
-  @Column(name = Fields.SSID)
-  private String mSSID;
+  @Column(name = Fields.ADDRESS)
+  private String mAddress;
 
   @Column(name = Fields.BSSID)
   private String mBSSID;
@@ -67,16 +48,16 @@ public class WifiModel extends BaseModel<WifiModel> {
   @Column(name = Fields.NAME)
   private String mName;
 
-  @Column(name = Fields.ADDRESS)
-  private String mAddress;
-
   @Column(name = Fields.PASSWORD)
   private String mPasswrod;
+
+  @Column(name = Fields.SSID)
+  private String mSSID;
 
   private int mSignalLevel;
 
   public WifiModel() {
-    
+
   }
 
   public WifiModel(String SSID, String BSSID, String capabilities, int frequency, int RSSI, String macAddress) {
@@ -97,8 +78,12 @@ public class WifiModel extends BaseModel<WifiModel> {
         wifiInfo.getBSSID(), null, 0, wifiInfo.getRssi(), wifiInfo.getMacAddress());
   }
 
-  public String getSSID() {
-    return mSSID;
+  public String getAddress() {
+    return mAddress;
+  }
+
+  public void setAddress(String address) {
+    mAddress = address;
   }
 
   public String getBSSID() {
@@ -113,14 +98,6 @@ public class WifiModel extends BaseModel<WifiModel> {
     mName = name;
   }
 
-  public String getAddress() {
-    return mAddress;
-  }
-
-  public void setAddress(String address) {
-    mAddress = address;
-  }
-
   public String getPasswrod() {
     return mPasswrod;
   }
@@ -129,8 +106,28 @@ public class WifiModel extends BaseModel<WifiModel> {
     mPasswrod = passwrod;
   }
 
+  public String getSSID() {
+    return mSSID;
+  }
+
   public int getSignalLevel() {
     return mSignalLevel;
+  }
+
+  public interface Fields extends BaseModel.Fields {
+
+    final String ADDRESS = "address";
+    final String BSSID = "bssid";
+
+    final String CAPABILITIES = "capabilities";
+
+    final String FREQUENCY = "frequency";
+
+    final String MAC_ADDRESS = "mac_address";
+
+    final String NAME = "name";
+    final String PASSWORD = "password";
+    final String SSID = "ssid";
   }
 
 }

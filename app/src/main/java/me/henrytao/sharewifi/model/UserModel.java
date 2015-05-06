@@ -26,31 +26,14 @@ import me.henrytao.sharewifi.model.orm.Column;
  */
 public class UserModel extends BaseModel<UserModel> {
 
-  public interface Fields extends BaseModel.Fields {
-
-    final String NAME = "name";
-
-    final String AGE = "age";
-
-    final String CREATED_AT = "created_at";
-  }
-
-  @Column(name = UserModel.Fields.NAME)
-  private String mName;
-
   @Column(name = UserModel.Fields.AGE)
   private int mAge;
 
   @Column(name = UserModel.Fields.CREATED_AT)
   private Date mCreateAt;
 
-  public String getName() {
-    return mName;
-  }
-
-  public void setName(String name) {
-    mName = name;
-  }
+  @Column(name = UserModel.Fields.NAME)
+  private String mName;
 
   public int getAge() {
     return mAge;
@@ -66,6 +49,21 @@ public class UserModel extends BaseModel<UserModel> {
 
   public void setCreateAt(Date createAt) {
     mCreateAt = createAt;
+  }
+
+  public String getName() {
+    return mName;
+  }
+
+  public void setName(String name) {
+    mName = name;
+  }
+
+  public interface Fields extends BaseModel.Fields {
+
+    final String AGE = "age";
+    final String CREATED_AT = "created_at";
+    final String NAME = "name";
   }
 
 }

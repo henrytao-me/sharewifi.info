@@ -50,23 +50,10 @@ public class WifiDetailActivity extends MdToolbarActivity implements WifiDetailI
     return intent;
   }
 
-  private WifiDetailFragment mWifiDetailFragment;
-
   @InjectView(R.id.ssid)
   TextView vSSID;
 
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_wifi_detail);
-    ButterKnife.inject(this);
-
-    mWifiDetailFragment = WifiDetailFragment.newInstance(getIntent().getExtras());
-    getSupportFragmentManager()
-        .beginTransaction()
-        .add(R.id.fragment, mWifiDetailFragment)
-        .commit();
-  }
+  private WifiDetailFragment mWifiDetailFragment;
 
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
@@ -83,12 +70,25 @@ public class WifiDetailActivity extends MdToolbarActivity implements WifiDetailI
   }
 
   @Override
+  public void onSSIDChanged(String SSID) {
+    vSSID.setText(TextUtils.isEmpty(SSID) ? "" : SSID);
+  }
+
+  @Override
   protected int getToolbarContentLayout() {
     return R.layout.view_toolbar_wifi_detail;
   }
 
   @Override
-  public void onSSIDChanged(String SSID) {
-    vSSID.setText(TextUtils.isEmpty(SSID) ? "" : SSID);
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_wifi_detail);
+    ButterKnife.inject(this);
+
+    mWifiDetailFragment = WifiDetailFragment.newInstance(getIntent().getExtras());
+    getSupportFragmentManager()
+        .beginTransaction()
+        .add(R.id.fragment, mWifiDetailFragment)
+        .commit();
   }
 }

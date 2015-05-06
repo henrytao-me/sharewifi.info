@@ -17,16 +17,22 @@
 package me.henrytao.sharewifi.fragment;
 
 import android.app.Activity;
+import android.content.Context;
+import android.net.wifi.WifiConfiguration;
+import android.net.wifi.WifiManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import java.io.Serializable;
 
 import butterknife.ButterKnife;
+import butterknife.InjectView;
+import butterknife.OnClick;
 import me.henrytao.sharewifi.R;
 import me.henrytao.sharewifi.config.Constants;
 import me.henrytao.sharewifi.model.WifiModel;
@@ -35,11 +41,6 @@ import me.henrytao.sharewifi.model.WifiModel;
  * A placeholder fragment containing a simple view.
  */
 public class WifiDetailFragment extends Fragment {
-
-  public interface WifiDetailInterface {
-
-    void onSSIDChanged(String SSID);
-  }
 
   public static WifiDetailFragment newInstance(Bundle bundle) {
     WifiDetailFragment fragment = new WifiDetailFragment();
@@ -62,13 +63,12 @@ public class WifiDetailFragment extends Fragment {
     return newInstance(null, wifiModel);
   }
 
+  @InjectView(R.id.button_connect)
+  Button vButtonConnect;
+
   private String mWifiID;
 
   private WifiModel mWifiModel;
-
-  public WifiDetailFragment() {
-
-  }
 
   @Override
   public void onAttach(Activity activity) {
@@ -79,8 +79,7 @@ public class WifiDetailFragment extends Fragment {
   }
 
   @Override
-  public View onCreateView(LayoutInflater inflater, ViewGroup container,
-      Bundle savedInstanceState) {
+  public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.fragment_wifi_detail, container, false);
     ButterKnife.inject(this, view);
     return view;
@@ -102,6 +101,26 @@ public class WifiDetailFragment extends Fragment {
         wifiDetailInterface.onSSIDChanged(mWifiModel.getSSID());
       }
     }
+  }
+
+  @OnClick(R.id.button_connect)
+  protected void onButtonConnectClicked() {
+    WifiManager wifiManager = (WifiManager) getActivity().getSystemService(Context.WIFI_SERVICE);
+    if (!wifiManager.isWifiEnabled() && wifiManager.getWifiState() != WifiManager.WIFI_STATE_ENABLING) {
+      wifiManager.setWifiEnabled(true);
+    }
+    WifiConfiguration config = new WifiConfiguration();
+    config.SSID = String.format("\"%s\"", mWifiModel.getSSID());
+    config.preSharedKey = String.format("\"%s\"", "ekitqwert12345");
+    int netID = wifiManager.addNetwork(config);
+    wifiManager.disconnect();
+    wifiManager.enableNetwork(netID, true);
+    wifiManager.reconnect();
+  }
+
+  public interface WifiDetailInterface {
+
+    void onSSIDChanged(String SSID);
   }
 
 }
