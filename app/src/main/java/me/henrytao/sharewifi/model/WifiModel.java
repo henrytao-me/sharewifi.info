@@ -116,6 +116,10 @@ public class WifiModel extends BaseModel<WifiModel> {
     return R_SIGNAL_LEVEL[type][signalLevel];
   }
 
+  public WifiService.WIFI_FREQUENCY getWifiFrequency() {
+    return WifiService.getWifiFrequency(getFrequency());
+  }
+
   public boolean hasPassword() {
     return !TextUtils.isEmpty(getPasswrod());
   }

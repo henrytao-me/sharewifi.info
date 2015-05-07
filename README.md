@@ -24,3 +24,8 @@ public class MyClass {
     DrawerLayout vDrawerLayout;
 }
 ```
+
+# Other rules
+
+- Should not define `static final` in `Fragment` / `Activity`. Use `Constants.java` instead.
+- `static final` can be defined in `Model` / `Service`.

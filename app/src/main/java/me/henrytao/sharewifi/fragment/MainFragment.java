@@ -34,6 +34,7 @@ import butterknife.OnClick;
 import me.henrytao.sharewifi.R;
 import me.henrytao.sharewifi.activity.WifiDetailActivity;
 import me.henrytao.sharewifi.adapter.WifiAdapter;
+import me.henrytao.sharewifi.config.Constants;
 import me.henrytao.sharewifi.model.WifiModel;
 import me.henrytao.sharewifi.service.WifiService;
 import me.henrytao.sharewifi.util.ResourceUtils;
@@ -147,8 +148,9 @@ public class MainFragment extends BaseFragment implements WifiAdapter.OnClickLis
 
   private void refreshContent() {
     vSwipeRefreshLayout.setRefreshing(true);
+    WifiService.startScan(getActivity());
     new Handler().postDelayed(() -> {
       vSwipeRefreshLayout.setRefreshing(false);
-    }, 2000);
+    }, Constants.WIFI_REFRESH_TIMEOUT);
   }
 }

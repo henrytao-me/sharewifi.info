@@ -105,7 +105,7 @@ public class WifiDetailFragment extends Fragment {
 
   @OnClick(R.id.button_connect)
   protected void onButtonConnectClicked() {
-    WifiService.connectToWifi(getActivity(), mWifiModel.getSSID(), "ekitqwert12345");
+    WifiService.connectToWifi(getActivity(), mWifiModel.getSSID(), null);
   }
 
   public interface WifiDetailInterface {

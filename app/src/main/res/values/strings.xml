@@ -28,6 +28,8 @@
   <string name="navigation_drawer_open">Open</string>
   <string name="navigation_drawer_close">Close</string>
 
+  <string name="text_24ghz">(2.4GHz)</string>
+  <string name="text_50ghz">(5GHz)</string>
   <string name="text_search">Search</string>
   <string name="text_looking_for_networks">Looking for networks...</string>
   <string name="text_some_error_occurred">Some error occurred.\nPlease try again!</string>

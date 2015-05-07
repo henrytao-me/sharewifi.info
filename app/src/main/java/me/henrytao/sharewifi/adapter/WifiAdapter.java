@@ -123,11 +123,12 @@ public class WifiAdapter extends RecyclerView.Adapter<WifiAdapter.ViewHolder> {
 
     public void bind(WifiModel data, boolean isConnected) {
       mData = data;
-      vSSID.setText(data.getSSID());
+      vSSID.setText(String.format("%s %s", data.getSSID(), data.getWifiFrequency() == WifiService.WIFI_FREQUENCY.FREQUENCY_50GHZ ?
+          getContext().getString(R.string.text_50ghz) : getContext().getString(R.string.text_24ghz)));
       vName.setText(data.getName());
       vAddress.setText(data.getAddress());
       vSignalLevel.setImageResource(data.getSignalLevelResource());
-      vConnectedStatus.setText(isConnected ? getContext().getResources().getString(R.string.item_wifi_is_connected) : "");
+      vConnectedStatus.setText(isConnected ? getContext().getString(R.string.item_wifi_is_connected) : "");
     }
   }
 }

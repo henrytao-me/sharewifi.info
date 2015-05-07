@@ -76,6 +76,13 @@ public class WifiService {
     return SECURITY_STATUS.NONE;
   }
 
+  public static WIFI_FREQUENCY getWifiFrequency(int frequency) {
+    if (frequency > 5000) {
+      return WIFI_FREQUENCY.FREQUENCY_50GHZ;
+    }
+    return WIFI_FREQUENCY.FREQUENCY_24GHZ;
+  }
+
   public static boolean isCurrentWifi(Context context, WifiModel wifiModel) {
     WifiModel currentWifi = getCurrentWifi(context);
     return currentWifi != null &&
@@ -100,7 +107,9 @@ public class WifiService {
     return observable.flatMap(intent -> {
       List<WifiModel> res = new ArrayList<>();
       for (ScanResult scanResult : wifiManager.getScanResults()) {
-        res.add(new WifiModel(scanResult));
+        if (!TextUtils.isEmpty(scanResult.SSID)) {
+          res.add(new WifiModel(scanResult));
+        }
       }
       return Observable.just(res);
     });
@@ -131,11 +140,21 @@ public class WifiService {
     wifiManager.setWifiEnabled(isEnable);
   }
 
+  public static void startScan(Context context) {
+    WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+    wifiManager.startScan();
+  }
+
   public enum SECURITY_STATUS {
     WEP,
     PSK,
     EAP,
     NONE
+  }
+
+  public enum WIFI_FREQUENCY {
+    FREQUENCY_24GHZ,
+    FREQUENCY_50GHZ
   }
 
   public enum WIFI_STATE {
