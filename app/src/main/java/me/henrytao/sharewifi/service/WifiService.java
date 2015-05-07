@@ -30,6 +30,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.henrytao.sharewifi.R;
 import me.henrytao.sharewifi.model.WifiModel;
 import rx.Observable;
 import rx.android.content.ContentObservable;
@@ -58,6 +59,21 @@ public class WifiService {
       return new WifiModel(wifiInfo);
     }
     return null;
+  }
+
+  public static SECURITY_STATUS getSecurityStatus(ScanResult scanResult) {
+    return getSecurityStatus(scanResult.capabilities);
+  }
+
+  public static SECURITY_STATUS getSecurityStatus(String capabilities) {
+    if (capabilities.contains("WEP")) {
+      return SECURITY_STATUS.WEP;
+    } else if (capabilities.contains("PSK")) {
+      return SECURITY_STATUS.PSK;
+    } else if (capabilities.contains("EAP")) {
+      return SECURITY_STATUS.EAP;
+    }
+    return SECURITY_STATUS.NONE;
   }
 
   public static boolean isCurrentWifi(Context context, WifiModel wifiModel) {
@@ -90,11 +106,24 @@ public class WifiService {
     });
   }
 
-  public static Observable<Integer> observeWifiEnabled(Context context) {
+  public static Observable<WIFI_STATE> observeWifiEnabled(Context context) {
     IntentFilter intentFilter = new IntentFilter();
     intentFilter.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
     Observable<Intent> observable = ContentObservable.fromBroadcast(context, intentFilter);
-    return observable.flatMap(intent -> Observable.just(intent.getIntExtra(WifiManager.EXTRA_WIFI_STATE, -1)));
+    return observable.flatMap(intent -> {
+      int state = intent.getIntExtra(WifiManager.EXTRA_WIFI_STATE, -1);
+      WIFI_STATE res = WIFI_STATE.UNKNOW;
+      if (state == WifiManager.WIFI_STATE_ENABLED) {
+        res = WIFI_STATE.ENABLED;
+      } else if (state == WifiManager.WIFI_STATE_ENABLING) {
+        res = WIFI_STATE.ENABLING;
+      } else if (state == WifiManager.WIFI_STATE_DISABLED) {
+        res = WIFI_STATE.DISABLED;
+      } else if (state == WifiManager.WIFI_STATE_DISABLING) {
+        res = WIFI_STATE.DISABLING;
+      }
+      return Observable.just(res);
+    });
   }
 
   public static void setWifiEnabled(Context context, boolean isEnable) {
@@ -102,4 +131,18 @@ public class WifiService {
     wifiManager.setWifiEnabled(isEnable);
   }
 
+  public enum SECURITY_STATUS {
+    WEP,
+    PSK,
+    EAP,
+    NONE
+  }
+
+  public enum WIFI_STATE {
+    ENABLED,
+    ENABLING,
+    DISABLED,
+    DISABLING,
+    UNKNOW
+  }
 }

@@ -19,12 +19,15 @@ package me.henrytao.sharewifi.model;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.text.TextUtils;
 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import me.henrytao.sharewifi.R;
 import me.henrytao.sharewifi.model.orm.BaseModel;
 import me.henrytao.sharewifi.model.orm.Column;
+import me.henrytao.sharewifi.service.WifiService;
 
 /**
  * Created by henrytao on 5/1/15.
@@ -33,6 +36,26 @@ import me.henrytao.sharewifi.model.orm.Column;
 public class WifiModel extends BaseModel<WifiModel> {
 
   public final static int SIGNAL_LEVEL = 5; // Level: 0, 1, 2, 3, 4
+
+  private static final int[][] R_SIGNAL_LEVEL = {{
+      R.drawable.ic_signal_wifi_0_bar,
+      R.drawable.ic_signal_wifi_1_bar,
+      R.drawable.ic_signal_wifi_2_bar,
+      R.drawable.ic_signal_wifi_3_bar,
+      R.drawable.ic_signal_wifi_4_bar
+  }, {
+      R.drawable.ic_signal_wifi_0_bar_lock,
+      R.drawable.ic_signal_wifi_1_bar_lock,
+      R.drawable.ic_signal_wifi_2_bar_lock,
+      R.drawable.ic_signal_wifi_3_bar_lock,
+      R.drawable.ic_signal_wifi_4_bar_lock
+  }, {
+      R.drawable.ic_signal_wifi_0_bar_unlock,
+      R.drawable.ic_signal_wifi_1_bar_unlock,
+      R.drawable.ic_signal_wifi_2_bar_unlock,
+      R.drawable.ic_signal_wifi_3_bar_unlock,
+      R.drawable.ic_signal_wifi_4_bar_unlock
+  }};
 
   @Column(name = Fields.ADDRESS)
   @Getter @Setter private String mAddress;
@@ -82,17 +105,32 @@ public class WifiModel extends BaseModel<WifiModel> {
         wifiInfo.getBSSID(), null, 0, wifiInfo.getRssi(), wifiInfo.getMacAddress());
   }
 
+  public int getSignalLevelResource() {
+    int type = isPasswordRequired() ? (hasPassword() ? 2 : 1) : 0;
+    int signalLevel = getSignalLevel();
+    if (signalLevel < 0) {
+      signalLevel = 0;
+    } else if (signalLevel > R_SIGNAL_LEVEL[type].length - 1) {
+      signalLevel = R_SIGNAL_LEVEL[type].length - 1;
+    }
+    return R_SIGNAL_LEVEL[type][signalLevel];
+  }
+
+  public boolean hasPassword() {
+    return !TextUtils.isEmpty(getPasswrod());
+  }
+
+  public boolean isPasswordRequired() {
+    return WifiService.getSecurityStatus(getCapabilities()) != WifiService.SECURITY_STATUS.NONE;
+  }
+
   public interface Fields extends BaseModel.Fields {
 
     final String ADDRESS = "address";
     final String BSSID = "bssid";
-
     final String CAPABILITIES = "capabilities";
-
     final String FREQUENCY = "frequency";
-
     final String MAC_ADDRESS = "mac_address";
-
     final String NAME = "name";
     final String PASSWORD = "password";
     final String SSID = "ssid";

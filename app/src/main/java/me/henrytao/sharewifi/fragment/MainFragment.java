@@ -16,7 +16,6 @@
 
 package me.henrytao.sharewifi.fragment;
 
-import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -44,8 +43,6 @@ import me.henrytao.sharewifi.widget.RecycleEmptyErrorView;
  * Created by henrytao on 4/12/15.
  */
 public class MainFragment extends BaseFragment implements WifiAdapter.OnClickListener {
-
-  private static final String WIFI_ENABLED_SUBSCRIPTION = "WIFI_ENABLED_SUBSCRIPTION";
 
   @InjectView(R.id.empty_view)
   View vEmptyView;
@@ -99,14 +96,18 @@ public class MainFragment extends BaseFragment implements WifiAdapter.OnClickLis
             mListWifi.addAll(list);
             vRecyclerView.getAdapter().notifyDataSetChanged();
           }));
+      addSubscription(WifiService.observeWifiEnabled(getActivity()).subscribe(state -> {
+        switch (state) {
+          case ENABLED:
+            vRecyclerView.setErrorView(vErrorView).hideErrorView();
+            break;
+          case DISABLED:
+            vRecyclerView.setErrorView(vTurnOnWifiView).showErrorView();
+            break;
+        }
+      }));
       if (!WifiService.isWifiEnabled(getActivity())) {
         vRecyclerView.setErrorView(vTurnOnWifiView).showErrorView();
-        addSubscription(WIFI_ENABLED_SUBSCRIPTION, WifiService.observeWifiEnabled(getActivity()).subscribe(state -> {
-          if (state == WifiManager.WIFI_STATE_ENABLED) {
-            vRecyclerView.setErrorView(vErrorView).hideErrorView();
-            removeSubscription(WIFI_ENABLED_SUBSCRIPTION);
-          }
-        }));
       }
     }
   }

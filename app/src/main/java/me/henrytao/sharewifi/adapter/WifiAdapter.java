@@ -18,6 +18,7 @@ package me.henrytao.sharewifi.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,8 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import lombok.Getter;
+import lombok.experimental.Accessors;
 import me.henrytao.sharewifi.R;
 import me.henrytao.sharewifi.model.WifiModel;
 import me.henrytao.sharewifi.service.WifiService;
@@ -35,9 +38,10 @@ import me.henrytao.sharewifi.service.WifiService;
 /**
  * Created by henrytao on 4/27/15.
  */
+@Accessors(prefix = "m")
 public class WifiAdapter extends RecyclerView.Adapter<WifiAdapter.ViewHolder> {
 
-  private Context mContext;
+  @Getter private Context mContext;
 
   private List<WifiModel> mListWifi;
 
@@ -61,15 +65,15 @@ public class WifiAdapter extends RecyclerView.Adapter<WifiAdapter.ViewHolder> {
   @Override
   public WifiAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
     View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_wifi, parent, false);
-    ViewHolder viewHolder = new ViewHolder(view);
+    ViewHolder viewHolder = new ViewHolder(getContext(), view);
     view.setOnClickListener(v -> {
       if (mOnClickListener != null) {
-        mOnClickListener.onWifiAdapterClick(view, viewHolder.mData);
+        mOnClickListener.onWifiAdapterClick(view, viewHolder.getData());
       }
     });
     viewHolder.vButtonInfo.setOnClickListener(v -> {
       if (mOnClickListener != null) {
-        mOnClickListener.onWifiAdapterInfoClick(view, viewHolder.mData);
+        mOnClickListener.onWifiAdapterInfoClick(view, viewHolder.getData());
       }
     });
     return viewHolder;
@@ -86,17 +90,12 @@ public class WifiAdapter extends RecyclerView.Adapter<WifiAdapter.ViewHolder> {
     void onWifiAdapterInfoClick(View view, WifiModel data);
   }
 
+  @Accessors(prefix = "m")
   public static class ViewHolder extends RecyclerView.ViewHolder {
 
-    WifiModel mData;
+    @Getter Context mContext;
 
-    int[] mSignalLevelRes = {
-        R.drawable.ic_signal_wifi_0_bar_lock,
-        R.drawable.ic_signal_wifi_1_bar_lock,
-        R.drawable.ic_signal_wifi_2_bar_lock,
-        R.drawable.ic_signal_wifi_3_bar_lock,
-        R.drawable.ic_signal_wifi_4_bar_lock
-    };
+    @Getter WifiModel mData;
 
     @InjectView(R.id.address)
     TextView vAddress;
@@ -116,8 +115,9 @@ public class WifiAdapter extends RecyclerView.Adapter<WifiAdapter.ViewHolder> {
     @InjectView(R.id.signal_level)
     ImageView vSignalLevel;
 
-    public ViewHolder(View view) {
+    public ViewHolder(Context context, View view) {
       super(view);
+      mContext = context;
       ButterKnife.inject(this, view);
     }
 
@@ -126,25 +126,8 @@ public class WifiAdapter extends RecyclerView.Adapter<WifiAdapter.ViewHolder> {
       vSSID.setText(data.getSSID());
       vName.setText(data.getName());
       vAddress.setText(data.getAddress());
-      renderSignalLevel(data.getSignalLevel());
-      renderIsConnected(isConnected);
-    }
-
-    private void renderIsConnected(boolean isConnected) {
-      if (isConnected) {
-        vConnectedStatus.setText(R.string.item_wifi_is_connected);
-      } else {
-        vConnectedStatus.setText(null);
-      }
-    }
-
-    private void renderSignalLevel(int signalLevel) {
-      if (signalLevel < 0) {
-        signalLevel = 0;
-      } else if (signalLevel > mSignalLevelRes.length - 1) {
-        signalLevel = mSignalLevelRes.length - 1;
-      }
-      vSignalLevel.setImageResource(mSignalLevelRes[signalLevel]);
+      vSignalLevel.setImageResource(data.getSignalLevelResource());
+      vConnectedStatus.setText(isConnected ? getContext().getResources().getString(R.string.item_wifi_is_connected) : "");
     }
   }
 }
