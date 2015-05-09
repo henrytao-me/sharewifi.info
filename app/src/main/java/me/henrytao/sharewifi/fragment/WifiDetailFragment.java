@@ -32,6 +32,7 @@ import me.henrytao.sharewifi.config.Constants;
 import me.henrytao.sharewifi.model.WifiModel;
 import me.henrytao.sharewifi.service.WifiService;
 import me.henrytao.sharewifi.util.IntentUtils;
+import me.henrytao.sharewifi.util.ResourceUtils;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -80,7 +81,7 @@ public class WifiDetailFragment extends Fragment {
     if (getActivity() instanceof WifiDetailInterface) {
       WifiDetailInterface wifiDetailInterface = (WifiDetailInterface) getActivity();
       if (mWifiModel != null) {
-        wifiDetailInterface.onSSIDChanged(mWifiModel.getSSID());
+        wifiDetailInterface.onSSIDChanged(ResourceUtils.getWifiName(getActivity(), mWifiModel.getSSID(), mWifiModel.getFrequency()));
       }
     }
   }
