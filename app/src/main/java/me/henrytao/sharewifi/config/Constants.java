@@ -25,11 +25,9 @@ public final class Constants {
 
   public interface EXTRA {
 
-    String ID = "id";
-
-    String MODEL = "model";
-
     String BUNDLE = "bundle";
+    String ID = "id";
+    String MODEL = "model";
   }
 
 }

@@ -22,5 +22,4 @@ package me.henrytao.sharewifi.util;
 public class ViewUtils {
 
 
-
 }
