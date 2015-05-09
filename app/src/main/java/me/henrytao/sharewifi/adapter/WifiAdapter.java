@@ -18,7 +18,6 @@ package me.henrytao.sharewifi.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +33,7 @@ import lombok.experimental.Accessors;
 import me.henrytao.sharewifi.R;
 import me.henrytao.sharewifi.model.WifiModel;
 import me.henrytao.sharewifi.service.WifiService;
+import me.henrytao.sharewifi.util.ResourceUtils;
 
 /**
  * Created by henrytao on 4/27/15.
@@ -123,12 +123,14 @@ public class WifiAdapter extends RecyclerView.Adapter<WifiAdapter.ViewHolder> {
 
     public void bind(WifiModel data, boolean isConnected) {
       mData = data;
-      vSSID.setText(String.format("%s %s", data.getSSID(), data.getWifiFrequency() == WifiService.WIFI_FREQUENCY.FREQUENCY_50GHZ ?
-          getContext().getString(R.string.text_50ghz) : getContext().getString(R.string.text_24ghz)));
+      vSSID.setText(ResourceUtils.getWifiName(getContext(), data.getSSID(), data.getFrequency()));
       vName.setText(data.getName());
       vAddress.setText(data.getAddress());
-      vSignalLevel.setImageResource(data.getSignalLevelResource());
-      vConnectedStatus.setText(isConnected ? getContext().getString(R.string.item_wifi_is_connected) : "");
+      vConnectedStatus.setText(ResourceUtils.getWifiConnectedStatus(getContext(), isConnected));
+      vSignalLevel.setImageResource(ResourceUtils.getDrawableSignalLevelResource(
+          data.getSignalLevel(),
+          data.isPasswordRequired(),
+          data.hasPassword()));
     }
   }
 }

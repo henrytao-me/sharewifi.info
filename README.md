@@ -29,3 +29,9 @@ public class MyClass {
 
 - Should not define `static final` in `Fragment` / `Activity`. Use `Constants.java` instead.
 - `static final` can be defined in `Model` / `Service`.
+- All resource related content should be defined in `ResourceUtils` and follow the following schema:
+`getWifiName` => return primitive data types
+`getDrawable<method name>Resource` => return DrawableResourceID
+`getDrawable<method name>` => return DrawableResource
+`getColor<method name>Resource` => return ColorResourceID
+`getColor<method name>` => return ColorResource

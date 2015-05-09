@@ -16,9 +16,6 @@
 
 package me.henrytao.sharewifi.model.orm;
 
-import com.orhanobut.logger.Logger;
-
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;

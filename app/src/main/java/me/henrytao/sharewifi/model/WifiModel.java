@@ -24,7 +24,6 @@ import android.text.TextUtils;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import me.henrytao.sharewifi.R;
 import me.henrytao.sharewifi.model.orm.BaseModel;
 import me.henrytao.sharewifi.model.orm.Column;
 import me.henrytao.sharewifi.service.WifiService;
@@ -36,26 +35,6 @@ import me.henrytao.sharewifi.service.WifiService;
 public class WifiModel extends BaseModel<WifiModel> {
 
   public final static int SIGNAL_LEVEL = 5; // Level: 0, 1, 2, 3, 4
-
-  private static final int[][] R_SIGNAL_LEVEL = {{
-      R.drawable.ic_signal_wifi_0_bar,
-      R.drawable.ic_signal_wifi_1_bar,
-      R.drawable.ic_signal_wifi_2_bar,
-      R.drawable.ic_signal_wifi_3_bar,
-      R.drawable.ic_signal_wifi_4_bar
-  }, {
-      R.drawable.ic_signal_wifi_0_bar_lock,
-      R.drawable.ic_signal_wifi_1_bar_lock,
-      R.drawable.ic_signal_wifi_2_bar_lock,
-      R.drawable.ic_signal_wifi_3_bar_lock,
-      R.drawable.ic_signal_wifi_4_bar_lock
-  }, {
-      R.drawable.ic_signal_wifi_0_bar_unlock,
-      R.drawable.ic_signal_wifi_1_bar_unlock,
-      R.drawable.ic_signal_wifi_2_bar_unlock,
-      R.drawable.ic_signal_wifi_3_bar_unlock,
-      R.drawable.ic_signal_wifi_4_bar_unlock
-  }};
 
   @Column(name = Fields.ADDRESS)
   @Getter @Setter private String mAddress;
@@ -103,21 +82,6 @@ public class WifiModel extends BaseModel<WifiModel> {
   public WifiModel(WifiInfo wifiInfo) {
     this(wifiInfo.getSSID().replaceFirst("^\"", "").replaceFirst("\"$", ""),
         wifiInfo.getBSSID(), null, 0, wifiInfo.getRssi(), wifiInfo.getMacAddress());
-  }
-
-  public int getSignalLevelResource() {
-    int type = isPasswordRequired() ? (hasPassword() ? 2 : 1) : 0;
-    int signalLevel = getSignalLevel();
-    if (signalLevel < 0) {
-      signalLevel = 0;
-    } else if (signalLevel > R_SIGNAL_LEVEL[type].length - 1) {
-      signalLevel = R_SIGNAL_LEVEL[type].length - 1;
-    }
-    return R_SIGNAL_LEVEL[type][signalLevel];
-  }
-
-  public WifiService.WIFI_FREQUENCY getWifiFrequency() {
-    return WifiService.getWifiFrequency(getFrequency());
   }
 
   public boolean hasPassword() {

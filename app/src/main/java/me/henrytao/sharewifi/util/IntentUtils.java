@@ -25,10 +25,6 @@ import android.support.annotation.Nullable;
 import java.io.Serializable;
 import java.util.List;
 
-import lombok.Getter;
-import lombok.experimental.Accessors;
-import me.henrytao.sharewifi.model.orm.BaseModel;
-
 /**
  * Created by henrytao on 4/15/15.
  */

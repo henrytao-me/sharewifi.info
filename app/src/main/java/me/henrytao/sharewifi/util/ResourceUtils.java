@@ -19,10 +19,33 @@ package me.henrytao.sharewifi.util;
 import android.content.Context;
 import android.util.TypedValue;
 
+import me.henrytao.sharewifi.R;
+import me.henrytao.sharewifi.service.WifiService;
+
 /**
  * Created by henrytao on 4/29/15.
  */
 public class ResourceUtils {
+
+  private static final int[][] R_SIGNAL_LEVEL = {{
+      R.drawable.ic_signal_wifi_0_bar,
+      R.drawable.ic_signal_wifi_1_bar,
+      R.drawable.ic_signal_wifi_2_bar,
+      R.drawable.ic_signal_wifi_3_bar,
+      R.drawable.ic_signal_wifi_4_bar
+  }, {
+      R.drawable.ic_signal_wifi_0_bar_lock,
+      R.drawable.ic_signal_wifi_1_bar_lock,
+      R.drawable.ic_signal_wifi_2_bar_lock,
+      R.drawable.ic_signal_wifi_3_bar_lock,
+      R.drawable.ic_signal_wifi_4_bar_lock
+  }, {
+      R.drawable.ic_signal_wifi_0_bar_unlock,
+      R.drawable.ic_signal_wifi_1_bar_unlock,
+      R.drawable.ic_signal_wifi_2_bar_unlock,
+      R.drawable.ic_signal_wifi_3_bar_unlock,
+      R.drawable.ic_signal_wifi_4_bar_unlock
+  }};
 
   public static int getColorFromAttribute(Context context, int attrId) {
     if (attrId == 0) {
@@ -40,6 +63,25 @@ public class ResourceUtils {
     TypedValue typedValue = new TypedValue();
     context.getTheme().resolveAttribute(attrId, typedValue, true);
     return typedValue.resourceId;
+  }
+
+  public static int getDrawableSignalLevelResource(int signalLevel, boolean isPasswordRequired, boolean hasPassword) {
+    int type = isPasswordRequired ? (hasPassword ? 2 : 1) : 0;
+    if (signalLevel < 0) {
+      signalLevel = 0;
+    } else if (signalLevel > R_SIGNAL_LEVEL[type].length - 1) {
+      signalLevel = R_SIGNAL_LEVEL[type].length - 1;
+    }
+    return R_SIGNAL_LEVEL[type][signalLevel];
+  }
+
+  public static String getWifiConnectedStatus(Context context, boolean isConnected) {
+    return isConnected ? context.getString(R.string.item_wifi_is_connected) : "";
+  }
+
+  public static String getWifiName(Context context, String SSID, int frequency) {
+    return String.format("%s %s", SSID, WifiService.getWifiFrequency(frequency) == WifiService.WIFI_FREQUENCY.FREQUENCY_50GHZ ?
+        context.getString(R.string.text_50ghz) : context.getString(R.string.text_24ghz));
   }
 
 }

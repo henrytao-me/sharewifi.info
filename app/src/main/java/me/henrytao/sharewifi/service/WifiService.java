@@ -21,16 +21,13 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiConfiguration;
-import android.net.wifi.WifiEnterpriseConfig;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.text.TextUtils;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.henrytao.sharewifi.R;
 import me.henrytao.sharewifi.model.WifiModel;
 import rx.Observable;
 import rx.android.content.ContentObservable;
