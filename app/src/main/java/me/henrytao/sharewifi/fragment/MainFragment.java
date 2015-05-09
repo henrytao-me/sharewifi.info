@@ -37,6 +37,7 @@ import me.henrytao.sharewifi.adapter.WifiAdapter;
 import me.henrytao.sharewifi.config.Constants;
 import me.henrytao.sharewifi.model.WifiModel;
 import me.henrytao.sharewifi.service.WifiService;
+import me.henrytao.sharewifi.util.IntentUtils;
 import me.henrytao.sharewifi.util.ResourceUtils;
 import me.henrytao.sharewifi.widget.RecycleEmptyErrorView;
 
@@ -138,7 +139,7 @@ public class MainFragment extends BaseFragment implements WifiAdapter.OnClickLis
 
   @Override
   public void onWifiAdapterInfoClick(View view, WifiModel data) {
-    startActivity(WifiDetailActivity.getIntent(getActivity(), data));
+    startActivity(WifiDetailActivity.getIntent(getActivity(), new IntentUtils.Bundle(data)));
   }
 
   @OnClick(R.id.turn_on_wifi_view)

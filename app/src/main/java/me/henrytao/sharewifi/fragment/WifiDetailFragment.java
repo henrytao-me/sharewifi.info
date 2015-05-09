@@ -37,31 +37,19 @@ import me.henrytao.sharewifi.R;
 import me.henrytao.sharewifi.config.Constants;
 import me.henrytao.sharewifi.model.WifiModel;
 import me.henrytao.sharewifi.service.WifiService;
+import me.henrytao.sharewifi.util.IntentUtils;
 
 /**
  * A placeholder fragment containing a simple view.
  */
 public class WifiDetailFragment extends Fragment {
 
-  public static WifiDetailFragment newInstance(Bundle bundle) {
+  public static WifiDetailFragment newInstance(IntentUtils.Bundle<WifiModel> bundle) {
     WifiDetailFragment fragment = new WifiDetailFragment();
-    fragment.setArguments(bundle);
+    Bundle args = new Bundle();
+    args.putSerializable(Constants.EXTRA.BUNDLE, bundle);
+    fragment.setArguments(args);
     return fragment;
-  }
-
-  public static WifiDetailFragment newInstance(@Nullable String wifiID, @Nullable WifiModel wifiModel) {
-    Bundle bundle = new Bundle();
-    bundle.putString(Constants.EXTRA.ID, wifiID);
-    bundle.putSerializable(Constants.EXTRA.MODEL, wifiModel);
-    return newInstance(bundle);
-  }
-
-  public static WifiDetailFragment newInstance(String wifiID) {
-    return newInstance(wifiID, null);
-  }
-
-  public static WifiDetailFragment newInstance(WifiModel wifiModel) {
-    return newInstance(null, wifiModel);
   }
 
   @InjectView(R.id.button_connect)
@@ -74,9 +62,9 @@ public class WifiDetailFragment extends Fragment {
   @Override
   public void onAttach(Activity activity) {
     super.onAttach(activity);
-    mWifiID = getArguments().getString(Constants.EXTRA.ID);
-    Serializable serializable = getArguments().getSerializable(Constants.EXTRA.MODEL);
-    mWifiModel = serializable == null ? null : (WifiModel) serializable;
+    IntentUtils.Bundle<WifiModel> bundle = (IntentUtils.Bundle<WifiModel>) getArguments().getSerializable(Constants.EXTRA.BUNDLE);
+    mWifiID = bundle.getId();
+    mWifiModel = bundle.getModel();
   }
 
   @Override
@@ -98,7 +86,7 @@ public class WifiDetailFragment extends Fragment {
     if (getActivity() instanceof WifiDetailInterface) {
       WifiDetailInterface wifiDetailInterface = (WifiDetailInterface) getActivity();
       if (mWifiModel != null) {
-        wifiDetailInterface.onSSIDChanged(mWifiModel.getAddress());
+        wifiDetailInterface.onSSIDChanged(mWifiModel.getSSID());
       }
     }
   }

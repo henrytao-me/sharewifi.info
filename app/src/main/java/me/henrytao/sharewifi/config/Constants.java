@@ -28,6 +28,8 @@ public final class Constants {
     String ID = "id";
 
     String MODEL = "model";
+
+    String BUNDLE = "bundle";
   }
 
 }

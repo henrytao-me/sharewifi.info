@@ -16,24 +16,57 @@
 
 package me.henrytao.sharewifi.util;
 
-import com.orhanobut.logger.Logger;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.support.annotation.Nullable;
 
+import java.io.Serializable;
 import java.util.List;
+
+import lombok.Getter;
+import lombok.experimental.Accessors;
+import me.henrytao.sharewifi.model.orm.BaseModel;
 
 /**
  * Created by henrytao on 4/15/15.
  */
 public class IntentUtils {
 
+
   public static boolean isAvailable(Context context, Intent intent) {
     PackageManager mgr = context.getPackageManager();
     List<ResolveInfo> list = mgr.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
     return list.size() > 0;
+  }
+
+  public static class Bundle<T> implements Serializable {
+
+    String mId;
+
+    T mModel;
+
+    public Bundle(String id) {
+      this(id, null);
+    }
+
+    public Bundle(T model) {
+      this(null, model);
+    }
+
+    public Bundle(@Nullable String id, @Nullable T model) {
+      mId = id;
+      mModel = model;
+    }
+
+    public String getId() {
+      return mId;
+    }
+
+    public T getModel() {
+      return mModel == null ? null : (T) mModel;
+    }
   }
 
 }

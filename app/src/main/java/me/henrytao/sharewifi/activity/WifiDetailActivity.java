@@ -16,11 +16,8 @@
 
 package me.henrytao.sharewifi.activity;
 
-import com.orhanobut.logger.Logger;
-
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -33,20 +30,13 @@ import me.henrytao.sharewifi.config.Constants;
 import me.henrytao.sharewifi.fragment.WifiDetailFragment;
 import me.henrytao.sharewifi.fragment.WifiDetailFragment.WifiDetailInterface;
 import me.henrytao.sharewifi.model.WifiModel;
-import me.henrytao.sharewifi.model.orm.SerializerException;
-import me.henrytao.sharewifi.util.JsonUtils;
+import me.henrytao.sharewifi.util.IntentUtils;
 
 public class WifiDetailActivity extends MdToolbarActivity implements WifiDetailInterface {
 
-  public static Intent getIntent(Context context, String wifiID) {
+  public static Intent getIntent(Context context, IntentUtils.Bundle<WifiModel> bundle) {
     Intent intent = new Intent(context, WifiDetailActivity.class);
-    intent.putExtra(Constants.EXTRA.ID, wifiID);
-    return intent;
-  }
-
-  public static Intent getIntent(Context context, WifiModel wifi) {
-    Intent intent = new Intent(context, WifiDetailActivity.class);
-    intent.putExtra(Constants.EXTRA.MODEL, wifi);
+    intent.putExtra(Constants.EXTRA.BUNDLE, bundle);
     return intent;
   }
 
@@ -80,12 +70,13 @@ public class WifiDetailActivity extends MdToolbarActivity implements WifiDetailI
   }
 
   @Override
-  protected void onCreate(Bundle savedInstanceState) {
+  protected void onCreate(android.os.Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_wifi_detail);
     ButterKnife.inject(this);
 
-    mWifiDetailFragment = WifiDetailFragment.newInstance(getIntent().getExtras());
+    mWifiDetailFragment = WifiDetailFragment
+        .newInstance((IntentUtils.Bundle) getIntent().getSerializableExtra(Constants.EXTRA.BUNDLE));
     getSupportFragmentManager()
         .beginTransaction()
         .add(R.id.fragment, mWifiDetailFragment)
