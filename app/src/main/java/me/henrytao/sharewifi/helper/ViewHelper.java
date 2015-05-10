@@ -33,7 +33,7 @@ import me.henrytao.sharewifi.widget.AlertDialogBuilder;
  */
 public class ViewHelper {
 
-  public static BuilderDialog<DialogConnectToNewWifiHolder> getConnectToNewWifiDialog(Context context, String wifiName) {
+  public static BuilderHolder<DialogConnectToNewWifiHolder> getConnectToNewWifiDialog(Context context, String wifiName) {
     View view = ViewUtils.inflate(context, R.layout.dialog_connect_to_new_wifi);
     DialogConnectToNewWifiHolder holder = new DialogConnectToNewWifiHolder(context, view);
     AlertDialogBuilder builder = new AlertDialogBuilder(context)
@@ -42,17 +42,17 @@ public class ViewHelper {
         .setView(view)
         .setPositiveButton(R.string.text_connect)
         .setNegativeButton(R.string.text_cancel, (dialog, which) -> dialog.dismiss());
-    return new BuilderDialog(builder, holder);
+    return new BuilderHolder(builder, holder);
   }
 
   @Accessors(prefix = "m")
-  public static class BuilderDialog<T extends BaseHolder> {
+  public static class BuilderHolder<T extends BaseHolder> {
 
     @Getter private AlertDialogBuilder mBuilder;
 
     @Getter private T mHolder;
 
-    public BuilderDialog(AlertDialogBuilder builder, @Nullable T holder) {
+    public BuilderHolder(AlertDialogBuilder builder, @Nullable T holder) {
       mBuilder = builder;
       mHolder = holder;
     }

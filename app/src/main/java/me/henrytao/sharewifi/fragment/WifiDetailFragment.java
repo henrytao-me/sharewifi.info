@@ -91,7 +91,7 @@ public class WifiDetailFragment extends Fragment {
   @OnClick(R.id.button_connect)
   protected void onButtonConnectClicked() {
     //WifiService.connectToWifi(getActivity(), mWifiModel.getSSID(), null);
-    ViewHelper.BuilderDialog<DialogConnectToNewWifiHolder> builder = ViewHelper.getConnectToNewWifiDialog(getActivity(),
+    ViewHelper.BuilderHolder<DialogConnectToNewWifiHolder> builder = ViewHelper.getConnectToNewWifiDialog(getActivity(),
         ResourceHelper.getWifiName(getActivity(), mWifiModel.getSSID(), mWifiModel.getFrequency()));
     builder.getBuilder()
         .setOnPositiveClickListener((dialog, which) -> {
