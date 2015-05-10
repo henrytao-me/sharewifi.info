@@ -42,12 +42,20 @@ public class DialogConnectToNewWifiHolder extends BaseHolder {
     vShowPassword.setOnCheckedChangeListener((buttonView, isChecked) -> setPasswordTextType(isChecked));
   }
 
-  public String getPassword() {
-    return vPassword.getText().toString();
+  @Override
+  public void onClosed() {
+    super.onClosed();
+    ViewUtils.closeKeyBoard(getContext(), vPassword);
   }
 
+  @Override
   public void onShowed() {
+    super.onShowed();
     ViewUtils.showKeyboard(getContext(), vPassword);
+  }
+
+  public String getPassword() {
+    return vPassword.getText().toString();
   }
 
   private void setPasswordTextType(boolean showPassword) {

@@ -48,11 +48,7 @@ public class AlertDialogBuilder extends AlertDialog.Builder {
 
   protected DialogInterface.OnClickListener mPositiveOnClickListener;
 
-  private DialogInterface.OnClickListener mBlankOnClickListener = new DialogInterface.OnClickListener() {
-    @Override
-    public void onClick(DialogInterface dialog, int which) {
-
-    }
+  private DialogInterface.OnClickListener mBlankOnClickListener = (dialog, which) -> {
   };
 
   public AlertDialogBuilder(Context context) {
@@ -309,28 +305,19 @@ public class AlertDialogBuilder extends AlertDialog.Builder {
       Button positiveButton = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
       Button negativeButton = dialog.getButton(DialogInterface.BUTTON_NEGATIVE);
       Button neutralButton = dialog.getButton(DialogInterface.BUTTON_NEUTRAL);
-      positiveButton.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-          if (mPositiveOnClickListener != null) {
-            mPositiveOnClickListener.onClick(dialog, DialogInterface.BUTTON_POSITIVE);
-          }
+      positiveButton.setOnClickListener(v -> {
+        if (mPositiveOnClickListener != null) {
+          mPositiveOnClickListener.onClick(dialog, DialogInterface.BUTTON_POSITIVE);
         }
       });
-      negativeButton.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-          if (mNegativeOnClickListener != null) {
-            mNegativeOnClickListener.onClick(dialog, DialogInterface.BUTTON_NEGATIVE);
-          }
+      negativeButton.setOnClickListener(v -> {
+        if (mNegativeOnClickListener != null) {
+          mNegativeOnClickListener.onClick(dialog, DialogInterface.BUTTON_NEGATIVE);
         }
       });
-      neutralButton.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-          if (mNeutralOnClickListener != null) {
-            mNeutralOnClickListener.onClick(dialog, DialogInterface.BUTTON_NEUTRAL);
-          }
+      neutralButton.setOnClickListener(v -> {
+        if (mNeutralOnClickListener != null) {
+          mNeutralOnClickListener.onClick(dialog, DialogInterface.BUTTON_NEUTRAL);
         }
       });
     }

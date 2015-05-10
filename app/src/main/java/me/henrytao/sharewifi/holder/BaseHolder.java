@@ -48,4 +48,12 @@ public class BaseHolder {
     return mView;
   }
 
+  public void onClosed() {
+    // NEED: need to call manually
+  }
+
+  public void onShowed() {
+    // NEED: need to call manually
+  }
+
 }
