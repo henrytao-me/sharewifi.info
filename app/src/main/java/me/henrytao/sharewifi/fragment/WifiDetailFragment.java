@@ -39,7 +39,7 @@ import me.henrytao.sharewifi.util.ToastUtils;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class WifiDetailFragment extends Fragment {
+public class WifiDetailFragment extends BaseFragment {
 
   public static WifiDetailFragment newInstance(IntentUtils.Bundle<WifiModel> bundle) {
     WifiDetailFragment fragment = new WifiDetailFragment();

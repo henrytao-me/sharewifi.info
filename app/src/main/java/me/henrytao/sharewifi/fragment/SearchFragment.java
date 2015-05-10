@@ -36,7 +36,7 @@ import me.henrytao.sharewifi.model.WifiModel;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class SearchFragment extends Fragment {
+public class SearchFragment extends BaseFragment {
 
   List<WifiModel> mListWifi = new ArrayList<>();
 

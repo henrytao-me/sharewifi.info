@@ -28,7 +28,7 @@ import me.henrytao.sharewifi.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NavigationDrawerFragment extends Fragment {
+public class NavigationDrawerFragment extends BaseFragment {
 
   public NavigationDrawerFragment() {
     // Required empty public constructor

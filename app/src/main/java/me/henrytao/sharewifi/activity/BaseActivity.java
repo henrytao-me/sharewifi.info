@@ -16,8 +16,6 @@
 
 package me.henrytao.sharewifi.activity;
 
-import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 
@@ -33,12 +31,6 @@ import rx.Subscription;
 public class BaseActivity extends AppCompatActivity {
 
   protected Map<String, Subscription> mSubscription;
-
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    onInitializeIntentExtra(getIntent());
-  }
 
   @Override
   protected void onPause() {
@@ -63,10 +55,6 @@ public class BaseActivity extends AppCompatActivity {
 
   protected void addSubscription(Subscription subscription) {
     addSubscription(null, subscription);
-  }
-
-  protected void onInitializeIntentExtra(Intent intent) {
-
   }
 
   protected void removeSubscription(String key) {
