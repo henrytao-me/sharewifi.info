@@ -21,7 +21,6 @@ import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -77,18 +76,6 @@ public class MainFragment extends BaseFragment implements WifiAdapter.OnClickLis
   }
 
   @Override
-  public boolean onOptionsItemSelected(MenuItem item) {
-    switch (item.getItemId()) {
-      case R.id.action_refresh:
-        if (!vSwipeRefreshLayout.isRefreshing()) {
-          refreshContent();
-        }
-        return true;
-    }
-    return super.onOptionsItemSelected(item);
-  }
-
-  @Override
   public void onResume() {
     super.onResume();
     if (isAdded()) {
@@ -99,13 +86,10 @@ public class MainFragment extends BaseFragment implements WifiAdapter.OnClickLis
             vRecyclerView.getAdapter().notifyDataSetChanged();
           }));
       addSubscription(WifiService.observeWifiState(getActivity()).subscribe(state -> {
-        switch (state) {
-          case ENABLED:
-            vRecyclerView.setErrorView(vErrorView).hideErrorView();
-            break;
-          case DISABLED:
-            vRecyclerView.setErrorView(vTurnOnWifiView).showErrorView();
-            break;
+        if (state == WifiService.WIFI_STATE.ENABLED) {
+          vRecyclerView.setErrorView(vErrorView).hideErrorView();
+        } else {
+          vRecyclerView.setErrorView(vTurnOnWifiView).showErrorView();
         }
       }));
       if (!WifiService.isWifiEnabled(getActivity())) {
@@ -117,8 +101,6 @@ public class MainFragment extends BaseFragment implements WifiAdapter.OnClickLis
   @Override
   public void onViewCreated(View view, Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
-
-    setHasOptionsMenu(true);
 
     WifiAdapter adapter = new WifiAdapter(getActivity(), mListWifi);
     adapter.setOnClickListener(this);

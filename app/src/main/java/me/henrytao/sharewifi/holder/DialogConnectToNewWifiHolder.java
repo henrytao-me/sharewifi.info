@@ -17,7 +17,6 @@
 package me.henrytao.sharewifi.holder;
 
 import android.content.Context;
-import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -29,7 +28,7 @@ import me.henrytao.sharewifi.util.ViewUtils;
 /**
  * Created by henrytao on 5/10/15.
  */
-public class DialogConnectToNewWifiHolder extends BaseHolder {
+public class DialogConnectToNewWifiHolder extends BaseHolder<DialogConnectToNewWifiHolder> {
 
   @InjectView(R.id.password)
   EditText vPassword;
@@ -37,21 +36,28 @@ public class DialogConnectToNewWifiHolder extends BaseHolder {
   @InjectView(R.id.show_password)
   CheckBox vShowPassword;
 
-  public DialogConnectToNewWifiHolder(Context context, View view) {
-    super(context, view);
+  public DialogConnectToNewWifiHolder(Context context) {
+    super(context);
     vShowPassword.setOnCheckedChangeListener((buttonView, isChecked) -> setPasswordTextType(isChecked));
   }
 
   @Override
-  public void onClosed() {
-    super.onClosed();
-    ViewUtils.closeKeyBoard(getContext(), vPassword);
+  protected int getLayoutId() {
+    return R.layout.dialog_connect_to_new_wifi;
   }
 
   @Override
-  public void onShowed() {
-    super.onShowed();
+  protected DialogConnectToNewWifiHolder onPause() {
+    super.onPause();
+    ViewUtils.closeKeyBoard(getContext(), vPassword);
+    return this;
+  }
+
+  @Override
+  protected DialogConnectToNewWifiHolder onResume() {
+    super.onResume();
     ViewUtils.showKeyboard(getContext(), vPassword);
+    return this;
   }
 
   public String getPassword() {

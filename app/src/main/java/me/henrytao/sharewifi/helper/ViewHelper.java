@@ -18,14 +18,12 @@ package me.henrytao.sharewifi.helper;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
-import android.view.View;
 
 import lombok.Getter;
 import lombok.experimental.Accessors;
 import me.henrytao.sharewifi.R;
 import me.henrytao.sharewifi.holder.BaseHolder;
 import me.henrytao.sharewifi.holder.DialogConnectToNewWifiHolder;
-import me.henrytao.sharewifi.util.ViewUtils;
 import me.henrytao.sharewifi.widget.AlertDialogBuilder;
 
 /**
@@ -34,14 +32,13 @@ import me.henrytao.sharewifi.widget.AlertDialogBuilder;
 public class ViewHelper {
 
   public static BuilderHolder<DialogConnectToNewWifiHolder> getConnectToNewWifiDialog(Context context, String wifiName) {
-    View view = ViewUtils.inflate(context, R.layout.dialog_connect_to_new_wifi);
-    DialogConnectToNewWifiHolder holder = new DialogConnectToNewWifiHolder(context, view);
+    DialogConnectToNewWifiHolder holder = new DialogConnectToNewWifiHolder(context);
     AlertDialogBuilder builder = new AlertDialogBuilder(context)
         .setAutoDismiss(false)
         .setTitle(wifiName)
-        .setView(view)
-        .setOnShowListener(dialog -> holder.onShowed())
-        .setOnDismissListener(dialog -> holder.onClosed())
+        .setView(holder.getView())
+        .setOnShowListener(dialog -> holder.resume())
+        .setOnDismissListener(dialog -> holder.pause().destroy())
         .setPositiveButton(R.string.text_connect)
         .setNegativeButton(R.string.text_cancel, (dialog, which) -> dialog.dismiss());
     return new BuilderHolder(builder, holder);

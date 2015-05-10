@@ -28,6 +28,12 @@ import me.henrytao.sharewifi.R;
  */
 public abstract class MdDrawerLayoutActivity extends BaseActivity {
 
+  public abstract View getDrawerContent();
+
+  public abstract DrawerLayout getDrawerLayout();
+
+  public abstract View getDrawerNavigation();
+
   ActionBarDrawerToggle mDrawerToggle;
 
   @Override
@@ -68,12 +74,6 @@ public abstract class MdDrawerLayoutActivity extends BaseActivity {
       getDrawerLayout().setDrawerListener(mDrawerToggle);
     }
   }
-
-  public abstract View getDrawerContent();
-
-  public abstract DrawerLayout getDrawerLayout();
-
-  public abstract View getDrawerNavigation();
 
   public void onDrawerClosed(View drawerView) {
     // todo

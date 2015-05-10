@@ -16,18 +16,14 @@
 
 package me.henrytao.sharewifi.model.orm;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.annotation.Config;
-
-import android.os.Parcelable;
 
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 import me.henrytao.sharewifi.RobolectricGradleTestRunner;
 

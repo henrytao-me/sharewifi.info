@@ -104,9 +104,12 @@ public class WifiService {
     wifiManager.startScan();
     return observable.flatMap(intent -> {
       List<WifiModel> res = new ArrayList<>();
-      for (ScanResult scanResult : wifiManager.getScanResults()) {
-        if (!TextUtils.isEmpty(scanResult.SSID)) {
-          res.add(new WifiModel(scanResult));
+      List<ScanResult> list = wifiManager.getScanResults();
+      if (list != null) {
+        for (ScanResult scanResult : wifiManager.getScanResults()) {
+          if (!TextUtils.isEmpty(scanResult.SSID)) {
+            res.add(new WifiModel(scanResult));
+          }
         }
       }
       return Observable.just(res);

@@ -27,10 +27,9 @@
     app:showAsAction="always" />
 
   <item
-    android:id="@+id/action_refresh"
-    android:icon="@drawable/ic_toolbar_refresh_white"
+    android:id="@+id/action_wifi_toggle"
     android:orderInCategory="20"
-    android:title="@string/action_refresh"
+    android:title=""
     app:showAsAction="always" />
 
 </menu>

@@ -17,27 +17,59 @@
 package me.henrytao.sharewifi.holder;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
 import butterknife.ButterKnife;
+import me.henrytao.sharewifi.activity.BaseActivity;
+import me.henrytao.sharewifi.util.ViewUtils;
+import rx.Subscription;
 
 /**
  * Created by henrytao on 5/10/15.
  */
-public class BaseHolder {
+public abstract class BaseHolder<T extends BaseHolder> {
+
+  protected abstract int getLayoutId();
 
   private Context mContext;
 
+  private List<String> mSubscriptionKeys;
+
   private View mView;
 
-  public BaseHolder(Context context, View view) {
+  public BaseHolder(Context context) {
     mContext = context;
-    mView = view;
-    ButterKnife.inject(this, view);
+    ButterKnife.inject(this, getView());
   }
 
-  public void destroy() {
-    ButterKnife.reset(this);
+  public T addSubscription(String key, Subscription subscription) {
+    if (getContext() instanceof BaseActivity) {
+      if (mSubscriptionKeys == null) {
+        mSubscriptionKeys = new ArrayList<>();
+      }
+      if (TextUtils.isEmpty(key)) {
+        key = UUID.randomUUID().toString();
+      }
+      mSubscriptionKeys.add(key);
+      BaseActivity activity = (BaseActivity) getContext();
+      activity.addSubscription(key, subscription);
+    }
+    return (T) this;
+  }
+
+  public T addSubscription(Subscription subscription) {
+    addSubscription(null, subscription);
+    return (T) this;
+  }
+
+  public T destroy() {
+    onDestroy();
+    return (T) this;
   }
 
   public Context getContext() {
@@ -45,15 +77,46 @@ public class BaseHolder {
   }
 
   public View getView() {
+    if (mView == null) {
+      mView = ViewUtils.inflate(getContext(), getLayoutId());
+    }
     return mView;
   }
 
-  public void onClosed() {
-    // NEED: need to call manually
+  public T pause() {
+    onPause();
+    return (T) this;
   }
 
-  public void onShowed() {
-    // NEED: need to call manually
+  public T removeSubscription(String key) {
+    if (getContext() instanceof BaseActivity) {
+      BaseActivity activity = (BaseActivity) getContext();
+      activity.removeSubscription(key);
+    }
+    return (T) this;
+  }
+
+  public T resume() {
+    onResume();
+    return (T) this;
+  }
+
+  protected T onDestroy() {
+    ButterKnife.reset(this);
+    return (T) this;
+  }
+
+  protected T onPause() {
+    if (mSubscriptionKeys != null) {
+      for (String key : mSubscriptionKeys) {
+        removeSubscription(key);
+      }
+    }
+    return (T) this;
+  }
+
+  protected T onResume() {
+    return (T) this;
   }
 
 }

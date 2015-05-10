@@ -43,7 +43,7 @@ public class BaseFragment extends Fragment {
     }
   }
 
-  protected void addSubscription(String key, Subscription subscription) {
+  public void addSubscription(String key, Subscription subscription) {
     if (mSubscription == null) {
       mSubscription = new HashMap<>();
     }
@@ -53,12 +53,12 @@ public class BaseFragment extends Fragment {
     mSubscription.put(key, subscription);
   }
 
-  protected void addSubscription(Subscription subscription) {
+  public void addSubscription(Subscription subscription) {
     addSubscription(null, subscription);
   }
 
-  protected void removeSubscription(String key) {
-    if (mSubscription.get(key) != null) {
+  public void removeSubscription(String key) {
+    if (mSubscription != null && mSubscription.get(key) != null) {
       mSubscription.get(key).unsubscribe();
       mSubscription.remove(key);
     }

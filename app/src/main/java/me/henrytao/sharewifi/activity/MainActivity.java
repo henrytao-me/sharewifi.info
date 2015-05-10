@@ -26,11 +26,14 @@ import android.view.View;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import me.henrytao.sharewifi.R;
+import me.henrytao.sharewifi.holder.MenuWifiToggleHolder;
 
 /**
  * Created by henrytao on 3/28/15.
  */
 public class MainActivity extends MdDrawerLayoutActivity {
+
+  MenuWifiToggleHolder mMenuWifiToggleHolder;
 
   @InjectView(R.id.content)
   View vDrawerContent;
@@ -62,6 +65,9 @@ public class MainActivity extends MdDrawerLayoutActivity {
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
     getMenuInflater().inflate(R.menu.menu_main, menu);
+    mMenuWifiToggleHolder = new MenuWifiToggleHolder(this).resume();
+    MenuItem item = menu.findItem(R.id.action_wifi_toggle);
+    item.setActionView(mMenuWifiToggleHolder.getView());
     return true;
   }
 
@@ -86,4 +92,19 @@ public class MainActivity extends MdDrawerLayoutActivity {
     vToolbar.setNavigationOnClickListener((v) -> openDrawer());
   }
 
+  @Override
+  protected void onPause() {
+    super.onPause();
+    if (mMenuWifiToggleHolder != null) {
+      mMenuWifiToggleHolder.pause();
+    }
+  }
+
+  @Override
+  protected void onResume() {
+    super.onResume();
+    if (mMenuWifiToggleHolder != null) {
+      mMenuWifiToggleHolder.resume();
+    }
+  }
 }
