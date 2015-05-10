@@ -1,6 +1,3 @@
-[submodule "libs/PersistentSearch"]
-	path = libs/PersistentSearch
-	url = git://github.com/henrytao-me/PersistentSearch.git
 [submodule "libs/android-md-core"]
 	path = libs/android-md-core
 	url = git://github.com/henrytao-me/android-md-core.git
