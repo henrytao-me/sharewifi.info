@@ -17,6 +17,7 @@
 package me.henrytao.sharewifi.helper;
 
 import android.content.Context;
+import android.net.NetworkInfo.State;
 
 import me.henrytao.sharewifi.R;
 import me.henrytao.sharewifi.service.WifiService;
@@ -63,6 +64,28 @@ public class ResourceHelper {
   public static String getWifiName(Context context, String SSID, int frequency) {
     return String.format("%s %s", SSID, WifiService.getWifiFrequency(frequency) == WifiService.WIFI_FREQUENCY.FREQUENCY_50GHZ ?
         context.getString(R.string.text_50ghz) : context.getString(R.string.text_24ghz));
+  }
+
+  public static String getWifiState(Context context, State detailedState) {
+    String res = context.getString(R.string.text_unknow);
+    switch (detailedState) {
+      case CONNECTING:
+        res = context.getString(R.string.text_connecting);
+        break;
+      case CONNECTED:
+        res = context.getString(R.string.text_connected);
+        break;
+      case SUSPENDED:
+        res = context.getString(R.string.text_suspended);
+        break;
+      case DISCONNECTING:
+        res = context.getString(R.string.text_disconnecting);
+        break;
+      case DISCONNECTED:
+        res = context.getString(R.string.text_disconnected);
+        break;
+    }
+    return res;
   }
 
 }

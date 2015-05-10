@@ -98,7 +98,7 @@ public class MainFragment extends BaseFragment implements WifiAdapter.OnClickLis
             mListWifi.addAll(list);
             vRecyclerView.getAdapter().notifyDataSetChanged();
           }));
-      addSubscription(WifiService.observeWifiEnabled(getActivity()).subscribe(state -> {
+      addSubscription(WifiService.observeWifiState(getActivity()).subscribe(state -> {
         switch (state) {
           case ENABLED:
             vRecyclerView.setErrorView(vErrorView).hideErrorView();

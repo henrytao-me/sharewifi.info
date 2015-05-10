@@ -18,11 +18,11 @@ package me.henrytao.sharewifi.fragment;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -31,10 +31,11 @@ import me.henrytao.sharewifi.R;
 import me.henrytao.sharewifi.config.Constants;
 import me.henrytao.sharewifi.helper.ResourceHelper;
 import me.henrytao.sharewifi.helper.ViewHelper;
+import me.henrytao.sharewifi.helper.ViewHelper.BuilderHolder;
 import me.henrytao.sharewifi.holder.DialogConnectToNewWifiHolder;
 import me.henrytao.sharewifi.model.WifiModel;
+import me.henrytao.sharewifi.service.WifiService;
 import me.henrytao.sharewifi.util.IntentUtils;
-import me.henrytao.sharewifi.util.ToastUtils;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -51,6 +52,9 @@ public class WifiDetailFragment extends BaseFragment {
 
   @InjectView(R.id.button_connect)
   Button vButtonConnect;
+
+  @InjectView(R.id.status)
+  TextView vStatus;
 
   private String mWifiID;
 
@@ -78,6 +82,17 @@ public class WifiDetailFragment extends BaseFragment {
   }
 
   @Override
+  public void onResume() {
+    super.onResume();
+    if (isAdded()) {
+      addSubscription(WifiService.observeNetworkState(getActivity())
+          .subscribe(state -> {
+            vStatus.setText(ResourceHelper.getWifiState(getActivity(), state));
+          }));
+    }
+  }
+
+  @Override
   public void onViewCreated(View view, Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
     if (getActivity() instanceof WifiDetailInterface) {
@@ -90,13 +105,12 @@ public class WifiDetailFragment extends BaseFragment {
 
   @OnClick(R.id.button_connect)
   protected void onButtonConnectClicked() {
-    //WifiService.connectToWifi(getActivity(), mWifiModel.getSSID(), null);
-    ViewHelper.BuilderHolder<DialogConnectToNewWifiHolder> builder = ViewHelper.getConnectToNewWifiDialog(getActivity(),
-        ResourceHelper.getWifiName(getActivity(), mWifiModel.getSSID(), mWifiModel.getFrequency()));
-    builder.getBuilder()
+    BuilderHolder<DialogConnectToNewWifiHolder> builderHolder = ViewHelper.getConnectToNewWifiDialog(
+        getActivity(), ResourceHelper.getWifiName(getActivity(), mWifiModel.getSSID(), mWifiModel.getFrequency()));
+    builderHolder.getBuilder()
         .setOnPositiveClickListener((dialog, which) -> {
-          ToastUtils.showShortToast(getActivity(), "hello moto clicked" + builder.getHolder().getPassword());
-          //dialog.dismiss();
+          WifiService.connectToWifi(getActivity(), mWifiModel.getSSID(), builderHolder.getHolder().getPassword());
+          dialog.dismiss();
         }).show();
   }
 

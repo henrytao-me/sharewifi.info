@@ -19,6 +19,7 @@ package me.henrytao.sharewifi.service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.NetworkInfo;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
@@ -112,7 +113,27 @@ public class WifiService {
     });
   }
 
-  public static Observable<WIFI_STATE> observeWifiEnabled(Context context) {
+  public static Observable<NetworkInfo.DetailedState> observeNetworkDetailedState(Context context) {
+    IntentFilter intentFilter = new IntentFilter();
+    intentFilter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
+    Observable<Intent> observable = ContentObservable.fromBroadcast(context, intentFilter);
+    return observable.flatMap(intent -> {
+      NetworkInfo info = intent.getParcelableExtra(WifiManager.EXTRA_NETWORK_INFO);
+      return Observable.just(info.getDetailedState());
+    });
+  }
+
+  public static Observable<NetworkInfo.State> observeNetworkState(Context context) {
+    IntentFilter intentFilter = new IntentFilter();
+    intentFilter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
+    Observable<Intent> observable = ContentObservable.fromBroadcast(context, intentFilter);
+    return observable.flatMap(intent -> {
+      NetworkInfo info = intent.getParcelableExtra(WifiManager.EXTRA_NETWORK_INFO);
+      return Observable.just(info.getState());
+    });
+  }
+
+  public static Observable<WIFI_STATE> observeWifiState(Context context) {
     IntentFilter intentFilter = new IntentFilter();
     intentFilter.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
     Observable<Intent> observable = ContentObservable.fromBroadcast(context, intentFilter);
