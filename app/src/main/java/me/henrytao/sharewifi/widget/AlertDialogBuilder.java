@@ -167,6 +167,7 @@ public class AlertDialogBuilder extends AlertDialog.Builder {
   public AlertDialogBuilder setNegativeButton(int textId, DialogInterface.OnClickListener listener) {
     super.setNegativeButton(textId, listener);
     mNegativeButtonText = getContext().getText(textId);
+    mNegativeOnClickListener = listener;
     return this;
   }
 
@@ -174,6 +175,7 @@ public class AlertDialogBuilder extends AlertDialog.Builder {
   public AlertDialogBuilder setNegativeButton(CharSequence text, DialogInterface.OnClickListener listener) {
     super.setNegativeButton(text, listener);
     mNegativeButtonText = text;
+    mNegativeOnClickListener = listener;
     return this;
   }
 
@@ -181,6 +183,7 @@ public class AlertDialogBuilder extends AlertDialog.Builder {
   public AlertDialogBuilder setNeutralButton(int textId, DialogInterface.OnClickListener listener) {
     super.setNeutralButton(textId, listener);
     mNeutralButtonText = getContext().getText(textId);
+    mNeutralOnClickListener = listener;
     return this;
   }
 
@@ -188,6 +191,7 @@ public class AlertDialogBuilder extends AlertDialog.Builder {
   public AlertDialogBuilder setNeutralButton(CharSequence text, DialogInterface.OnClickListener listener) {
     super.setNeutralButton(text, listener);
     mNeutralButtonText = text;
+    mNeutralOnClickListener = listener;
     return this;
   }
 
@@ -219,6 +223,7 @@ public class AlertDialogBuilder extends AlertDialog.Builder {
   public AlertDialogBuilder setPositiveButton(int textId, DialogInterface.OnClickListener listener) {
     super.setPositiveButton(textId, listener);
     mPositiveButtonText = getContext().getText(textId);
+    mPositiveOnClickListener = listener;
     return this;
   }
 
@@ -226,6 +231,7 @@ public class AlertDialogBuilder extends AlertDialog.Builder {
   public AlertDialogBuilder setPositiveButton(CharSequence text, DialogInterface.OnClickListener listener) {
     super.setPositiveButton(text, listener);
     mPositiveButtonText = text;
+    mPositiveOnClickListener = listener;
     return this;
   }
 
