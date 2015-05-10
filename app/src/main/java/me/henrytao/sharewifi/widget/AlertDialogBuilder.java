@@ -42,6 +42,8 @@ public class AlertDialogBuilder extends AlertDialog.Builder {
 
   protected DialogInterface.OnClickListener mNeutralOnClickListener;
 
+  protected DialogInterface.OnShowListener mOnShowListener;
+
   protected CharSequence mPositiveButtonText;
 
   protected DialogInterface.OnClickListener mPositiveOnClickListener;
@@ -298,7 +300,11 @@ public class AlertDialogBuilder extends AlertDialog.Builder {
 
   @Override
   public AlertDialog show() {
-    AlertDialog dialog = super.show();
+    AlertDialog dialog = create();
+    if (mOnShowListener != null) {
+      dialog.setOnShowListener(mOnShowListener);
+    }
+    dialog.show();
     if (mAutoDismiss == false) {
       Button positiveButton = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
       Button negativeButton = dialog.getButton(DialogInterface.BUTTON_NEGATIVE);
@@ -374,6 +380,11 @@ public class AlertDialogBuilder extends AlertDialog.Builder {
     return this;
   }
 
+  public AlertDialogBuilder setOnShowListener(DialogInterface.OnShowListener onShowListener) {
+    mOnShowListener = onShowListener;
+    return this;
+  }
+
   public AlertDialogBuilder setPositiveButton(CharSequence text) {
     setPositiveButton(text, mBlankOnClickListener);
     return this;
@@ -383,4 +394,5 @@ public class AlertDialogBuilder extends AlertDialog.Builder {
     setPositiveButton(textId, mBlankOnClickListener);
     return this;
   }
+
 }

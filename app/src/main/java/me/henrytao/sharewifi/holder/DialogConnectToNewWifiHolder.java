@@ -24,6 +24,7 @@ import android.widget.EditText;
 
 import butterknife.InjectView;
 import me.henrytao.sharewifi.R;
+import me.henrytao.sharewifi.util.ViewUtils;
 
 /**
  * Created by henrytao on 5/10/15.
@@ -45,9 +46,13 @@ public class DialogConnectToNewWifiHolder extends BaseHolder {
     return vPassword.getText().toString();
   }
 
+  public void onShowed() {
+    ViewUtils.showKeyboard(getContext(), vPassword);
+  }
+
   private void setPasswordTextType(boolean showPassword) {
     vPassword.setInputType(showPassword ? EditorInfo.TYPE_CLASS_TEXT | EditorInfo.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
         : EditorInfo.TYPE_CLASS_TEXT | EditorInfo.TYPE_TEXT_VARIATION_PASSWORD);
-    vPassword.setSelection(vPassword.getText().length(), vPassword.getText().length());
+    ViewUtils.moveCursorToTheEnd(vPassword);
   }
 }

@@ -96,7 +96,7 @@ public class WifiDetailFragment extends Fragment {
     builder.getBuilder()
         .setOnPositiveClickListener((dialog, which) -> {
           ToastUtils.showShortToast(getActivity(), "hello moto clicked" + builder.getHolder().getPassword());
-          dialog.dismiss();
+          //dialog.dismiss();
         }).show();
   }
 

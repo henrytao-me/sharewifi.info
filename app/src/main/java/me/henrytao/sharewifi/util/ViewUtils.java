@@ -20,11 +20,24 @@ import android.app.Activity;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 
 /**
  * Created by henrytao on 5/10/15.
  */
 public class ViewUtils {
+
+  public static void closeKeyBoard(Activity activity) {
+    closeKeyBoard(activity, activity.getCurrentFocus());
+  }
+
+  public static void closeKeyBoard(Context context, View view) {
+    if (view != null) {
+      ((InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE))
+          .hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+    }
+  }
 
   public static View inflate(Context context, int layoutResId) {
     return inflate(context, layoutResId, null, false);
@@ -35,6 +48,17 @@ public class ViewUtils {
       return ((Activity) context).getLayoutInflater().inflate(layoutResId, root, attachToRoot);
     }
     return null;
+  }
+
+  public static void moveCursorToTheEnd(EditText editText) {
+    int length = editText.getText().length();
+    editText.setSelection(length, length);
+  }
+
+  public static void showKeyboard(Context context, EditText editText) {
+    editText.requestFocus();
+    InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+    imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
   }
 
 }

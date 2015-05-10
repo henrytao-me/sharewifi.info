@@ -27,6 +27,7 @@ public class MyClass {
 
 # Other rules
 
+- All observable method should have prefix `observe`. Ex: observeAvailableWifiList
 - Should not define `static final` in `Fragment` / `Activity`. Use `Constants.java` instead.
 - `static final` can be defined in `Model` / `Service`.
 - All resource related content should be defined in `ResourceUtils` and follow the following schema:

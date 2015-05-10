@@ -40,6 +40,7 @@ public class ViewHelper {
         .setAutoDismiss(false)
         .setTitle(wifiName)
         .setView(view)
+        .setOnShowListener(dialog -> holder.onShowed())
         .setPositiveButton(R.string.text_connect)
         .setNegativeButton(R.string.text_cancel, (dialog, which) -> dialog.dismiss());
     return new BuilderHolder(builder, holder);
