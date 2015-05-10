@@ -1,3 +1,3 @@
 [submodule "libs/android-md-core"]
 	path = libs/android-md-core
-	url = git://github.com/henrytao-me/android-md-core.git
+	url = git@github.com:henrytao-me/android-md-core.git

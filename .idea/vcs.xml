@@ -3,7 +3,6 @@
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="" />
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/libs/PersistentSearch" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/libs/android-md-core" vcs="Git" />
   </component>
 </project>
