@@ -17,7 +17,6 @@
 package me.henrytao.sharewifi.helper;
 
 import android.content.Context;
-import android.util.TypedValue;
 
 import me.henrytao.sharewifi.R;
 import me.henrytao.sharewifi.service.WifiService;
@@ -46,24 +45,6 @@ public class ResourceHelper {
       R.drawable.ic_signal_wifi_3_bar_unlock,
       R.drawable.ic_signal_wifi_4_bar_unlock
   }};
-
-  public static int getColorFromAttribute(Context context, int attrId) {
-    if (attrId == 0) {
-      return 0;
-    }
-    TypedValue typedValue = new TypedValue();
-    context.getTheme().resolveAttribute(attrId, typedValue, true);
-    return typedValue.data;
-  }
-
-  public static int getDrawableIdFromAttribute(Context context, int attrId) {
-    if (attrId == 0) {
-      return 0;
-    }
-    TypedValue typedValue = new TypedValue();
-    context.getTheme().resolveAttribute(attrId, typedValue, true);
-    return typedValue.resourceId;
-  }
 
   public static int getDrawableSignalLevelResource(int signalLevel, boolean isPasswordRequired, boolean hasPassword) {
     int type = isPasswordRequired ? (hasPassword ? 2 : 1) : 0;

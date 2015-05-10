@@ -17,7 +17,15 @@
 package me.henrytao.sharewifi.helper;
 
 import android.content.Context;
+import android.support.annotation.Nullable;
+import android.view.View;
 
+import lombok.Getter;
+import lombok.experimental.Accessors;
+import me.henrytao.sharewifi.R;
+import me.henrytao.sharewifi.holder.BaseHolder;
+import me.henrytao.sharewifi.holder.DialogConnectToNewWifiHolder;
+import me.henrytao.sharewifi.util.ViewUtils;
 import me.henrytao.sharewifi.widget.AlertDialogBuilder;
 
 /**
@@ -25,13 +33,29 @@ import me.henrytao.sharewifi.widget.AlertDialogBuilder;
  */
 public class ViewHelper {
 
-  public static AlertDialogBuilder getConnectToNewWifiDialog(Context context) {
+  public static BuilderDialog<DialogConnectToNewWifiHolder> getConnectToNewWifiDialog(Context context, String wifiName) {
+    View view = ViewUtils.inflate(context, R.layout.dialog_connect_to_new_wifi);
+    DialogConnectToNewWifiHolder holder = new DialogConnectToNewWifiHolder(context, view);
     AlertDialogBuilder builder = new AlertDialogBuilder(context)
-        .setTitle("hello moto")
-        .setMessage("this is a message")
-        .setPositiveButton("Connect")
-        .setNegativeButton("Cancel");
-    return builder;
+        .setAutoDismiss(false)
+        .setTitle(wifiName)
+        .setView(view)
+        .setPositiveButton(R.string.text_connect)
+        .setNegativeButton(R.string.text_cancel, (dialog, which) -> dialog.dismiss());
+    return new BuilderDialog(builder, holder);
+  }
+
+  @Accessors(prefix = "m")
+  public static class BuilderDialog<T extends BaseHolder> {
+
+    @Getter private AlertDialogBuilder mBuilder;
+
+    @Getter private T mHolder;
+
+    public BuilderDialog(AlertDialogBuilder builder, @Nullable T holder) {
+      mBuilder = builder;
+      mHolder = holder;
+    }
   }
 
 }

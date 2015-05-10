@@ -31,6 +31,7 @@ import me.henrytao.sharewifi.R;
 import me.henrytao.sharewifi.config.Constants;
 import me.henrytao.sharewifi.helper.ResourceHelper;
 import me.henrytao.sharewifi.helper.ViewHelper;
+import me.henrytao.sharewifi.holder.DialogConnectToNewWifiHolder;
 import me.henrytao.sharewifi.model.WifiModel;
 import me.henrytao.sharewifi.util.IntentUtils;
 import me.henrytao.sharewifi.util.ToastUtils;
@@ -90,12 +91,13 @@ public class WifiDetailFragment extends Fragment {
   @OnClick(R.id.button_connect)
   protected void onButtonConnectClicked() {
     //WifiService.connectToWifi(getActivity(), mWifiModel.getSSID(), null);
-    ViewHelper.getConnectToNewWifiDialog(getActivity())
+    ViewHelper.BuilderDialog<DialogConnectToNewWifiHolder> builder = ViewHelper.getConnectToNewWifiDialog(getActivity(),
+        ResourceHelper.getWifiName(getActivity(), mWifiModel.getSSID(), mWifiModel.getFrequency()));
+    builder.getBuilder()
         .setOnPositiveClickListener((dialog, which) -> {
-          ToastUtils.showShortToast(getActivity(), "hello moto clicked");
+          ToastUtils.showShortToast(getActivity(), "hello moto clicked" + builder.getHolder().getPassword());
           dialog.dismiss();
-        })
-        .show();
+        }).show();
   }
 
   public interface WifiDetailInterface {
