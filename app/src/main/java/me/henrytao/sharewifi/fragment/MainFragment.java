@@ -35,10 +35,10 @@ import me.henrytao.sharewifi.R;
 import me.henrytao.sharewifi.activity.WifiDetailActivity;
 import me.henrytao.sharewifi.adapter.WifiAdapter;
 import me.henrytao.sharewifi.config.Constants;
+import me.henrytao.sharewifi.helper.ResourceHelper;
 import me.henrytao.sharewifi.model.WifiModel;
 import me.henrytao.sharewifi.service.WifiService;
 import me.henrytao.sharewifi.util.IntentUtils;
-import me.henrytao.sharewifi.util.ResourceUtils;
 import me.henrytao.sharewifi.widget.RecycleEmptyErrorView;
 
 /**
@@ -128,7 +128,7 @@ public class MainFragment extends BaseFragment implements WifiAdapter.OnClickLis
     vRecyclerView.setEmptyView(vEmptyView);
     vRecyclerView.setErrorView(vTurnOnWifiView).setErrorView(vErrorView);
 
-    vSwipeRefreshLayout.setColorSchemeColors(ResourceUtils.getColorFromAttribute(getActivity(), R.attr.mdColor_primaryPalette));
+    vSwipeRefreshLayout.setColorSchemeColors(ResourceHelper.getColorFromAttribute(getActivity(), R.attr.mdColor_primaryPalette));
     vSwipeRefreshLayout.setOnRefreshListener(() -> refreshContent());
   }
 

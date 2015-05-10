@@ -29,10 +29,11 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 import me.henrytao.sharewifi.R;
 import me.henrytao.sharewifi.config.Constants;
+import me.henrytao.sharewifi.helper.ResourceHelper;
+import me.henrytao.sharewifi.helper.ViewHelper;
 import me.henrytao.sharewifi.model.WifiModel;
-import me.henrytao.sharewifi.service.WifiService;
 import me.henrytao.sharewifi.util.IntentUtils;
-import me.henrytao.sharewifi.util.ResourceUtils;
+import me.henrytao.sharewifi.util.ToastUtils;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -81,14 +82,20 @@ public class WifiDetailFragment extends Fragment {
     if (getActivity() instanceof WifiDetailInterface) {
       WifiDetailInterface wifiDetailInterface = (WifiDetailInterface) getActivity();
       if (mWifiModel != null) {
-        wifiDetailInterface.onSSIDChanged(ResourceUtils.getWifiName(getActivity(), mWifiModel.getSSID(), mWifiModel.getFrequency()));
+        wifiDetailInterface.onSSIDChanged(ResourceHelper.getWifiName(getActivity(), mWifiModel.getSSID(), mWifiModel.getFrequency()));
       }
     }
   }
 
   @OnClick(R.id.button_connect)
   protected void onButtonConnectClicked() {
-    WifiService.connectToWifi(getActivity(), mWifiModel.getSSID(), null);
+    //WifiService.connectToWifi(getActivity(), mWifiModel.getSSID(), null);
+    ViewHelper.getConnectToNewWifiDialog(getActivity())
+        .setOnPositiveClickListener((dialog, which) -> {
+          ToastUtils.showShortToast(getActivity(), "hello moto clicked");
+          dialog.dismiss();
+        })
+        .show();
   }
 
   public interface WifiDetailInterface {

@@ -31,9 +31,9 @@ import butterknife.InjectView;
 import lombok.Getter;
 import lombok.experimental.Accessors;
 import me.henrytao.sharewifi.R;
+import me.henrytao.sharewifi.helper.ResourceHelper;
 import me.henrytao.sharewifi.model.WifiModel;
 import me.henrytao.sharewifi.service.WifiService;
-import me.henrytao.sharewifi.util.ResourceUtils;
 
 /**
  * Created by henrytao on 4/27/15.
@@ -123,11 +123,11 @@ public class WifiAdapter extends RecyclerView.Adapter<WifiAdapter.ViewHolder> {
 
     public void bind(WifiModel data, boolean isConnected) {
       mData = data;
-      vSSID.setText(ResourceUtils.getWifiName(getContext(), data.getSSID(), data.getFrequency()));
+      vSSID.setText(ResourceHelper.getWifiName(getContext(), data.getSSID(), data.getFrequency()));
       vName.setText(data.getName());
       vAddress.setText(data.getAddress());
-      vConnectedStatus.setText(ResourceUtils.getWifiConnectedStatus(getContext(), isConnected));
-      vSignalLevel.setImageResource(ResourceUtils.getDrawableSignalLevelResource(
+      vConnectedStatus.setText(ResourceHelper.getWifiConnectedStatus(getContext(), isConnected));
+      vSignalLevel.setImageResource(ResourceHelper.getDrawableSignalLevelResource(
           data.getSignalLevel(),
           data.isPasswordRequired(),
           data.hasPassword()));

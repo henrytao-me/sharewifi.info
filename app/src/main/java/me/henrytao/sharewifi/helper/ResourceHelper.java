@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package me.henrytao.sharewifi.util;
+package me.henrytao.sharewifi.helper;
 
 import android.content.Context;
 import android.util.TypedValue;
@@ -25,7 +25,7 @@ import me.henrytao.sharewifi.service.WifiService;
 /**
  * Created by henrytao on 4/29/15.
  */
-public class ResourceUtils {
+public class ResourceHelper {
 
   private static final int[][] R_SIGNAL_LEVEL = {{
       R.drawable.ic_signal_wifi_0_bar,

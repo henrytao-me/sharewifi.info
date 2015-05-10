@@ -16,6 +16,8 @@
 
 package me.henrytao.sharewifi.util;
 
+import android.text.TextUtils;
+
 /**
  * Created by henrytao on 4/18/15.
  */
@@ -25,10 +27,7 @@ public class StringUtils {
     if (text != null && isTrim) {
       text = text.toString().trim();
     }
-    if (text != null && !text.toString().isEmpty()) {
-      return false;
-    }
-    return true;
+    return TextUtils.isEmpty(text);
   }
 
   public static boolean isEmpty(CharSequence text) {

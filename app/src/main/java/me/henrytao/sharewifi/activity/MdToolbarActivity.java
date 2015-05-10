@@ -21,7 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import me.henrytao.sharewifi.R;
-import me.henrytao.sharewifi.util.ResourceUtils;
+import me.henrytao.sharewifi.helper.ResourceHelper;
 
 /**
  * Created by henrytao on 4/28/15.
@@ -65,7 +65,7 @@ public class MdToolbarActivity extends BaseActivity {
       vToolbar = (Toolbar) findViewById(getToolbarId());
       setSupportActionBar(vToolbar);
       if (R.attr.appIcon_toolbarArrowBack > 0) {
-        vToolbar.setNavigationIcon(ResourceUtils.getDrawableIdFromAttribute(this, R.attr.appIcon_toolbarArrowBack));
+        vToolbar.setNavigationIcon(ResourceHelper.getDrawableIdFromAttribute(this, R.attr.appIcon_toolbarArrowBack));
       }
       vToolbar.setNavigationOnClickListener((v) -> onNavigationClicked(v));
       if (getToolbarContentLayout() > 0) {

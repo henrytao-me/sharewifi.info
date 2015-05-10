@@ -14,12 +14,24 @@
  * limitations under the License.
  */
 
-package me.henrytao.sharewifi.util;
+package me.henrytao.sharewifi.helper;
+
+import android.content.Context;
+
+import me.henrytao.sharewifi.widget.AlertDialogBuilder;
 
 /**
  * Created by henrytao on 5/7/15.
  */
-public class ViewUtils {
+public class ViewHelper {
 
+  public static AlertDialogBuilder getConnectToNewWifiDialog(Context context) {
+    AlertDialogBuilder builder = new AlertDialogBuilder(context)
+        .setTitle("hello moto")
+        .setMessage("this is a message")
+        .setPositiveButton("Connect")
+        .setNegativeButton("Cancel");
+    return builder;
+  }
 
 }
