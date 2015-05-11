@@ -123,7 +123,7 @@ public class WifiAdapter extends RecyclerView.Adapter<WifiAdapter.ViewHolder> {
 
     public void bind(WifiModel data, boolean isConnected) {
       mData = data;
-      vSSID.setText(ResourceHelper.getWifiName(getContext(), data.getSSID(), data.getFrequency()));
+      vSSID.setText(data.getSSID());
       vName.setText(data.getName());
       vAddress.setText(data.getAddress());
       vConnectedStatus.setText(ResourceHelper.getWifiConnectedStatus(getContext(), isConnected));

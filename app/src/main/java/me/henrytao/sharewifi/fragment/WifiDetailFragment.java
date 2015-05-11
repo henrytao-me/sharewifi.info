@@ -98,7 +98,7 @@ public class WifiDetailFragment extends BaseFragment {
     if (getActivity() instanceof WifiDetailInterface) {
       WifiDetailInterface wifiDetailInterface = (WifiDetailInterface) getActivity();
       if (mWifiModel != null) {
-        wifiDetailInterface.onSSIDChanged(ResourceHelper.getWifiName(getActivity(), mWifiModel.getSSID(), mWifiModel.getFrequency()));
+        wifiDetailInterface.onSSIDChanged(mWifiModel.getSSID());
       }
     }
   }
@@ -106,7 +106,7 @@ public class WifiDetailFragment extends BaseFragment {
   @OnClick(R.id.button_connect)
   protected void onButtonConnectClicked() {
     BuilderHolder<DialogConnectToNewWifiHolder> builderHolder = ViewHelper.getConnectToNewWifiDialog(
-        getActivity(), ResourceHelper.getWifiName(getActivity(), mWifiModel.getSSID(), mWifiModel.getFrequency()));
+        getActivity(), mWifiModel.getSSID());
     builderHolder.getBuilder()
         .setOnPositiveClickListener((dialog, which) -> {
           WifiService.connectToWifi(getActivity(), mWifiModel.getSSID(), builderHolder.getHolder().getPassword());

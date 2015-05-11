@@ -27,7 +27,10 @@ import android.net.wifi.WifiManager;
 import android.text.TextUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import me.henrytao.sharewifi.model.WifiModel;
 import rx.Observable;
@@ -104,13 +107,20 @@ public class WifiService {
     wifiManager.startScan();
     return observable.flatMap(intent -> {
       List<WifiModel> res = new ArrayList<>();
-      List<ScanResult> list = wifiManager.getScanResults();
-      if (list != null) {
+      Map<String, ScanResult> map = new HashMap<>();
+      if (wifiManager.getScanResults() != null) {
         for (ScanResult scanResult : wifiManager.getScanResults()) {
           if (!TextUtils.isEmpty(scanResult.SSID)) {
-            res.add(new WifiModel(scanResult));
+            if (map.get(scanResult.SSID) != null && map.get(scanResult.SSID).frequency > scanResult.frequency) {
+              continue;
+            }
+            map.put(scanResult.SSID, scanResult);
           }
         }
+        for (ScanResult scanResult : map.values()) {
+          res.add(new WifiModel(scanResult));
+        }
+        Collections.sort(res, (lhs, rhs) -> rhs.getSignalLevel() - lhs.getSignalLevel());
       }
       return Observable.just(res);
     });

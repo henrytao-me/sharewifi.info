@@ -61,11 +61,6 @@ public class ResourceHelper {
     return isConnected ? context.getString(R.string.item_wifi_is_connected) : "";
   }
 
-  public static String getWifiName(Context context, String SSID, int frequency) {
-    return String.format("%s %s", SSID, WifiService.getWifiFrequency(frequency) == WifiService.WIFI_FREQUENCY.FREQUENCY_50GHZ ?
-        context.getString(R.string.text_50ghz) : context.getString(R.string.text_24ghz));
-  }
-
   public static String getWifiState(Context context, State detailedState) {
     String res = context.getString(R.string.text_unknow);
     switch (detailedState) {
