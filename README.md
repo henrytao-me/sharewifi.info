@@ -36,3 +36,7 @@ public class MyClass {
 `getDrawable<method name>` => return DrawableResource
 `getColor<method name>Resource` => return ColorResourceID
 `getColor<method name>` => return ColorResource
+- ViewHelper is used for inflating the view
+- ViewUtils is used for all view purpose except ViewHelper
+- ResourceHelper is used for getting resource value
+- ResourceUtils is used for all resource purpose except ResourceHelper

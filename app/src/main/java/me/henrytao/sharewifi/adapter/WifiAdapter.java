@@ -73,7 +73,7 @@ public class WifiAdapter extends RecyclerView.Adapter<WifiAdapter.ViewHolder> {
     });
     viewHolder.vButtonInfo.setOnClickListener(v -> {
       if (mOnClickListener != null) {
-        mOnClickListener.onWifiAdapterInfoClick(view, viewHolder.getData());
+        mOnClickListener.onWifiAdapterInfoIconClick(view, viewHolder.getData());
       }
     });
     return viewHolder;
@@ -87,7 +87,7 @@ public class WifiAdapter extends RecyclerView.Adapter<WifiAdapter.ViewHolder> {
 
     void onWifiAdapterClick(View view, WifiModel data);
 
-    void onWifiAdapterInfoClick(View view, WifiModel data);
+    void onWifiAdapterInfoIconClick(View view, WifiModel data);
   }
 
   @Accessors(prefix = "m")

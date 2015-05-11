@@ -76,6 +76,11 @@ public class MainFragment extends BaseFragment implements WifiAdapter.OnClickLis
   }
 
   @Override
+  public void onPause() {
+    super.onPause();
+  }
+
+  @Override
   public void onResume() {
     super.onResume();
     if (isAdded()) {
@@ -120,7 +125,7 @@ public class MainFragment extends BaseFragment implements WifiAdapter.OnClickLis
   }
 
   @Override
-  public void onWifiAdapterInfoClick(View view, WifiModel data) {
+  public void onWifiAdapterInfoIconClick(View view, WifiModel data) {
     startActivity(WifiDetailActivity.getIntent(getActivity(), new IntentUtils.Bundle(data)));
   }
 
