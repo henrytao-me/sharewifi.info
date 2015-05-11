@@ -103,6 +103,7 @@ public class WifiService {
     intentFilter.addAction(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
     intentFilter.addAction(WifiManager.RSSI_CHANGED_ACTION);
     intentFilter.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
+    intentFilter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
     Observable<Intent> observable = ContentObservable.fromBroadcast(context, intentFilter);
     wifiManager.startScan();
     return observable.flatMap(intent -> {
