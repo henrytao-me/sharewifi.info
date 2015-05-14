@@ -79,7 +79,7 @@ public class WifiDetailActivity extends MdToolbarActivity implements WifiDetailI
         .newInstance((IntentUtils.Bundle) getIntent().getSerializableExtra(Constants.EXTRA.BUNDLE));
     getSupportFragmentManager()
         .beginTransaction()
-        .add(R.id.fragment, mWifiDetailFragment)
+        .replace(R.id.fragment, mWifiDetailFragment)
         .commit();
   }
 }
