@@ -22,8 +22,4 @@
     <item name="mdDrawerLayout_translucentNavigationBackground">?attr/mdColor_primaryPalette</item>
   </style>
 
-  <style name="AppTheme.White" parent="AppTheme.White.Base">
-    <item name="appIcon_toolbarArrowBack">@drawable/ic_toolbar_arrow_back</item>
-  </style>
-
 </resources>

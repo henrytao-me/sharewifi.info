@@ -24,8 +24,6 @@
     <item name="mdColor_primaryPalette_darker">#00796B</item>
     <item name="mdColor_primaryPalette_light">#80CBC4</item>
     <item name="mdColor_accentPalette">#8BC34A</item>
-
-    <item name="appIcon_toolbarArrowBack">@drawable/ic_toolbar_arrow_back_white</item>
   </style>
 
   <style name="AppTheme" parent="AppTheme.Base">
@@ -53,7 +51,7 @@
   </style>
 
   <style name="AppTheme.White" parent="AppTheme.White.Base">
-    <item name="appIcon_toolbarArrowBack">@drawable/ic_toolbar_arrow_back</item>
+
   </style>
 
 </resources>
