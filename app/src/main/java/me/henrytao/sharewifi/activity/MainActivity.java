@@ -88,7 +88,6 @@ public class MainActivity extends MdDrawerLayoutActivity {
     ButterKnife.inject(this);
 
     setSupportActionBar(vToolbar);
-    vToolbar.setNavigationIcon(R.drawable.ic_toolbar_menu_white);
     vToolbar.setNavigationOnClickListener((v) -> openDrawer());
   }
 

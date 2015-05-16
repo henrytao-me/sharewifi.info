@@ -1,1 +1,1 @@
-include ':app', 'libs:android-md-core'
+include ':app', 'libs:android-md-core:library'

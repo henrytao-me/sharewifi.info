@@ -20,7 +20,6 @@ import android.content.Context;
 import android.net.NetworkInfo.State;
 
 import me.henrytao.sharewifi.R;
-import me.henrytao.sharewifi.service.WifiService;
 
 /**
  * Created by henrytao on 4/29/15.

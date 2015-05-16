@@ -20,13 +20,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
 
-import me.henrytao.sharewifi.R;
-import me.henrytao.sharewifi.util.ResourceUtils;
-
 /**
  * Created by henrytao on 4/28/15.
  */
-public class MdToolbarActivity extends BaseActivity {
+public abstract class MdToolbarActivity extends BaseActivity {
+
+  protected abstract int getToolbarResource();
 
   protected Toolbar vToolbar;
 
@@ -48,30 +47,28 @@ public class MdToolbarActivity extends BaseActivity {
     initToolbar();
   }
 
-  protected int getToolbarContentLayout() {
+  protected int getToolbarContentResource() {
     return 0;
   }
 
-  protected int getToolbarId() {
-    return R.id.md_toolbar;
+  protected void initToolbar() {
+    if (getToolbarResource() > 0) {
+      vToolbar = (Toolbar) findViewById(getToolbarResource());
+      setSupportActionBar(vToolbar);
+      vToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+          onNavigationClicked(view);
+        }
+      });
+      if (getToolbarContentResource() > 0) {
+        vToolbar.addView(getLayoutInflater().inflate(getToolbarContentResource(), vToolbar, false));
+      }
+    }
   }
 
   protected void onNavigationClicked(View view) {
     onBackPressed();
-  }
-
-  private void initToolbar() {
-    if (getToolbarId() > 0) {
-      vToolbar = (Toolbar) findViewById(getToolbarId());
-      setSupportActionBar(vToolbar);
-      if (R.attr.appIcon_toolbarArrowBack > 0) {
-        vToolbar.setNavigationIcon(ResourceUtils.getDrawableIdFromAttribute(this, R.attr.appIcon_toolbarArrowBack));
-      }
-      vToolbar.setNavigationOnClickListener((v) -> onNavigationClicked(v));
-      if (getToolbarContentLayout() > 0) {
-        vToolbar.addView(getLayoutInflater().inflate(getToolbarContentLayout(), vToolbar, false));
-      }
-    }
   }
 
 }

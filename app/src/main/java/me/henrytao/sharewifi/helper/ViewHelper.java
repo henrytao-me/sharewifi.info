@@ -17,13 +17,16 @@
 package me.henrytao.sharewifi.helper;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 
 import lombok.Getter;
 import lombok.experimental.Accessors;
 import me.henrytao.sharewifi.R;
 import me.henrytao.sharewifi.holder.BaseHolder;
 import me.henrytao.sharewifi.holder.DialogConnectToNewWifiHolder;
+import me.henrytao.sharewifi.util.StringUtils;
 import me.henrytao.sharewifi.widget.AlertDialogBuilder;
 
 /**
@@ -37,7 +40,12 @@ public class ViewHelper {
         .setAutoDismiss(false)
         .setTitle(wifiName)
         .setView(holder.getView())
-        .setOnShowListener(dialog -> holder.resume())
+        .setOnShowListener(dialog -> {
+          ((AlertDialog) dialog).getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(false);
+          holder.setOnPasswordChangeListener(
+              s -> ((AlertDialog) dialog).getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(!StringUtils.isEmpty(s, false)));
+          holder.resume();
+        })
         .setOnDismissListener(dialog -> holder.pause().destroy())
         .setPositiveButton(R.string.text_connect)
         .setNegativeButton(R.string.text_cancel, (dialog, which) -> dialog.dismiss());

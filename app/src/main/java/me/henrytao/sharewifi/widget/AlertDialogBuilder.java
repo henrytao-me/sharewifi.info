@@ -51,6 +51,8 @@ public class AlertDialogBuilder extends AlertDialog.Builder {
   private DialogInterface.OnClickListener mBlankOnClickListener = (dialog, which) -> {
   };
 
+  private AlertDialog mDialog;
+
   public AlertDialogBuilder(Context context) {
     super(context);
   }
@@ -296,32 +298,36 @@ public class AlertDialogBuilder extends AlertDialog.Builder {
 
   @Override
   public AlertDialog show() {
-    AlertDialog dialog = create();
+    mDialog = create();
     if (mOnShowListener != null) {
-      dialog.setOnShowListener(mOnShowListener);
+      mDialog.setOnShowListener(mOnShowListener);
     }
-    dialog.show();
+    mDialog.show();
     if (mAutoDismiss == false) {
-      Button positiveButton = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
-      Button negativeButton = dialog.getButton(DialogInterface.BUTTON_NEGATIVE);
-      Button neutralButton = dialog.getButton(DialogInterface.BUTTON_NEUTRAL);
+      Button positiveButton = mDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+      Button negativeButton = mDialog.getButton(DialogInterface.BUTTON_NEGATIVE);
+      Button neutralButton = mDialog.getButton(DialogInterface.BUTTON_NEUTRAL);
       positiveButton.setOnClickListener(v -> {
         if (mPositiveOnClickListener != null) {
-          mPositiveOnClickListener.onClick(dialog, DialogInterface.BUTTON_POSITIVE);
+          mPositiveOnClickListener.onClick(mDialog, DialogInterface.BUTTON_POSITIVE);
         }
       });
       negativeButton.setOnClickListener(v -> {
         if (mNegativeOnClickListener != null) {
-          mNegativeOnClickListener.onClick(dialog, DialogInterface.BUTTON_NEGATIVE);
+          mNegativeOnClickListener.onClick(mDialog, DialogInterface.BUTTON_NEGATIVE);
         }
       });
       neutralButton.setOnClickListener(v -> {
         if (mNeutralOnClickListener != null) {
-          mNeutralOnClickListener.onClick(dialog, DialogInterface.BUTTON_NEUTRAL);
+          mNeutralOnClickListener.onClick(mDialog, DialogInterface.BUTTON_NEUTRAL);
         }
       });
     }
-    return dialog;
+    return mDialog;
+  }
+
+  public AlertDialog getDialog() {
+    return mDialog;
   }
 
   public AlertDialogBuilder setAutoDismiss(boolean autoDismiss) {

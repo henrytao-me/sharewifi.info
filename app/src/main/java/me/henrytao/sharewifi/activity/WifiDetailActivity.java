@@ -65,8 +65,13 @@ public class WifiDetailActivity extends MdToolbarActivity implements WifiDetailI
   }
 
   @Override
-  protected int getToolbarContentLayout() {
+  protected int getToolbarContentResource() {
     return R.layout.view_toolbar_wifi_detail;
+  }
+
+  @Override
+  protected int getToolbarResource() {
+    return R.id.toolbar;
   }
 
   @Override

@@ -69,7 +69,7 @@ dependencies {
   provided 'org.projectlombok:lombok:1.16.4'
   apt 'org.projectlombok:lombok:1.16.4'
 
-  compile(project(':libs:android-md-core')) {
+  compile(project(':libs:android-md-core:library')) {
     exclude group: 'com.android.support', module: 'appcompat-v7'
     exclude group: 'com.android.support', module: 'cardview-v7'
     exclude group: 'com.android.support', module: 'recyclerview-v7'

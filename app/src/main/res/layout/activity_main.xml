@@ -30,21 +30,16 @@
       android:layout_height="match_parent"
       android:background="?attr/mdColor_backgroundPalette">
 
-      <android.support.v7.widget.CardView
-        android:id="@+id/toolbar_container"
-        style="@style/MdCardView.Toolbar">
-
-        <android.support.v7.widget.Toolbar
-          android:id="@+id/toolbar"
-          app:titleMarginStart="?attr/mdLayout_spacing"
-          style="@style/MdToolbar" />
-
-      </android.support.v7.widget.CardView>
+      <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        app:navigationIcon="@drawable/ic_toolbar_menu_white"
+        app:titleMarginStart="?attr/mdLayout_spacing"
+        style="@style/MdToolbar" />
 
       <fragment
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@+id/toolbar_container"
+        android:layout_below="@+id/toolbar"
         android:name="me.henrytao.sharewifi.fragment.MainFragment"
         tools:layout="@layout/fragment_main" />
 

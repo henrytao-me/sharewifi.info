@@ -17,6 +17,8 @@
 package me.henrytao.sharewifi.holder;
 
 import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.inputmethod.EditorInfo;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -36,8 +38,28 @@ public class DialogConnectToNewWifiHolder extends BaseHolder<DialogConnectToNewW
   @InjectView(R.id.show_password)
   CheckBox vShowPassword;
 
+  private OnPasswordChangeListener mOnPasswordChangeListener;
+
   public DialogConnectToNewWifiHolder(Context context) {
     super(context);
+    vPassword.addTextChangedListener(new TextWatcher() {
+      @Override
+      public void afterTextChanged(Editable s) {
+        if (mOnPasswordChangeListener != null) {
+          mOnPasswordChangeListener.onPasswordChanged(s.toString());
+        }
+      }
+
+      @Override
+      public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+      }
+
+      @Override
+      public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+      }
+    });
     vShowPassword.setOnCheckedChangeListener((buttonView, isChecked) -> setPasswordTextType(isChecked));
   }
 
@@ -64,9 +86,19 @@ public class DialogConnectToNewWifiHolder extends BaseHolder<DialogConnectToNewW
     return vPassword.getText().toString();
   }
 
+  public DialogConnectToNewWifiHolder setOnPasswordChangeListener(OnPasswordChangeListener onPasswordChangeListener) {
+    mOnPasswordChangeListener = onPasswordChangeListener;
+    return this;
+  }
+
   private void setPasswordTextType(boolean showPassword) {
     vPassword.setInputType(showPassword ? EditorInfo.TYPE_CLASS_TEXT | EditorInfo.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
         : EditorInfo.TYPE_CLASS_TEXT | EditorInfo.TYPE_TEXT_VARIATION_PASSWORD);
     ViewUtils.moveCursorToTheEnd(vPassword);
+  }
+
+  public interface OnPasswordChangeListener {
+
+    void onPasswordChanged(CharSequence s);
   }
 }
