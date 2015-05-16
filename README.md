@@ -32,6 +32,7 @@ public class MyClass {
 - `static final` can be defined in `Model` / `Service`.
 - All resource related content should be defined in `ResourceUtils` and follow the following schema:
 `getWifiName` => return primitive data types
+`get<method name>Resource` => return LayoutResourceID
 `getDrawable<method name>Resource` => return DrawableResourceID
 `getDrawable<method name>` => return DrawableResource
 `getColor<method name>Resource` => return ColorResourceID
