@@ -18,16 +18,12 @@ package me.henrytao.sharewifi.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import butterknife.ButterKnife;
-import butterknife.InjectView;
-import butterknife.OnClick;
 import me.henrytao.sharewifi.R;
-import me.henrytao.sharewifi.util.ToastUtils;
 
 public class SearchActivity extends MdToolbarActivity {
 
@@ -35,19 +31,6 @@ public class SearchActivity extends MdToolbarActivity {
     Intent intent = new Intent(context, SearchActivity.class);
     intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
     return intent;
-  }
-
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_search);
-    ButterKnife.inject(this);
-  }
-
-  @Override
-  protected void onPause() {
-    super.onPause();
-    overridePendingTransition(0, 0);
   }
 
   @Override
@@ -65,8 +48,26 @@ public class SearchActivity extends MdToolbarActivity {
   }
 
   @Override
-  protected int getToolbarContentLayout() {
+  protected int getToolbarContentResource() {
     return R.layout.view_toolbar_search;
+  }
+
+  @Override
+  protected int getToolbarResource() {
+    return R.id.toolbar;
+  }
+
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_search);
+    ButterKnife.inject(this);
+  }
+
+  @Override
+  protected void onPause() {
+    super.onPause();
+    overridePendingTransition(0, 0);
   }
 
 }

@@ -23,23 +23,14 @@ import java.util.Date;
  */
 public class NotNullFieldModel extends BaseModel<NotNullFieldModel> {
 
-  public interface Fields extends BaseModel.Fields {
-
-    final String NAME = "name";
-
-    final String AGE = "age";
-
-    final String CREATED_AT = "created_at";
-  }
-
-  @Column(name = Fields.NAME, notNull = true)
-  private String mName;
-
   @Column(name = Fields.AGE)
   private int mAge;
 
   @Column(name = Fields.CREATED_AT)
   private Date mCreateAt;
+
+  @Column(name = Fields.NAME, notNull = true)
+  private String mName;
 
   public NotNullFieldModel() {
 
@@ -49,14 +40,6 @@ public class NotNullFieldModel extends BaseModel<NotNullFieldModel> {
     mName = name;
     mAge = age;
     mCreateAt = createAt;
-  }
-
-  public String getName() {
-    return mName;
-  }
-
-  public void setName(String name) {
-    mName = name;
   }
 
   public int getAge() {
@@ -73,6 +56,21 @@ public class NotNullFieldModel extends BaseModel<NotNullFieldModel> {
 
   public void setCreateAt(Date createAt) {
     mCreateAt = createAt;
+  }
+
+  public String getName() {
+    return mName;
+  }
+
+  public void setName(String name) {
+    mName = name;
+  }
+
+  public interface Fields extends BaseModel.Fields {
+
+    final String AGE = "age";
+    final String CREATED_AT = "created_at";
+    final String NAME = "name";
   }
 
 }

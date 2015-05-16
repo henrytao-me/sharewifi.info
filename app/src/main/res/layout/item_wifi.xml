@@ -16,6 +16,8 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
   android:background="@drawable/md_ripple"
   android:clickable="true"
   style="@style/MdList.ThreeLine.AvatarIconWithText">
@@ -25,45 +27,55 @@
     android:src="@drawable/ic_signal_wifi_0_bar"
     style="@style/MdList.ThreeLine.AvatarIconWithText.Avatar" />
 
-  <TextView
-    android:id="@+id/ssid"
-    tools:text="SSID"
-    style="@style/MdList.ThreeLine.AvatarIconWithText.Text.First" />
+  <LinearLayout style="@style/MdList.Wrapper">
 
-  <TextView
-    android:id="@+id/connected_status"
-    android:layout_alignBaseline="@+id/name"
-    android:layout_alignParentLeft="true"
-    android:layout_marginLeft="?attr/mdLayout_contentAssociatedWithIconOrAvatarLeftMargin"
-    android:textColor="?attr/mdColor_primaryPalette"
-    tools:text="@string/item_wifi_is_connected"
-    style="@style/MdText.Body1" />
+    <TextView
+      android:id="@+id/ssid"
+      tools:text="SSID"
+      style="@style/MdList.ThreeLine.AvatarIconWithText.Text.First" />
 
-  <TextView
-    android:id="@+id/name"
-    android:layout_toRightOf="@+id/connected_status"
-    android:hint="@string/item_wifi_no_name_hint"
-    android:paddingLeft="0dp"
-    android:textColorHint="?attr/mdHintTextColor_backgroundPalette"
-    tools:text="location name"
-    style="@style/MdList.ThreeLine.AvatarIconWithText.Text.Second" />
+    <RelativeLayout
+      android:id="@+id/name_wrapper"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_below="@+id/ssid">
 
-  <TextView
-    android:id="@+id/address"
-    android:hint="@string/item_wifi_no_address_hint"
-    android:textColorHint="?attr/mdHintTextColor_backgroundPalette"
-    tools:text="location address"
-    style="@style/MdList.ThreeLine.AvatarIconWithText.Text.Third" />
+      <TextView
+        android:id="@+id/connected_status"
+        android:layout_alignBaseline="@+id/name"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="?attr/mdLayout_contentAssociatedWithIconOrAvatarLeftMargin"
+        android:textColor="?attr/mdColor_primaryPalette"
+        tools:text="@string/item_wifi_is_connected"
+        style="@style/MdText.Body1" />
+
+      <TextView
+        android:id="@+id/name"
+        android:layout_toRightOf="@+id/connected_status"
+        android:hint="@string/item_wifi_no_name_hint"
+        android:paddingLeft="0dp"
+        android:textColorHint="?attr/mdHintTextColor_backgroundPalette"
+        tools:text="location name"
+        style="@style/MdList.ThreeLine.AvatarIconWithText.Text.Second" />
+
+    </RelativeLayout>
+
+    <TextView
+      android:id="@+id/address"
+      android:layout_below="@+id/name_wrapper"
+      android:hint="@string/item_wifi_no_address_hint"
+      android:textColorHint="?attr/mdHintTextColor_backgroundPalette"
+      tools:text="location address"
+      style="@style/MdList.ThreeLine.AvatarIconWithText.Text.Third" />
+
+  </LinearLayout>
 
   <ImageView
     android:id="@+id/button_info"
     android:background="@drawable/md_ripple_oval"
-    android:clickable="true"
     android:src="@drawable/ic_info_inactive"
     style="@style/MdList.ThreeLine.AvatarIconWithText.Icon" />
 
-  <View
-    android:layout_alignParentBottom="true"
-    style="@style/MdDivider" />
+  <View style="@style/MdDivider.AlignParentBottom" />
 
 </RelativeLayout>

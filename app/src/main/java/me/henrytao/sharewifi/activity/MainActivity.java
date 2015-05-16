@@ -26,17 +26,20 @@ import android.view.View;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import me.henrytao.sharewifi.R;
+import me.henrytao.sharewifi.holder.MenuWifiToggleHolder;
 
 /**
  * Created by henrytao on 3/28/15.
  */
 public class MainActivity extends MdDrawerLayoutActivity {
 
-  @InjectView(R.id.container)
-  DrawerLayout vDrawerLayout;
+  MenuWifiToggleHolder mMenuWifiToggleHolder;
 
   @InjectView(R.id.content)
   View vDrawerContent;
+
+  @InjectView(R.id.container)
+  DrawerLayout vDrawerLayout;
 
   @InjectView(R.id.drawer)
   View vDrawerNavigation;
@@ -45,19 +48,26 @@ public class MainActivity extends MdDrawerLayoutActivity {
   Toolbar vToolbar;
 
   @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_main);
-    ButterKnife.inject(this);
+  public View getDrawerContent() {
+    return vDrawerContent;
+  }
 
-    setSupportActionBar(vToolbar);
-    vToolbar.setNavigationIcon(R.drawable.ic_toolbar_menu_white);
-    vToolbar.setNavigationOnClickListener((v) -> openDrawer());
+  @Override
+  public DrawerLayout getDrawerLayout() {
+    return vDrawerLayout;
+  }
+
+  @Override
+  public View getDrawerNavigation() {
+    return vDrawerNavigation;
   }
 
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
     getMenuInflater().inflate(R.menu.menu_main, menu);
+    mMenuWifiToggleHolder = new MenuWifiToggleHolder(this).resume();
+    MenuItem item = menu.findItem(R.id.action_wifi_toggle);
+    item.setActionView(mMenuWifiToggleHolder.getView());
     return true;
   }
 
@@ -72,18 +82,28 @@ public class MainActivity extends MdDrawerLayoutActivity {
   }
 
   @Override
-  public DrawerLayout getDrawerLayout() {
-    return vDrawerLayout;
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_main);
+    ButterKnife.inject(this);
+
+    setSupportActionBar(vToolbar);
+    vToolbar.setNavigationOnClickListener((v) -> openDrawer());
   }
 
   @Override
-  public View getDrawerContent() {
-    return vDrawerContent;
+  protected void onPause() {
+    super.onPause();
+    if (mMenuWifiToggleHolder != null) {
+      mMenuWifiToggleHolder.pause();
+    }
   }
 
   @Override
-  public View getDrawerNavigation() {
-    return vDrawerNavigation;
+  protected void onResume() {
+    super.onResume();
+    if (mMenuWifiToggleHolder != null) {
+      mMenuWifiToggleHolder.resume();
+    }
   }
-
 }

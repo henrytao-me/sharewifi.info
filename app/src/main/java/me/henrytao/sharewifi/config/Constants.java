@@ -21,10 +21,12 @@ package me.henrytao.sharewifi.config;
  */
 public final class Constants {
 
+  public static final int WIFI_REFRESH_TIMEOUT = 3000;
+
   public interface EXTRA {
 
+    String BUNDLE = "bundle";
     String ID = "id";
-
     String MODEL = "model";
   }
 

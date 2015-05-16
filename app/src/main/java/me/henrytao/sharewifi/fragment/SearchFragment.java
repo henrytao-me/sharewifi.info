@@ -16,7 +16,6 @@
 
 package me.henrytao.sharewifi.fragment;
 
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -36,7 +35,7 @@ import me.henrytao.sharewifi.model.WifiModel;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class SearchFragment extends Fragment {
+public class SearchFragment extends BaseFragment {
 
   List<WifiModel> mListWifi = new ArrayList<>();
 

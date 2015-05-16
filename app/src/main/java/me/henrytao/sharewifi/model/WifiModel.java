@@ -19,64 +19,51 @@ package me.henrytao.sharewifi.model;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.text.TextUtils;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 import me.henrytao.sharewifi.model.orm.BaseModel;
 import me.henrytao.sharewifi.model.orm.Column;
+import me.henrytao.sharewifi.service.WifiService;
 
 /**
  * Created by henrytao on 5/1/15.
  */
+@Accessors(prefix = "m")
 public class WifiModel extends BaseModel<WifiModel> {
-
-  public interface Fields extends BaseModel.Fields {
-
-    final String SSID = "ssid";
-
-    final String BSSID = "bssid";
-
-    final String CAPABILITIES = "capabilities";
-
-    final String FREQUENCY = "frequency";
-
-    final String MAC_ADDRESS = "mac_address";
-
-    final String NAME = "name";
-
-    final String ADDRESS = "address";
-
-    final String PASSWORD = "password";
-  }
 
   public final static int SIGNAL_LEVEL = 5; // Level: 0, 1, 2, 3, 4
 
-  @Column(name = Fields.SSID)
-  private String mSSID;
+  @Column(name = Fields.ADDRESS)
+  @Getter @Setter private String mAddress;
 
   @Column(name = Fields.BSSID)
-  private String mBSSID;
+  @Getter @Setter private String mBSSID;
 
   @Column(name = Fields.CAPABILITIES)
-  private String mCapabilities;
+  @Getter @Setter private String mCapabilities;
 
   @Column(name = Fields.FREQUENCY)
-  private int mFrequency;
+  @Getter @Setter private int mFrequency;
 
   @Column(name = Fields.MAC_ADDRESS)
-  private String mMacAddress;
+  @Getter @Setter private String mMacAddress;
 
   @Column(name = Fields.NAME)
-  private String mName;
-
-  @Column(name = Fields.ADDRESS)
-  private String mAddress;
+  @Getter @Setter private String mName;
 
   @Column(name = Fields.PASSWORD)
-  private String mPasswrod;
+  @Getter @Setter private String mPasswrod;
 
-  private int mSignalLevel;
+  @Column(name = Fields.SSID)
+  @Getter @Setter private String mSSID;
+
+  @Getter @Setter private int mSignalLevel;
 
   public WifiModel() {
-    
+
   }
 
   public WifiModel(String SSID, String BSSID, String capabilities, int frequency, int RSSI, String macAddress) {
@@ -97,40 +84,24 @@ public class WifiModel extends BaseModel<WifiModel> {
         wifiInfo.getBSSID(), null, 0, wifiInfo.getRssi(), wifiInfo.getMacAddress());
   }
 
-  public String getSSID() {
-    return mSSID;
+  public boolean hasPassword() {
+    return !TextUtils.isEmpty(getPasswrod());
   }
 
-  public String getBSSID() {
-    return mBSSID;
+  public boolean isPasswordRequired() {
+    return WifiService.getSecurityStatus(getCapabilities()) != WifiService.SECURITY_STATUS.NONE;
   }
 
-  public String getName() {
-    return mName;
-  }
+  public interface Fields extends BaseModel.Fields {
 
-  public void setName(String name) {
-    mName = name;
-  }
-
-  public String getAddress() {
-    return mAddress;
-  }
-
-  public void setAddress(String address) {
-    mAddress = address;
-  }
-
-  public String getPasswrod() {
-    return mPasswrod;
-  }
-
-  public void setPasswrod(String passwrod) {
-    mPasswrod = passwrod;
-  }
-
-  public int getSignalLevel() {
-    return mSignalLevel;
+    final String ADDRESS = "address";
+    final String BSSID = "bssid";
+    final String CAPABILITIES = "capabilities";
+    final String FREQUENCY = "frequency";
+    final String MAC_ADDRESS = "mac_address";
+    final String NAME = "name";
+    final String PASSWORD = "password";
+    final String SSID = "ssid";
   }
 
 }

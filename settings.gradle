@@ -1,1 +1,1 @@
-include ':app', 'libs:android-md-core', 'libs:PersistentSearch'
+include ':app', 'libs:android-md-core:library'

@@ -28,11 +28,11 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Column {
 
+  boolean deserialize() default true;
+
   String name();
 
   boolean notNull() default false;
 
   boolean serialize() default true;
-
-  boolean deserialize() default true;
 }

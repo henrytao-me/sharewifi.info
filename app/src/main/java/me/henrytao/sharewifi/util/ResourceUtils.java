@@ -20,18 +20,9 @@ import android.content.Context;
 import android.util.TypedValue;
 
 /**
- * Created by henrytao on 4/29/15.
+ * Created by henrytao on 5/10/15.
  */
 public class ResourceUtils {
-
-  public static int getDrawableIdFromAttribute(Context context, int attrId) {
-    if (attrId == 0) {
-      return 0;
-    }
-    TypedValue typedValue = new TypedValue();
-    context.getTheme().resolveAttribute(attrId, typedValue, true);
-    return typedValue.resourceId;
-  }
 
   public static int getColorFromAttribute(Context context, int attrId) {
     if (attrId == 0) {
@@ -40,6 +31,15 @@ public class ResourceUtils {
     TypedValue typedValue = new TypedValue();
     context.getTheme().resolveAttribute(attrId, typedValue, true);
     return typedValue.data;
+  }
+
+  public static int getDrawableIdFromAttribute(Context context, int attrId) {
+    if (attrId == 0) {
+      return 0;
+    }
+    TypedValue typedValue = new TypedValue();
+    context.getTheme().resolveAttribute(attrId, typedValue, true);
+    return typedValue.resourceId;
   }
 
 }

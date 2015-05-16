@@ -1,4 +1,4 @@
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright 2015 "Henry Tao <hi@henrytao.me>"
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,22 +14,11 @@
   ~ limitations under the License.
   -->
 
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  xmlns:tools="http://schemas.android.com/tools"
-  tools:context=".MainActivity">
+<resources>
 
-  <item
-    android:id="@+id/action_search"
-    android:icon="@drawable/ic_toolbar_search_white"
-    android:orderInCategory="10"
-    android:title="@string/action_search"
-    app:showAsAction="always" />
+  <style name="Switch.PrimaryPalette" parent="">
+    <item name="colorSwitchThumbNormal">#4DB6AC</item>
+    <item name="colorControlActivated">#FFFFFF</item>
+  </style>
 
-  <item
-    android:id="@+id/action_wifi_toggle"
-    android:orderInCategory="20"
-    android:title=""
-    app:showAsAction="always" />
-
-</menu>
+</resources>

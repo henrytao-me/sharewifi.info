@@ -1,4 +1,4 @@
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright 2015 "Henry Tao <hi@henrytao.me>"
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,22 +14,14 @@
   ~ limitations under the License.
   -->
 
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  xmlns:tools="http://schemas.android.com/tools"
-  tools:context=".MainActivity">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content">
 
-  <item
-    android:id="@+id/action_search"
-    android:icon="@drawable/ic_toolbar_search_white"
-    android:orderInCategory="10"
-    android:title="@string/action_search"
-    app:showAsAction="always" />
+  <me.henrytao.sharewifi.widget.CheckableSwitchCompat
+    android:id="@+id/wifi_toggle"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:theme="@style/Switch.PrimaryPalette" />
 
-  <item
-    android:id="@+id/action_wifi_toggle"
-    android:orderInCategory="20"
-    android:title=""
-    app:showAsAction="always" />
-
-</menu>
+</RelativeLayout>

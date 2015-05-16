@@ -11,8 +11,8 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/libs" />
-            <option value="$PROJECT_DIR$/libs/PersistentSearch" />
             <option value="$PROJECT_DIR$/libs/android-md-core" />
+            <option value="$PROJECT_DIR$/libs/android-md-core/library" />
           </set>
         </option>
       </GradleProjectSettings>

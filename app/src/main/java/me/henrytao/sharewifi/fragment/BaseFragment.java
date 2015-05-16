@@ -16,15 +16,52 @@
 
 package me.henrytao.sharewifi.fragment;
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.text.TextUtils;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+
+import rx.Subscription;
 
 /**
  * Created by henrytao on 4/14/15.
  */
 public class BaseFragment extends Fragment {
+
+  protected Map<String, Subscription> mSubscription;
+
+  @Override
+  public void onPause() {
+    super.onPause();
+    if (isAdded() && mSubscription != null) {
+      for (Subscription subscription : mSubscription.values()) {
+        subscription.unsubscribe();
+      }
+      mSubscription.clear();
+    }
+  }
+
+  public void addSubscription(String key, Subscription subscription) {
+    if (mSubscription == null) {
+      mSubscription = new HashMap<>();
+    }
+    if (TextUtils.isEmpty(key)) {
+      key = UUID.randomUUID().toString();
+    }
+    mSubscription.put(key, subscription);
+  }
+
+  public void addSubscription(Subscription subscription) {
+    addSubscription(null, subscription);
+  }
+
+  public void removeSubscription(String key) {
+    if (mSubscription != null && mSubscription.get(key) != null) {
+      mSubscription.get(key).unsubscribe();
+      mSubscription.remove(key);
+    }
+  }
 
 }

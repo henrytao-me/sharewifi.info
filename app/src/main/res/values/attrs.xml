@@ -16,6 +16,5 @@
 
 <resources>
 
-  <attr name="appIcon_toolbarArrowBack" format="reference" />
 
 </resources>
