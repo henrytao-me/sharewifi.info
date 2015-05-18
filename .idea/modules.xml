@@ -7,6 +7,7 @@
       <module fileurl="file://$PROJECT_DIR$/libs/android-md-core/library/library.iml" filepath="$PROJECT_DIR$/libs/android-md-core/library/library.iml" />
       <module fileurl="file://$PROJECT_DIR$/libs/libs.iml" filepath="$PROJECT_DIR$/libs/libs.iml" />
       <module fileurl="file://$PROJECT_DIR$/sharewifi.info.iml" filepath="$PROJECT_DIR$/sharewifi.info.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libs/android-md-core/widget/widget.iml" filepath="$PROJECT_DIR$/libs/android-md-core/widget/widget.iml" />
     </modules>
   </component>
 </project>

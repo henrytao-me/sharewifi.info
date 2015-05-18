@@ -17,11 +17,9 @@
 package me.henrytao.sharewifi.activity;
 
 import android.os.Bundle;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -31,36 +29,12 @@ import me.henrytao.sharewifi.holder.MenuWifiToggleHolder;
 /**
  * Created by henrytao on 3/28/15.
  */
-public class MainActivity extends MdDrawerLayoutActivity {
+public class MainActivity extends BaseDrawerLayoutActivity {
 
   MenuWifiToggleHolder mMenuWifiToggleHolder;
 
-  @InjectView(R.id.content)
-  View vDrawerContent;
-
-  @InjectView(R.id.container)
-  DrawerLayout vDrawerLayout;
-
-  @InjectView(R.id.drawer)
-  View vDrawerNavigation;
-
   @InjectView(R.id.toolbar)
   Toolbar vToolbar;
-
-  @Override
-  public View getDrawerContent() {
-    return vDrawerContent;
-  }
-
-  @Override
-  public DrawerLayout getDrawerLayout() {
-    return vDrawerLayout;
-  }
-
-  @Override
-  public View getDrawerNavigation() {
-    return vDrawerNavigation;
-  }
 
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
@@ -79,6 +53,21 @@ public class MainActivity extends MdDrawerLayoutActivity {
         return true;
     }
     return super.onOptionsItemSelected(item);
+  }
+
+  @Override
+  protected int getDrawerContentResource() {
+    return R.id.content;
+  }
+
+  @Override
+  protected int getDrawerLayoutResource() {
+    return R.id.container;
+  }
+
+  @Override
+  protected int getDrawerNavigationResource() {
+    return R.id.navigation;
   }
 
   @Override

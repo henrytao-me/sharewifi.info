@@ -32,7 +32,7 @@ import me.henrytao.sharewifi.fragment.WifiDetailFragment.WifiDetailInterface;
 import me.henrytao.sharewifi.model.WifiModel;
 import me.henrytao.sharewifi.util.IntentUtils;
 
-public class WifiDetailActivity extends MdToolbarActivity implements WifiDetailInterface {
+public class WifiDetailActivity extends BaseToolbarActivity implements WifiDetailInterface {
 
   public static Intent getIntent(Context context, IntentUtils.Bundle<WifiModel> bundle) {
     Intent intent = new Intent(context, WifiDetailActivity.class);

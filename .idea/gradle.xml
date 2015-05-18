@@ -13,6 +13,7 @@
             <option value="$PROJECT_DIR$/libs" />
             <option value="$PROJECT_DIR$/libs/android-md-core" />
             <option value="$PROJECT_DIR$/libs/android-md-core/library" />
+            <option value="$PROJECT_DIR$/libs/android-md-core/widget" />
           </set>
         </option>
       </GradleProjectSettings>

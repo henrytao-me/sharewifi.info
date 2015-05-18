@@ -25,7 +25,7 @@ import android.view.MenuItem;
 import butterknife.ButterKnife;
 import me.henrytao.sharewifi.R;
 
-public class SearchActivity extends MdToolbarActivity {
+public class SearchActivity extends BaseToolbarActivity {
 
   public static Intent getIntent(Context context) {
     Intent intent = new Intent(context, SearchActivity.class);
